@@ -10,7 +10,7 @@ commitHash=$(echo $dataRow | cut -d "," -f2)
 commitSite=https://github.com/"$projectName"/commit/"$commitHash"
 echo $commitSite
 developerData=$(python ExtractDeveloper.py $commitSite)
-echo $developerData
+echo "$dataRow$developerData"
 echo "$dataRow$developerData" >> augmentedDataSet.csv
 done < $datasetFile 
 

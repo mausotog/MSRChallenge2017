@@ -79,7 +79,7 @@ def resolve_redirects(url):
         return urllib2.urlopen(url)
     except urllib2.HTTPError as e:
         if e.code == 429:
-             time.sleep(10);
+             time.sleep(5);
              return resolve_redirects(url)
         raise
 
