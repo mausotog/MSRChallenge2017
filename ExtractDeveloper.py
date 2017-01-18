@@ -22,35 +22,46 @@ def main():
   #print(soup.prettify())
 
 def extractRepos(soup):
-  repoListElement = soup.find(class_="user-mention")
-  developersUsername = repoListElement.string
+  repoListElement = soup.find("a", class_="user-mention")
+  output = ""
+  #print(repoListElement)
+  
+  if not repoListElement:
+    output+="UnauthenticatedAuthor,UnauthenticatedAuthor,UnauthenticatedAuthor,UnauthenticatedAuthor,\"No Location Data\",UnauthenticatedAuthor"
+  else:
+    developersUsername = repoListElement.string
+    
+	#print(developersUsername)
 #  for item in repoItems:
 #    time.sleep(1)
-  developersUrl = githubString+developersUsername
+    developersUrl = githubString+developersUsername
 #  print "developersUrl: %s" % developersUrl
-  developerSoup  = openPage(developersUrl)
+    developerSoup  = openPage(developersUrl)
 #  lookForRepo="href=\"/"+developersUsername+"?tab=repositories\""
 #  print lookForRepo
-  tabs = developerSoup.find_all(class_="underline-nav-item")
+    tabs = developerSoup.find_all(class_="underline-nav-item")
   #print tabs.descendants
-  output = ""
-  for link in tabs :
-#    print(link.contents[0])
-    if 'Repositories' in link.contents[0]:
-      output+=","+link.contents[1].contents[0]
-    if 'Stars' in link.contents[0]:
-      output+=","+link.contents[1].contents[0]
-    if 'Followers' in link.contents[0]:
-      output+=","+link.contents[1].contents[0]
-    if 'Following' in link.contents[0]:
-      output+=","+link.contents[1].contents[0]
-  loc = developerSoup.find_all(itemprop="homeLocation")
-  output+=",\""+loc[0].contents[1]+"\""
-  for child in developerSoup.find_all("h2", class_="f4 text-normal mb-2"):
-    if not child.string is None:
-      output+=","+child.contents[0].string
+    
+    for link in tabs :
+#   print(link.contents[0])
+      if 'Repositories' in link.contents[0]:
+        output+=","+link.contents[1].contents[0].replace(",", "").replace(".", "").replace("k", "000").strip()
+      if 'Stars' in link.contents[0]:
+        output+=","+link.contents[1].contents[0].replace(",", "").replace(".", "").replace("k", "000").strip()
+      if 'Followers' in link.contents[0]:
+        output+=","+link.contents[1].contents[0].replace(",", "").replace(".", "").replace("k", "000").strip()
+      if 'Following' in link.contents[0]:
+        output+=","+link.contents[1].contents[0].replace(",", "").replace(".", "").replace("k", "000").strip()
+    loc = developerSoup.find_all(itemprop="homeLocation")
+    if not loc: #If there is no location
+      output+=",\"No Location Data\"".strip()
+    else:
+      output+=",\""+loc[0].contents[1].strip()+"\""
+    for child in developerSoup.find_all("h2", class_="f4 text-normal mb-2"):
+      if not child.string is None:
+        output+=","+child.contents[0].string.strip().replace(",", "")[:-37]
 
-  print(output)
+  print(output.encode('utf-8').strip())
 	  
 #  print tabs
 #    finalRepoLink = tabs["value"]
@@ -59,9 +70,18 @@ def extractRepos(soup):
 
 
 def openPage(urlString):
-  htmlDoc = urllib2.urlopen(urlString)
-  soup = BeautifulSoup(htmlDoc)
+  htmlDoc = resolve_redirects(urlString)
+  soup = BeautifulSoup(htmlDoc, "html5lib")
   return soup
+  
+def resolve_redirects(url):
+    try:
+        return urllib2.urlopen(url)
+    except urllib2.HTTPError as e:
+        if e.code == 429:
+             time.sleep(10);
+             return resolve_redirects(url)
+        raise
 
 #def getNextUrl(soup):
 #  pageLinks = soup.find(class_="pagination")
