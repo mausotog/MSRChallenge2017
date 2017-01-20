@@ -2,7 +2,7 @@
 
 rm -f augmentedDataSet.csv
 #datasetFile=./3ParamsHead.csv
-datasetFile=./travisTorrent3Params.csv
+datasetFile=./travisTorrent3ParamsNoRepeat.csv
 while read dataRow
 do
 projectName=$(echo $dataRow | cut -d "," -f1)
