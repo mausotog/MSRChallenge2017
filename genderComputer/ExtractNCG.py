@@ -1,11 +1,18 @@
 #!/usr/bin/python
 import os
 from genderComputer import GenderComputer
+import sys
+sys.path.append('../collectCountryInfo/countryNameManager')
+sys.path.append('../collectCountryInfo/unicodeManager')
+from countryGuesser import CountryGuesser
 
 from bs4 import BeautifulSoup
 import urllib2
 import time
 import sys
+
+class DummyFile(object):
+  def write(self, x): pass
 
 startingUrl = sys.argv[1]
 githubString="https://github.com/"
@@ -18,6 +25,9 @@ def main():
   #print(soup.prettify())
 
 def extractRepos(soup):
+  savedOut = sys.stdout
+  sys.stdout = DummyFile()
+  cg = CountryGuesser()
   userName = soup.find("a", class_="user-mention")
   output = "" #fullName, location, gender
   fullName=""
@@ -52,7 +62,7 @@ def extractRepos(soup):
     #Found a country
     else:
       uncleanedCountry=loc[0].contents[1].strip()
-      cleanCountry=cleanCountryName(uncleanedCountry)
+      cleanCountry=cleanCountryName(uncleanedCountry, cg)
      # print("FullName:"+fullName+" Country:"+cleanCountry)
       output+=",\""+cleanCountry+"\""
   gender=gc.resolveGender(unicode(fullName), unicode(cleanCountry))
@@ -60,16 +70,27 @@ def extractRepos(soup):
     output+=",?"
   else:
     output+=","+gender
+  sys.stdout = savedOut
   print(output.encode('utf-8').strip())
 
+addedDict = {'DTX': 'united states', '94110': 'united states', '60605': 'united states', 'Zug': 'switzerland', 'Chicagoland': 'united states', 'NYC': 'united states'}
+
 #DO YOUR MAGIC HERE ZACK
-def cleanCountryName(uncleanedCountry):
-  cleanCountry = uncleanedCountry  
-  return cleanCountry
+def cleanCountryName(uncleanedCountry, cg):
+  country = cg.guess(uncleanedCountry)
+  if country[0] is None:
+    if location in addedDict:
+      country = [addedDict[location]]
+    else:
+      if 'DTX' in location:
+        country = [addedDict['DTX']]
+      else:
+        country = ['?']
+  return country[0]
 
 def openPage(urlString):
   htmlDoc = resolve_redirects(urlString)
-  soup = BeautifulSoup(htmlDoc, "html5lib")
+  soup = BeautifulSoup(htmlDoc, "html.parser")
   return soup
 
 def resolve_redirects(url):

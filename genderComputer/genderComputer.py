@@ -296,7 +296,7 @@ class GenderComputer():
 		for country in self.countryStats.keys():
 			self.countryStats[country] = self.countryStats[country] / total
 		
-		print 'Finished initialization'
+		#print 'Finished initialization'
 	
 	
 	'''Look <firstName> (and potentially its diminutives) up for <country>.
