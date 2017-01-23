@@ -24,9 +24,10 @@ def main():
       for line in fin:
         lineItems = line.strip().split(',')
         startingUrl = 'https://github.com/{0}/commit/{1}'.format(lineItems[0], lineItems[1])
+	print('|{0}|'.format(startingUrl))
         soup = openPage(startingUrl)
         extractRepos(soup, fout, cg)
-  #print(nextUrl)
+  #print('|{0}|'.format(nextUrl))
   #print(soup.prettify())
 
 def extractRepos(soup, fout, cg):
@@ -105,6 +106,7 @@ def resolve_redirects(url):
       time.sleep(5)
       return resolve_redirects(url)
     else:
+      print('failing url: |{0}|'.format(url))
       print("?")
     raise
 
