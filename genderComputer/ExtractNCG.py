@@ -24,14 +24,14 @@ def main():
       for line in fin:
         lineItems = line.strip().split(',')
         startingUrl = 'https://github.com/{0}/commit/{1}'.format(lineItems[0], lineItems[1])
-	print('|{0}|'.format(startingUrl))
         soup = openPage(startingUrl)
         extractRepos(soup, fout, cg)
   #print('|{0}|'.format(nextUrl))
   #print(soup.prettify())
 
 def extractRepos(soup, fout, cg):
-  userName = soup.find("a", class_="user-mention")
+  commitAuthor = soup.find("span", class_="commit-author-section")
+  userName = commitAuthor.a
   output = "" #fullName, location, gender
   fullName=""
   #print(repoListElement)  
