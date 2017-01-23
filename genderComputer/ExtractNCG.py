@@ -14,20 +14,22 @@ import sys
 class DummyFile(object):
   def write(self, x): pass
 
-startingUrl = sys.argv[1]
 githubString="https://github.com/"
 gc = GenderComputer(os.path.abspath('./nameLists'))
 
 def main():
-  soup = openPage(startingUrl)
-  extractRepos(soup)
+  with open('../travisTorrent3ParamsNoRepeat.csv','r') as fin:
+    with open('NCGDataSet.csv','w') as fout:
+      cg = CountryGuesser()
+      for line in fin:
+        lineItems = line.strip().split(',')
+        startingUrl = 'https://github.com/{0}/commit/{1}'.format(lineItems[0], lineItems[1])
+        soup = openPage(startingUrl)
+        extractRepos(soup, fout, cg)
   #print(nextUrl)
   #print(soup.prettify())
 
-def extractRepos(soup):
-  savedOut = sys.stdout
-  sys.stdout = DummyFile()
-  cg = CountryGuesser()
+def extractRepos(soup, fout, cg):
   userName = soup.find("a", class_="user-mention")
   output = "" #fullName, location, gender
   fullName=""
@@ -70,8 +72,10 @@ def extractRepos(soup):
     output+=",?"
   else:
     output+=","+gender
-  sys.stdout = savedOut
-  print(output.encode('utf-8').strip())
+  #print(output.encode('utf-8').strip())
+  result = output.encode('utf-8').strip()
+  fout.write('{0}\n'.format(result))
+  fout.flush()
 
 addedDict = {'DTX': 'united states', '94110': 'united states', '60605': 'united states', 'Zug': 'switzerland', 'Chicagoland': 'united states', 'NYC': 'united states'}
 
