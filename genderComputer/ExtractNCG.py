@@ -28,7 +28,8 @@ def main():
 	  soup = openPage(startingUrl)
           extractRepos(soup, fout, cg, startingUrl)
 	except:
-	  print(startingUrl)
+	  fout.write('{0}\n'.format(startingUrl))
+	  fout.flush()
   #print('|{0}|'.format(nextUrl))
   #print(soup.prettify())
 
