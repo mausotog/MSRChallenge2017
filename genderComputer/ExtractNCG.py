@@ -21,15 +21,18 @@ def main():
   with open('../travisTorrent3ParamsNoRepeat.csv','r') as fin:
     with open('NCGDataSet.csv','w') as fout:
       cg = CountryGuesser()
-      for line in fin:
+      for count,line in enumerate(fin):
         lineItems = line.strip().split(',')
         startingUrl = 'https://github.com/{0}/commit/{1}'.format(lineItems[0], lineItems[1])
-        soup = openPage(startingUrl)
-        extractRepos(soup, fout, cg)
+	try:
+	  soup = openPage(startingUrl)
+          extractRepos(soup, fout, cg, startingUrl)
+	except:
+	  print(startingUrl)
   #print('|{0}|'.format(nextUrl))
   #print(soup.prettify())
 
-def extractRepos(soup, fout, cg):
+def extractRepos(soup, fout, cg, startingUrl):
   commitAuthor = soup.find("span", class_="commit-author-section")
   userName = commitAuthor.a
   output = "" #fullName, location, gender
@@ -54,6 +57,8 @@ def extractRepos(soup, fout, cg):
     developerSoup  = openPage(developersUrl)
     fullNameStruc = developerSoup.find("span", itemprop="name")
     fullName = fullNameStruc.string
+    if fullName is None:
+      print(startingUrl)
     output+=fullName
     #Uncleaned Country
     loc = developerSoup.find_all(itemprop="homeLocation")
@@ -84,10 +89,10 @@ addedDict = {'DTX': 'united states', '94110': 'united states', '60605': 'united 
 def cleanCountryName(uncleanedCountry, cg):
   country = cg.guess(uncleanedCountry)
   if country[0] is None:
-    if location in addedDict:
-      country = [addedDict[location]]
+    if uncleanedCountry in addedDict:
+      country = [addedDict[uncleanedCountry]]
     else:
-      if 'DTX' in location:
+      if 'DTX' in uncleanedCountry:
         country = [addedDict['DTX']]
       else:
         country = ['?']
