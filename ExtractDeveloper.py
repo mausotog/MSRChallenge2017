@@ -27,7 +27,7 @@ def extractRepos(soup):
   #print(repoListElement)
   
   if not repoListElement:
-    output+="UnauthenticatedAuthor,UnauthenticatedAuthor,UnauthenticatedAuthor,UnauthenticatedAuthor,\"No Location Data\",UnauthenticatedAuthor"
+    output+=",?,?,?,?,?,?"
   else:
     developersUsername = repoListElement.string
     
@@ -54,7 +54,7 @@ def extractRepos(soup):
         output+=","+link.contents[1].contents[0].replace(",", "").replace(".", "").replace("k", "000").strip()
     loc = developerSoup.find_all(itemprop="homeLocation")
     if not loc: #If there is no location
-      output+=",\"No Location Data\"".strip()
+      output+=",?".strip()
     else:
       output+=",\""+loc[0].contents[1].strip()+"\""
     for child in developerSoup.find_all("h2", class_="f4 text-normal mb-2"):
@@ -75,13 +75,15 @@ def openPage(urlString):
   return soup
   
 def resolve_redirects(url):
-    try:
-        return urllib2.urlopen(url)
-    except urllib2.HTTPError as e:
-        if e.code == 429:
-             time.sleep(5);
-             return resolve_redirects(url)
-        raise
+  try:
+    return urllib2.urlopen(url)
+  except urllib2.HTTPError as e:
+    if e.code == 429:
+      time.sleep(5)
+      return resolve_redirects(url)
+    else:
+      print(",?,?,?,?,?,?")
+    raise
 
 #def getNextUrl(soup):
 #  pageLinks = soup.find(class_="pagination")
