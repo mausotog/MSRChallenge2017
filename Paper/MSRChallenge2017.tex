@@ -359,7 +359,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 
-\title{Predicting commit success from developer's profile}
+\title{Predicting job success from developer's profile}
 %Or some better name, Zack can probably think of a better one, he is good with names
 
 
@@ -421,12 +421,11 @@
 
 
 \begin{abstract}
-The abstract goes here. DO NOT USE SPECIAL CHARACTERS, SYMBOLS, OR MATH IN YOUR TITLE OR ABSTRACT.
-
+Abstract goes here
 \end{abstract}
 
 \begin{IEEEkeywords}
-component; formatting; style; styling;
+social networks; predicting success; 
 
 \end{IEEEkeywords}
 
@@ -444,20 +443,82 @@ component; formatting; style; styling;
 
 
 \section{Introduction}
-% no \IEEEPARstart
-\todo{Introduction goes here}
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
+Social networks have gained a lot attention in the last several years, and because of this we now have a wide variety of measurable social attributes that we did not have in the past.
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+\section{Research Design}
+We present the research design of this study
+following the Goal-Question-Metric (GQM) approach descibed by Basili et al. \cite{Basili84}
+
+\subsection{Goal}
+The goal of this study is to have a deeper understanding of the relationship between the several different properties that are gathered in a developer's online profile, and the likelihood of a commit performed by that developer to be considered a successful commit depending on these attributes.
 
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+\subsection{Question}
 
-\section{Type style and Fonts}
+\begin{enumerate}
+\item Given a model built from the technical data related a corpus of commits, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power?
+\item Which attributes (in developer's data, commit data, and both together) are the most decisive in order to know if a commit will be successful or not?
+\item Does (country of origin/gender/stars/num of followers/num following/activity rate) have a significant impact in the likelihood of commit success?
 
+\end{enumerate}
+
+\subsection{Metric}
+
+
+\section{Building and Augmenting dataset with user profile data}
+For this section our goal is to build a dataset based on the attributes that are intrinsic for the commit complexity and therefore for its probability of leading to a successful Travis CI job.
+To do this we extracted the attributes from the original dataset provided~\cite{msr17challenge} which work as a proxy for the complexity of the commit being pushed.
+\begin{itemize}
+\item tr\_original\_commit
+\item gh\_build\_started\_at 
+\item git\_diff\_src\_churn 
+\item gh\_diff\_files\_added 
+\item gh\_diff\_files\_deleted 
+\item gh\_diff\_files\_modified 
+\item gh\_diff\_tests\_added 
+\item gh\_diff\_tests\_deleted 
+\item gh\_diff\_src\_files 
+\item gh\_sloc 
+\item tr\_status 
+\end{itemize}
+
+Once we had these attributes, we removed repeated rows and we gathered the social attributes for each of these rows. 
+
+To do this, we extracted from the original file provided~\cite{msr17challenge} the commit hash and the project name. We removed the repeated rows and created a script to gather the social data of the developer who pushed that commit.
+First we concatenated the two attributes before mentioned in the following way:
+\newline \newline
+\textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
+\newline \newline
+We created a script that takes this string and navigates through the html representation of the website described above, and looks for the \textit{username} of the developer in the Github platform. If it is able to find one, we then create another string following the pattern:
+\newline \newline
+\textit{https://github.com/\textbf{UserName}}
+\newline \newline
+We then navigate through the html representation of the developer's profile website (described above) and look for the following attributes:
+\begin{itemize}
+\item repositories
+\item stars
+\item followers
+\item following
+\item collabProjects
+\end{itemize}
+
+To this dataset, we also added from the dataset provided~\cite{msr17challenge} the attribute gh\_by\_core\_team\_member which we considered to have also social weight.
+
+After performing this last data mining task, we created two different datasets. One of them contains technical data that is seen as a proxy for the complexity of the changes being performed in the commit. We also created a second dataset which consists of the data mentioned in the first dataset, plus the set of social attributes related to the developer who pushed the commit. 
+
+The dataset provided by the MSR Challenge~\cite{msr17challenge} is very diverse and consists of commits that date from very far back, and the social data we are gathering is recent data, gathered in January 2017. The researchers of this project acknowledge this discrepancy and in an effort to mitigate this threat to validity, we filter the commits analyzed by looking only at the commits pushed in the last 3 years of the dataset (2014,2015,2016), with the intuition that the social data gathered by this study will have a closer relationship to the social data if it were to be gathered in these years, than if we would compare it to years further back.
+
+\section{Multiple linear regression}
+How we used the ML 
+
+\section{Evaluation}
+Maybe a 10 fold cross validation?
+
+\section{Results}
+Results
+
+\section{Discussion}
+Discussion
 
 
 % An example of a floating figure using the graphicx package.
@@ -553,9 +614,7 @@ The conclusion goes here. this is more of the conclusion
 % use section* for acknowledgement
 \section*{Acknowledgment}
 
-
-The authors would like to thank...
-more thanks here
+The acknowledgments will be added for the camera ready version.
 
 
 % trigger a \newpage just before the given reference
@@ -580,14 +639,19 @@ more thanks here
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
+%\begin{thebibliography}{1}
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%\end{thebibliography}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 
-\end{thebibliography}
-
+%\bibliographystyle{abbrv}
+\bibliography{MSRChallenge2017}  % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
 
 
 
