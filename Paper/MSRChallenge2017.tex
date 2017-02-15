@@ -109,7 +109,7 @@
 
 % *** CITATION PACKAGES ***
 %
-%\usepackage{cite}
+\usepackage{cite}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
 % \cite{} output to follow that of IEEE. Loading the cite package will
@@ -425,7 +425,7 @@ Abstract goes here
 \end{abstract}
 
 \begin{IEEEkeywords}
-social networks; predicting success; 
+social attributes; Travis CI; Github; social networks; predicting integration success; social coding
 
 \end{IEEEkeywords}
 
@@ -443,26 +443,32 @@ social networks; predicting success;
 
 
 \section{Introduction}
-Social networks have gained a lot attention in the last several years, and because of this we now have a wide variety of measurable social attributes that we did not have in the past.
+Social interactions and attributes play a key role in software quality output from development teams~\cite{nagappan08,bettenburgh10}, these aspects have become more and more important and platforms that support software development processes provide every time a broader spectrum of measurements for social characteristics. Because of this we now have a wide variety of measurable social attributes that can be studied and analyzed to understand their correlation and impact with different success measures. This study aims to acknowledge the predictive power of some of these attributes when it comes to the quality of the commits developers write and its success when integrating into the project build through Travis CI. 
+
+\textbf{Related work:}
+Similar studies have shown the relationship between different attributes and different measures of success: pull request acceptance~\cite{gousios14, gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
+Tsay et al~\cite{tsay14icse} performed a very relevant study where they determine that the social connection between the developer who is asking the pull request and the integrators is a key factor torwards acceptance of a pull request. Unlike this previous study, in our study we look at a broader aspect of social aspects and how this attributes towards the success in Travis CI jobs. Gousios et al~\cite{gousios14} study the relationship between the area of the source code being modified by the developer requesting the changes to be pulled and the acceptance rate of these changes is highly correlated. Also existence of tests and overall code quality~\cite{gousios15} are attributes that have a strong relationship with the acceptance rate of a pull request. Bettenburgh et al~\cite{bettenburgh10} discuss the impact of social interactions with post-release defects, Vasilescu et al~\cite{vasilescu14} explored how different project characteristics (programming language, project age, etc.) affect commit success when integrated to the automatic build process............... Unlike the before mentioned, our study focuses on independent social attributes, and not interactions between developers, or technical properties of the project.
 
 \section{Research Design}
-We present the research design of this study
-following the Goal-Question-Metric (GQM) approach descibed by Basili et al. \cite{Basili84}
+We present the approach taken to guide this study by
+following the Goal-Question-Metric (GQM) methodology descibed by Basili et al~\cite{Basili84}.
 
 \subsection{Goal}
-The goal of this study is to have a deeper understanding of the relationship between the several different properties that are gathered in a developer's online profile, and the likelihood of a commit performed by that developer to be considered a successful commit depending on these attributes.
+The goal of this study is to have a deeper understanding of the relationship between the several different social properties that are gathered in a developer's online profile, and the likelihood of a commit performed by that developer to be considered a successfully integrated into its corresponding project according to Travis CI depending on the social attributes of the developer.
 
 
 \subsection{Question}
 
 \begin{enumerate}
-\item Given a model built from the technical data related a corpus of commits, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power?
-\item Which attributes (in developer's data, commit data, and both together) are the most decisive in order to know if a commit will be successful or not?
-\item Does (country of origin/gender/stars/num of followers/num following/activity rate) have a significant impact in the likelihood of commit success?
+\item What is the relationship, if any, between attributes that describe the complexity of a commit (such as files added, tests added, lines of code, etc) and the final status of the travis jobs this commit triggers?
+\item Given a dataset described before, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power of a linear regression model created from this data?
+\item Which attributes (in social data, technical data, and both together) are the most decisive in order to know if a commit will be successful or not?
+\item Does any of the social attributes have a significant impact in the likelihood of commit success?
 
 \end{enumerate}
 
 \subsection{Metric}
+We created a linear regression model based on two different sets of data. Merely technical data related to technical aspects of the complexity of the commit, and a superset of this before-mentioned data and social data gathered from the developer who pushed the commit. We evaluate the predictive power of these two models with 10 fold cross validation and we analyze which of them is able to predict with higher accuracy the success of unseen commits.
 
 
 \section{Building and Augmenting dataset with user profile data}
@@ -646,7 +652,7 @@ The acknowledgments will be added for the camera ready version.
 %\end{thebibliography}
 
 
-%\bibliographystyle{abbrv}
+\bibliographystyle{plain}
 \bibliography{MSRChallenge2017}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
