@@ -460,10 +460,10 @@ The goal of this study is to have a deeper understanding of the relationship bet
 \subsection{Question}
 
 \begin{enumerate}
-\item What is the relationship, if any, between attributes that describe the complexity of a commit (such as files added, tests added, lines of code, etc) and the final status of the travis jobs this commit triggers?
-\item Given a dataset described before, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power of a linear regression model created from this data?
+\item What is the relationship, if any, between attributes that describe the complexity of a commit (such as files added, tests added, lines of code, etc) and the final status of the Travis jobs this commit triggers?
+\item Given the dataset described before, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power of a linear regression model created from this dataset?
 \item Which attributes (in social data, technical data, and both together) are the most decisive in order to know if a commit will be successful or not?
-\item Does any of the social attributes have a significant impact in the likelihood of commit success?
+\item Does any of the social attributes have a significant impact in the likelihood of commit integration success?
 
 \end{enumerate}
 
@@ -495,30 +495,28 @@ First we concatenated the two attributes before mentioned in the following way:
 \newline \newline
 \textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
 \newline \newline
-We created a script that takes this string and navigates through the html representation of the website described above, and looks for the \textit{username} of the developer in the Github platform. If it is able to find one, we then create another string following the pattern:
+We created a script that constructs this string and navigates through the html representation of the website described above, and looks for the \textit{username} of the developer in the Github platform. If it is able to find one, we then create another string following the pattern:
 \newline \newline
 \textit{https://github.com/\textbf{UserName}}
 \newline \newline
-We then navigate through the html representation of the developer's profile website (described above) and look for the following attributes:
+We then navigate through the html representation of the developer's profile website (described above) and gather the following attributes:
 \begin{itemize}
-\item repositories
-\item stars
-\item followers
-\item following
-\item collabProjects
+\item Repositories
+\item Stars
+\item Followers
+\item Following
+\item ContribProjects
 \end{itemize}
 
-To this dataset, we also added from the dataset provided~\cite{msr17challenge} the attribute gh\_by\_core\_team\_member which we considered to have also social weight.
+Repositories alludes to the repositories the developer has access to. This includes where the developer is the repository owner,where the developer is a collaborator, and repositories that the developer can access through an organization membership.\footnote{https://developer.github.com/v3/repos/} Stars show the projects the developer has stared, where starring translates to showing appreciation to the repository and creating a bookmark for later access.\footnote{https://help.github.com/articles/about-stars/} Followers and Following detail the number of developers that are following and being followed by the developer in question. Finally, the last attribute studies is the number of contributions made by the developer in the last year. To this dataset, we also added from the original dataset provided~\cite{msr17challenge} the attribute gh\_by\_core\_team\_member which we considered to have also social weight, which describes if the developer pushing the commit is a core member of the project the commit is being pushed to.
 
 After performing this last data mining task, we created two different datasets. One of them contains technical data that is seen as a proxy for the complexity of the changes being performed in the commit. We also created a second dataset which consists of the data mentioned in the first dataset, plus the set of social attributes related to the developer who pushed the commit. 
 
 The dataset provided by the MSR Challenge~\cite{msr17challenge} is very diverse and consists of commits that date from very far back, and the social data we are gathering is recent data, gathered in January 2017. The researchers of this project acknowledge this discrepancy and in an effort to mitigate this threat to validity, we filter the commits analyzed by looking only at the commits pushed in the last 3 years of the dataset (2014,2015,2016), with the intuition that the social data gathered by this study will have a closer relationship to the social data if it were to be gathered in these years, than if we would compare it to years further back.
 
-\section{Multiple linear regression}
-How we used the ML 
-
 \section{Evaluation}
-Maybe a 10 fold cross validation?
+Logistic Regression and Decision trees.
+
 
 \section{Results}
 Results
