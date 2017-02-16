@@ -451,9 +451,13 @@ characteristics. Because of this we now have a wide variety of measurable social
 attributes that can be studied and analyzed to understand their correlation and 
 impact on different success measures. 
 
+Similar studies in recent years have analyzed the relationship between social 
+and technical factors using different measures of success~\cite{tsay14icse,tsay14fse}. 
 This study aims to acknowledge the impact of some of these attributes when it 
 comes to the quality of the commits developers write and its success when 
-integrating into the project build through Travis CI. The knowledge obtained by 
+integrating into the project build through Travis CI. 
+
+The knowledge obtained by 
 analyzing how much impact social characteristics have on the success of a commit 
 integration will help developers further understand what social attributes are 
 better proxies for experience and coding excellence; and it will also help code 
@@ -505,39 +509,21 @@ developer.
 
 Previous studies have identified a relationship between technical and social 
 factors and pull request acceptance. In the interest of understanding if these 
-relationship will hold with a different success measure such as commit 
-integration success, and in order to establish a baseline to compare to, we 
-deliver our first research question:
-\newline \newline
-\textbf{What is the relationship, if any, between technical attributes that 
-describe the complexity of a commit (such as files added, tests added, lines of 
-code, etc) and the final status of the Travis jobs this commit triggers?}
-\newline \newline
-Assuming the previous studies hold to this different success measure, and there 
-is a relationship between technical attributes and commit integration success, 
-we are afterwards interested in knowing if adding social attributes to this 
+relationship hold with a different success measure such as commit 
+integration success, and in order to establish a baseline to compare to, we have created a dataset with technical attributes to be able to analyze the predictiveness of these attributes and its relationship with commit integration success. This way, we are able to create a model
+
+We are afterwards interested in knowing if adding social attributes to this 
 predictability model will increase the probability of the model asserting 
 correctly future instances by knowing not only technical data about the commit 
-being pushed but also social attributes of the developer pushing the changes:
+being pushed but also social attributes of the developer pushing the changes. Therefore our main research question is presented as follows:
 \newline \newline
-\textbf{Given the dataset described before, are the social attributes gathered 
-from the Github profiles of developers who pushed those commits, able to 
-increase the predictive power of a model created from the technical dataset?}
+\textbf{Are the social attributes gathered 
+from the Github profiles of developers who push commits, able to 
+increase the predictive power of a model created from technical attributes of the pushed commits?}
 \newline \newline
-We are also interested in knowing what attributes, either from the technical 
+Concerning the results of this research question we can also derive parallel important information. For example, we are also interested in knowing what attributes, either from the technical 
 background, the social background, and both combined, are the best proxies for 
-knowing what will be the success of the commit integration:
-\newline \newline
-\textbf{Which attributes (in social data, technical data, and both together) are 
-the most decisive in order to know if a commit will be successful or not?}
-\newline \newline
-Finally, we would like to know if/which social attributes have a significant 
-impact in success of commit integration to a project: \todo{I'm not sure what's 
-the difference between this RQ and the last one}
-\newline \newline
-\textbf{Does any of the social attributes have a significant impact in the 
-likelihood of commit integration success?}
-\newline \newline
+knowing what will be the success of the commit integration, helping both developers and integrators to find ways to help them check the success likeliness of a commit based on metadata of the commit.  
 
 \subsection{Metric}
 We created a linear regression model based on two different sets of data. Merely 
@@ -546,7 +532,6 @@ a superset of this before-mentioned data and social data gathered from the
 developer who pushed the commit. We evaluate the predictive power of these two 
 models with 10 fold cross validation and we analyze which of them is able to 
 predict with higher accuracy the success of unseen commits.
-
 
 \section{Building and Augmenting dataset with social attributes} 
 \label{approach}
