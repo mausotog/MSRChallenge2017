@@ -359,7 +359,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 
-\title{Predicting job success from developer's profile}
+\title{Analyzing the impact of social attributes on the success of commit integration}
 %Or some better name, Zack can probably think of a better one, he is good with names
 
 
@@ -443,11 +443,13 @@ social attributes; Travis CI; Github; social networks; predicting integration su
 
 
 \section{Introduction}
-Social interactions and attributes play a key role in software quality output from development teams~\cite{nagappan08,bettenburgh10}, these aspects have become more and more important and platforms that support software development processes provide every time a broader spectrum of measurements for social characteristics. Because of this we now have a wide variety of measurable social attributes that can be studied and analyzed to understand their correlation and impact with different success measures. This study aims to acknowledge the predictive power of some of these attributes when it comes to the quality of the commits developers write and its success when integrating into the project build through Travis CI. 
+Social interactions and attributes play a key role in software quality output from development teams~\cite{nagappan08,bettenburgh10}, these aspects have become more and more important and platforms that support software development processes provide every time a broader spectrum of measurements for social characteristics. Because of this we now have a wide variety of measurable social attributes that can be studied and analyzed to understand their correlation and impact on different success measures. 
+
+This study aims to acknowledge the impact of some of these attributes when it comes to the quality of the commits developers write and its success when integrating into the project build through Travis CI. The knowledge obtained by analyzing how much impact social characteristics have on the success of a commit integration will help developers further understand what social attributes are better proxies for experience and coding excellence; and it will also help code integrators and core team members to know how to prioritize pull requests coming from different developers, which of them may have a higher probability of integration success based not only on the technical difficulty of the integration, but also on social factors that determine the expertise of the developer in their integration practices.
 
 \textbf{Related work:}
 Similar studies have shown the relationship between different attributes and different measures of success: pull request acceptance~\cite{gousios14, gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
-Tsay et al~\cite{tsay14icse} performed a very relevant study where they determine that the social connection between the developer who is asking the pull request and the integrators is a key factor torwards acceptance of a pull request. Unlike this previous study, in our study we look at a broader aspect of social aspects and how this attributes towards the success in Travis CI jobs. Gousios et al~\cite{gousios14} study the relationship between the area of the source code being modified by the developer requesting the changes to be pulled and the acceptance rate of these changes is highly correlated. Also existence of tests and overall code quality~\cite{gousios15} are attributes that have a strong relationship with the acceptance rate of a pull request. Bettenburgh et al~\cite{bettenburgh10} discuss the impact of social interactions with post-release defects, Vasilescu et al~\cite{vasilescu14} explored how different project characteristics (programming language, project age, etc.) affect commit success when integrated to the automatic build process............... Unlike the before mentioned, our study focuses on independent social attributes, and not interactions between developers, or technical properties of the project.
+Tsay et al~\cite{tsay14icse} performed a very relevant study where they determine that the social connection between the developer who is asking the pull request and the integrators is a key factor torwards acceptance of a pull request. Unlike this previous study, in our study we look at a broader aspect of social aspects and how this attributes towards the success in Travis CI jobs. Gousios et al~\cite{gousios14} study the relationship between the area of the source code being modified by the developer requesting the changes to be pulled and the acceptance rate of these changes is highly correlated. Also existence of tests and overall code quality~\cite{gousios15} are attributes that have a strong relationship with the acceptance rate of a pull request. Bettenburgh et al~\cite{bettenburgh10} discuss the impact of social interactions with post-release defects, Vasilescu et al~\cite{vasilescu14} explored how different project characteristics (programming language, project age, etc.) affect commit success when integrated to the automatic build process. Yu et al~\cite{yu16} analyze the impact of CI usage in Github and its correlation with software quality. Unlike the before mentioned, our study focuses on independent social attributes and how these relate to the success of the integration of a commit pushed by the developer being described by these social attributes. %, and not interactions between developers, or technical properties of the project.
 
 \section{Research Design}
 We present the approach taken to guide this study by
@@ -459,24 +461,33 @@ The goal of this study is to have a deeper understanding of the relationship bet
 
 \subsection{Question}
 
-\begin{enumerate}
-\item What is the relationship, if any, between attributes that describe the complexity of a commit (such as files added, tests added, lines of code, etc) and the final status of the Travis jobs this commit triggers?
-\item Given the dataset described before, is the social data gathered from the online profiles of developers who pushed those commits, able to increase the predictive power of a linear regression model created from this dataset?
-\item Which attributes (in social data, technical data, and both together) are the most decisive in order to know if a commit will be successful or not?
-\item Does any of the social attributes have a significant impact in the likelihood of commit integration success?
-
-\end{enumerate}
+Previous studies have identified a relationship between technical and social factors and pull request acceptance. In the interest of understanding if these relationship will hold with a different success measure such as commit integration success, and in order to establish a baseline to compare to, we deliver our first research question:
+\newline \newline
+\textbf{What is the relationship, if any, between technical attributes that describe the complexity of a commit (such as files added, tests added, lines of code, etc) and the final status of the Travis jobs this commit triggers?}
+\newline \newline
+Assuming the previous studies hold to this different success measure, and there is a relationship between technical attributes and commit integration success, we are afterwards interested in knowing if adding social attributes to this predictability model will increase the probability of the model asserting correctly future instances by knowing not only technical data about the commit being pushed but also social attributes of the developer pushing the changes:
+\newline \newline
+\textbf{Given the dataset described before, are the social attributes gathered from the Github profiles of developers who pushed those commits, able to increase the predictive power of a model created from the technical dataset?}
+\newline \newline
+We are also interested in knowing what attributes, either from the technical background, the social background, and both combined, are the best proxies for knowing what will be the success of the commit integration:
+\newline \newline
+\textbf{Which attributes (in social data, technical data, and both together) are the most decisive in order to know if a commit will be successful or not?}
+\newline \newline
+Finally, we would like to know if/which social attributes have a significant impact in success of commit integration to a project: \todo{I'm not sure what's the difference between this RQ and the last one}
+\newline \newline
+\textbf{Does any of the social attributes have a significant impact in the likelihood of commit integration success?}
+\newline \newline
 
 \subsection{Metric}
 We created a linear regression model based on two different sets of data. Merely technical data related to technical aspects of the complexity of the commit, and a superset of this before-mentioned data and social data gathered from the developer who pushed the commit. We evaluate the predictive power of these two models with 10 fold cross validation and we analyze which of them is able to predict with higher accuracy the success of unseen commits.
 
 
-\section{Building and Augmenting dataset with user profile data}
+\section{Building and Augmenting dataset with social attributes} \label{approach}
 For this section our goal is to build a dataset based on the attributes that are intrinsic for the commit complexity and therefore for its probability of leading to a successful Travis CI job.
 To do this we extracted the attributes from the original dataset provided~\cite{msr17challenge} which work as a proxy for the complexity of the commit being pushed.
 \begin{itemize}
-\item tr\_original\_commit
-\item gh\_build\_started\_at 
+%\item tr\_original\_commit
+%\item gh\_build\_started\_at 
 \item git\_diff\_src\_churn 
 \item gh\_diff\_files\_added 
 \item gh\_diff\_files\_deleted 
@@ -485,7 +496,7 @@ To do this we extracted the attributes from the original dataset provided~\cite{
 \item gh\_diff\_tests\_deleted 
 \item gh\_diff\_src\_files 
 \item gh\_sloc 
-\item tr\_status 
+%\item tr\_status 
 \end{itemize}
 
 Once we had these attributes, we removed repeated rows and we gathered the social attributes for each of these rows. 
@@ -515,11 +526,17 @@ After performing this last data mining task, we created two different datasets. 
 The dataset provided by the MSR Challenge~\cite{msr17challenge} is very diverse and consists of commits that date from very far back, and the social data we are gathering is recent data, gathered in January 2017. The researchers of this project acknowledge this discrepancy and in an effort to mitigate this threat to validity, we filter the commits analyzed by looking only at the commits pushed in the last 3 years of the dataset (2014,2015,2016), with the intuition that the social data gathered by this study will have a closer relationship to the social data if it were to be gathered in these years, than if we would compare it to years further back.
 
 \section{Evaluation}
-Logistic Regression and Decision trees.
+To evaluate the predictive power we can gain from analyzing the corpus provided~\cite{msr17challenge}, we have created a logistic regression model from both the datasets described in Section \ref{approach}. A logistic regression model is one where the dependent variable is categorial~\cite{freedman09}. Since in this study we are interested only in the cases where the commit was successfully integrated against any other possible state (errored, failed, canceled, started), we have divided our corpus into only two possible states, successful and notSuccessful, as to have a binary dependent variable. 
+
+A binary logistic model is a mechanism used to calculate the probability of characterizing a binary dependent variable based on one or more independent variables~\cite{walker67,cox58}. In our study, the binary dependent variable would become the final status of the Travis CI jobs triggered by the commit pushed by the developer, and the independent variables are both the technical attributes (files added, files deleted, source churn, etc) and the social attributes (stars, followers, repositories, etc.) used to predict the the class value.
+
+We also evaluate our dataset by using decision trees, a predictive model which branches the different possible class values (represented as the leaves) depending on the attributes used to predict the class value (represented as the branches). In classification trees as the one being used in this study, each attribute represents a branch (with some exceptions due to pruning) and depending on the decisions taken while traversing the tree, the class value will be determined when one of the decisions leads to a leaf of the tree, therefore a class value will be encountered and a prediction can be made.
+
+
 
 
 \section{Results}
-Results
+Results \todo{maybe this section can be merged with the prior one}
 
 \section{Discussion}
 Discussion
@@ -614,6 +631,13 @@ The conclusion goes here. this is more of the conclusion
 
 % conference papers do not normally have an appendix
 
+\section{Threats to validity}
+
+\textbf{Internal}
+
+\textbf{External}
+
+\textbf{Structural}
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
