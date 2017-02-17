@@ -488,8 +488,11 @@ success when integrated to the automatic build process. Yu et al~\cite{yu16}
 analyze the impact of CI usage in Github and its correlation with software 
 quality. Unlike the before mentioned, our study focuses on independent social 
 attributes and how these relate to the success of the integration of a commit 
-pushed by the developer being described by these social attributes. %, and not 
-interactions between developers, or technical properties of the project.
+pushed by the developer being described by these social attributes.
+%, and not 
+%interactions between developers, or technical properties of the project.
+
+\todo{Contributions}
 
 \section{Research Design}
 We present the approach taken to guide this study by
@@ -613,7 +616,10 @@ social data gathered by this study will have a closer relationship to the social
 data if it were to be gathered in these years, than if we would compare it to 
 years further back.
 
+\todo{Explain downsampling}
+
 \section{Evaluation}
+\todo{I guess we have to remove the logisitic regression section here if we are not going to present those results. Depending on what Bogdan and Claire think.}
 To evaluate the predictive power we can gain from analyzing the corpus 
 provided~\cite{msr17challenge}, we have created a logistic regression model from 
 both the datasets described in Section \ref{approach}. A logistic regression 
@@ -645,7 +651,35 @@ class value will be encountered and a prediction can be made.
 
 
 \section{Results}
-Results \todo{maybe this section can be merged with the prior one}
+Results \todo{maybe this section can be merged with the prior one} Table \ref{resultsTable}
+
+
+\begin{table*}[ht]
+\centering
+\begin{tabular}{l||r|r||r|r}
+  & \multicolumn{2}{|c||}{Original number of instances}  & \multicolumn{2}{|c}{Downsampled} \\
+\hline
+  & Technical & Technical and Social & Technical & Technical and Social \\
+\hline
+\textbf{Correctly Classified Instances}&  77.01\% & 81.10\%  & 64.10\% & 76.09\%\\
+
+\textbf{Incorrectly Classified Instances}&  22.99\% & 18.90\% & 35.90\% & 23.91\%\\
+
+\textbf{Kappa statistic}& 0.21 &  0.42 & 0.28  & 0.52 \\
+
+\textbf{Mean absolute error}& 0.34 &  0.28 & 0.43 & 0.32\\
+
+\textbf{Relative absolute error}& 88.64\% & 72.42\%  & 85.35\% & 63.07\%\\
+\hline
+\textbf{Increase when adding social attributes}& \multicolumn{2}{|c||}{4.09\%}  & \multicolumn{2}{|c}{11.99\%}\\
+
+\hline
+\end{tabular}
+\\
+\center
+  \caption{ Second and third columns: Comparison of performance when running 10 fold cross validation of two decision trees. The first column after the first double bar uses only technical attributes to predict the Travis Job status, the second column augments the dataset with social attributes. Fourth and fifth columns: The same intuition as the previous two, with the difference that the dataset was downsampled to provide the same number of successful and unsuccessful instances }
+  \label{resultsTable}
+\end{table*} 
 
 \section{Discussion}
 Discussion
@@ -735,19 +769,32 @@ Discussion
 % command of the stfloats package.
 
 
+\section{Threats to validity}
+
+
+\noindent\textbf{Internal validity:}
+The internal validity threats deal with possible errors in our implementation and experiments.
+The researchers in this study used the dataset provided by the MSRChallenge~\cite{msr17challenge} to gain useful information regarding the behavior of developers when pushing commits and how well these commits integrate successfully with the project. The authors have used Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/} the well known tool for usage of machine learning algorithms to analyze our datasets. We are aware that, as every human written tool, Weka is prone to contain errors and/or bugs; nonetheless, Weka is a broadly used, open source tool that is subject to high quality standards and a vast user and developer base which makes it more likely to be a high quality code and to have less bugs than lesser used tools.
+
+The scripts we have created to adapt and extract the datasets we needed, and the scripts to obtain the developer social data are publicly available to facilitate the transparency and quality of the process.\footnote{https://goo.gl/CqTX44}
+
+\noindent\textbf{External validity:} 
+External validity threats deal with the generalizability of our findings. 
+To tackle the concern that the results of this study might not generalize to other studies outside of the studied cases, we have used a broad and rich dataset~\cite{msr17challenge} in our analysis.
+
+
+
+\noindent\textbf{Construct validity:}
+Regarding the suitability of our evaluation metrics, 
+
+
+
+
 
 \section{Conclusion}
 The conclusion goes here. this is more of the conclusion
 
 % conference papers do not normally have an appendix
-
-\section{Threats to validity}
-
-\textbf{Internal}
-
-\textbf{External}
-
-\textbf{Structural}
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
