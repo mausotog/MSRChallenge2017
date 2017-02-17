@@ -582,7 +582,7 @@ website (described above) and gather the following attributes:
 \item Stars
 \item Followers
 \item Following
-\item ContribProjects
+\item Contributions 
 \end{itemize}
 
 Repositories alludes to the repositories the developer has access to. This 
@@ -593,7 +593,7 @@ show the projects the developer has stared, where starring translates to showing
 appreciation to the repository and creating a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/} Followers and 
 Following detail the number of developers that are following and being followed 
-by the developer in question. Finally, the last attribute studies is the number 
+by the developer in question. Finally, the last attribute studied is the number 
 of contributions made by the developer in the last year. To this dataset, we 
 also added from the original dataset provided~\cite{msr17challenge} the 
 attribute gh\_by\_core\_team\_member which we considered to have also social 
@@ -620,24 +620,16 @@ years further back.
 
 \section{Evaluation}
 \todo{I guess we have to remove the logisitic regression section here if we are not going to present those results. Depending on what Bogdan and Claire think.}
-To evaluate the predictive power we can gain from analyzing the corpus 
-provided~\cite{msr17challenge}, we have created a logistic regression model from 
-both the datasets described in Section \ref{approach}. A logistic regression 
-model is one where the dependent variable is categorial~\cite{freedman09}. Since 
-in this study we are interested only in the cases where the commit was 
-successfully integrated against any other possible state (errored, failed, 
-canceled, started), we have divided our corpus into only two possible states, 
-successful and notSuccessful, as to have a binary dependent variable. 
+\todo{consider moving this data preprocessing step to the previous section}
+To explore how much social aspects contributed to the build success, we first
+converted the build statuses to successful (passed) and not successful (errored,
+failed, canceled, and started).  We then created a decision tree classifier
+using the technical data to establish how influential the technical data is on 
+build success.  We then added the social data to the technical data and used
+that to create a new decision tree classifier.  The decision trees were
+evaluated using ten fold cross validation.
 
-A binary logistic model is a mechanism used to calculate the probability of 
-characterizing a binary dependent variable based on one or more independent 
-variables~\cite{walker67,cox58}. In our study, the binary dependent variable 
-would become the final status of the Travis CI jobs triggered by the commit 
-pushed by the developer, and the independent variables are both the technical 
-attributes (files added, files deleted, source churn, etc) and the social 
-attributes (stars, followers, repositories, etc.) used to predict the the class 
-value.
-
+\todo{this paragraph is now out of place.  Decide where to move it.}
 We also evaluate our dataset by using decision trees, a predictive model which 
 branches the different possible class values (represented as the leaves) 
 depending on the attributes used to predict the class value (represented as the 
