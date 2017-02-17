@@ -645,6 +645,7 @@ class value will be encountered and a prediction can be made.
 
 \section{Results}
 
+\subsection{Success Classification}
 \begin{table*}[ht]
 \centering
 \begin{tabular}{l||r|r||r|r}
@@ -671,6 +672,35 @@ class value will be encountered and a prediction can be made.
   \caption{ Second and third columns: Comparison of performance when running 10 fold cross validation of two decision trees. The first column after the first double bar uses only technical attributes to predict the Travis Job status, the second column augments the dataset with social attributes. Fourth and fifth columns: The same intuition as the previous two, with the difference that the dataset was downsampled to provide the same number of successful and unsuccessful instances }
   \label{resultsTable}
 \end{table*} 
+
+Table~\ref{resultsTable} shows the results of running the data sets through the
+default Weka J48 decision tree algorithm. 
+In the original data set, 74.43\% of the builds were successful, the rest were not
+successful.  This means that a classifier which guesses successful every time
+would produce a classification rate of 74.43\%. The decision tree built from
+only the technical indicators has a correct classification rate of 77.01\%, so
+the technical attributes only increased the prediction accuracy by about 3\%.
+Adding the social data increased the classifier's accuracy from 77.01\% to
+81.10\%, about a 4\% increase.  
+
+On the downsampled data, the decision tree created from the technical attributes
+had a classification accuracy of 64.10\%, when predicting a successful build in
+all instances would produce 50.00\% accuracy.  After including the social data
+in the data set, the classifier correctly predicted 76.09\% of the data set,
+about a 12\% improvement from only the technical data.
+
+The same
+
+\subsection{Build success by core team member}
+
+For the build success investigation, we classified the build success rate for
+core team members and non-core team members.  We found that core team members
+triggered of 89.39\% of the builds in the data set and 75.58\% of those builds
+passed.  Non-core team members triggered 10.61\% of the builds in the data set
+and 64.70\% of the builds passed.
+
+
+
 
 
 
