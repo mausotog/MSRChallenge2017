@@ -460,19 +460,29 @@ Success; Social Coding
 
 
 \section{Introduction}
-Social interactions and attributes play a key role in software quality output 
-from development teams~\cite{nagappan08,bettenburgh10}, these aspects have 
-become more and more important and platforms that support software development 
-processes provide every time a broader spectrum of measurements for social 
-characteristics. Because of this we now have a wide variety of measurable social 
-attributes that can be studied and analyzed to understand their correlation and 
-impact on different success measures. 
+For managers of an open source project, it is important to ensure that the
+project consists of high quality contributions.  The decision to include code in
+a project has been described as a meritocracy, where only the code is a factor
+in the decision~\cite{Scacchi07}.  However, to better understand successful 
+project contributions, we must analyze factors which are common to all commits.  
+  
 
-Similar studies in recent years have analyzed the relationship between social 
-and technical factors using different measures of success~\cite{tsay14icse,tsay14fse}. 
-This study aims to acknowledge the impact of some of these attributes when it 
-comes to the quality of the commits developers write and its success when 
-integrating into the project build through Travis CI. 
+
+Over the years, the open source
+community has developed various techniques to vet project contributions, such as pull
+requests which must be approved by a core team member~\cite{gousios14}. One such
+technique is continuous integration. Continuous integration automatically checks
+the contribution against the project's test cases, to notify the development
+team if the change caused a test case failure~\cite{Meyer14}.  When a change
+passes one of these vetting techniques, it shows that the project developers
+have confidence in the changes.
+
+In past studies, both technical factors and social factors have been found to be
+important when when predicting pull request success~\cite{tsay14icse,tsay14fse}.
+Yet, these factors may not be as important during continuous integration.
+Specifically, we want to investigate if social factors, which can be used a
+proxy for experience, are important when predicting build success when grouped
+with technical data, used as a proxy for commit complexity.
 
 The knowledge obtained by 
 analyzing how much impact social characteristics have on the success of a commit 
