@@ -73,6 +73,7 @@
 
 
 \usepackage{booktabs}
+\usepackage{verbatim}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 \usepackage[usenames,dvipsnames]{color}
@@ -537,22 +538,28 @@ integration as passing the continuous integration build tests in the project.
 \subsection{Question}
 
 Previous studies have identified a relationship between technical and social 
-factors and pull request acceptance. In the interest of understanding if these 
-relationship hold with a different success measure such as commit 
-integration success, and in order to establish a baseline to compare to, we have created a dataset with technical attributes to be able to analyze the predictiveness of these attributes and its relationship with commit integration success. This way, we are able to create a model
+factors and pull request acceptance. We are interested in understanding if
+social factors, that proxy experience, can be used to predict a
+a different success measure: continuous integration success.
 
+Therefore our main research question is presented as follows:
+\newline \newline
+\textbf{Do social attributes, gathered 
+from the Github profiles of developers,
+allow for more accurate predictions than only using technical data?}
+\newline \newline
+
+Depending on the results of this question, we can further explore which
+attributes are most important for predicting build integration success.
+
+\begin{comment}
+we have created a dataset with technical attributes to be able to analyze the predictiveness of these attributes and its relationship with commit integration success. This way, we are able to create a model
 We are afterwards interested in knowing if adding social attributes to this 
 predictability model will increase the probability of the model asserting 
 correctly future instances by knowing not only technical data about the commit 
-being pushed but also social attributes of the developer pushing the changes. Therefore our main research question is presented as follows:
-\newline \newline
-\textbf{Are the social attributes gathered 
-from the Github profiles of developers who push commits, able to 
-increase the predictive power of a model created from technical attributes of the pushed commits?}
-\newline \newline
-Concerning the results of this research question we can also derive parallel important information. For example, we are also interested in knowing what attributes, either from the technical 
-background, the social background, and both combined, are the best proxies for 
-knowing what will be the success of the commit integration, helping both developers and integrators to find ways to help them check the success likeliness of a commit based on metadata of the commit.  
+being pushed but also social attributes of the developer pushing the changes.
+\end{comment}
+
 
 \subsection{Metric}
 We created a linear regression model based on two different sets of data. Merely 
