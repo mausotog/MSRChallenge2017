@@ -659,14 +659,14 @@ downsampled and non-downsampled data sets in our results.
 \section{Evaluation}
 
 We evaluated the predictive power of the social factors using a decision
-tree.\todo{citation needed}
+tree~\cite{Quinlan86}.
 Decision trees are a predictive model which uses binary decisions on the
 attributes to predict a final class.  The predicted class is represented as the
 leaves, while the attribute decisions used in the prediction cause the
 different branches.
-In this study, we used the J48 Weka decision tree \todo{citation needed} with default settings. The 
-decision trees were evaluated using ten fold cross validation with the data in
-each data set.
+In this study, we used the Weka~\cite{Weka} J48~\cite{Quinlan1993} decision tree
+with default settings. The decision trees were evaluated using ten fold cross 
+validation with the data in each data set.
 
 \section{Results}
 
@@ -726,6 +726,27 @@ passed.  Non-core team members triggered 10.61\% of the builds in the data set
 and 64.70\% of the builds passed.
 
 
+\subsection{Follower effect on build success}
+
+We also investigated if developers with followers were more likely to have a
+successful build integration, since have followers may be seen as vouching for
+the developer's abilities.  We specifically investigated if a developer with 
+followers was more likely to pass the build.  We found that only 0.87\% of the
+contributions in the data set was performed by developers with zero 
+followers (excluding the developers in which we were not able to extract profile
+information for). We found that 99.13\% of the contributions were performed by
+developers with at least one or more followers.
+We found that developers with 0 followers had a successful build commit 68.49\%
+of the time.  Developers with one or more followers were successful 74.78\% of
+the time.
+
+We also investigated developers with a large number of followers (1000 or more
+followers).  We found that 6.94\% of the contributions in the data set were
+performed by developers with 1000 or more followers.  We found that these
+contributions had a 78.61\% success rate.
+
+
+
 \section{Discussion}
 We have found that social attributes which proxy experience produce a small but
 noticeable increase in predicting build success.  While the increase was very
@@ -738,6 +759,12 @@ more likely to have the build integration pass than non-core team members.  This
 result provides evidence that non-core team member commit are not throughly
 scrutinized, although further studied will be required to draw definite
 conclusions.
+
+The follower results indicate that developers with more followers are more
+likely to pass the build, although followers are not a perfect indicator.
+Developers with over 1000 followers had more than a 10\% increase compared to
+developers with no followers.  This shows that high-quality developers are more
+likely to have a large number of followers.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -825,7 +852,7 @@ conclusions.
 \section{Threats to validity}
 This study contains various threats to validity.
 
-\noindent\textbf{Internal validity:}
+\noindent\textbf{Internal validity:}\\
 One source of internal validity concern is the time mismatch between the
 technical and social data.  We restricted the commits to only the commits in the
 last three years of the data set to reduce this concern.
@@ -835,14 +862,16 @@ data set at (This will be added after the anonymous review).
 
 %footnote{https://goo.gl/CqTX44}
 
-\noindent\textbf{External validity:} 
+\noindent\textbf{External validity:} \\
 While we have used a data set with high quality standards~\cite{msr17challenge},
 these results may not generalized to non-open source projects.
 
-\noindent\textbf{Construct validity:}
+\noindent\textbf{Construct validity:}\\
 While we believe the build status is a good metric for contribution success,
-there is the chance that a problem in the projects's test cases, and no the
-contribution itself, led to the build failure.
+there is the chance that a problem in the project's test cases, and not the
+contribution itself, led to the build failure.  There are also other possible
+technical and social factors which were not explored in this study.  Future
+research will be required to determine if those factors are important.
 
 \section{Conclusion}
 In this study we have analyzed the ability to use social factors to predict
@@ -852,7 +881,9 @@ small increases in prediction accuracy.  This leads us to conclude that while
 experience is important, it is not the only factor in build success.
 We have also found that non-core contributors cause not successful builds more
 than core contributors.  This leads us to believe that non-core contributions
-are not inspected as closely as they should be.
+are not inspected as closely as they should be.  We have also found that having
+a follower, and especially a large follower base, can be an indicator of build
+integration success. 
 
 % conference papers do not normally have an appendix
 
