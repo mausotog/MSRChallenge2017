@@ -826,62 +826,33 @@ conclusions.
 This study contains various threats to validity.
 
 \noindent\textbf{Internal validity:}
-The researchers in this study used the dataset provided by the 
-MSRChallenge~\cite{msr17challenge} to gain useful information regarding the 
-behavior of developers when pushing commits and how well these commits integrate 
-successfully with the project. The authors have used 
-Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/} the well known tool for 
-usage of machine learning algorithms to analyze our datasets. We are aware that, 
-as every human written tool, Weka is prone to contain errors and/or bugs; 
-nonetheless, Weka is a broadly used, open source tool that is subject to high 
-quality standards and a vast user and developer base which makes it more likely 
-to be a high quality code and to have less bugs than lesser used tools.
+One source of internal validity concern is the time mismatch between the
+technical and social data.  We restricted the commits to only the commits in the
+last three years of the data set to reduce this concern.
+There is also a chance that scripts we used to create the data sets contain an
+error.  For full transparency, we've released the scripts used to collect the
+data set at (This will be added after the anonymous review).
 
-The scripts we have created to adapt and extract the datasets we needed, and the 
-scripts to obtain the developer social data are publicly available to facilitate 
-the transparency and quality of the process.\footnote{https://goo.gl/CqTX44}
+%footnote{https://goo.gl/CqTX44}
 
 \noindent\textbf{External validity:} 
-External validity threats deal with the generalizability of our findings. 
-To tackle the concern that the results of this study might not generalize to 
-other instances outside of the studied cases, we have used a broad and rich 
-dataset~\cite{msr17challenge} in our analysis that comprises 1,359 projects. The 
-projects used in this dataset have also been filtered to be popular (having more 
-than 10 watches on Github), and to have a history of using the continuous 
-integration tool Travis CI for more than 50 builds. All these features help to 
-build the notion that since we are building our analysis on top of a vast 
-dataset comprehending a wide diversity of projects, the threat of this analysis 
-not generalizing to other projects is mitigated.
+While we have used a data set with high quality standards~\cite{msr17challenge},
+these results may not generalized to non-open source projects.
 
 \noindent\textbf{Construct validity:}
-Regarding the suitability of our evaluation metrics, the authors understand that 
-Travis job success is not the only way to analyze the success of a commit, and 
-that for different reasons the job may not be successful even if the code 
-commited does not have flaws (a flacky test case for example). Since continuous 
-integration is a best known practice in industry and the use of this methodology 
-spreads out into the open source community, we consider that cases of misuse of 
-CI such that it will lead to failing travis jobs when they should have actually 
-be successful are minimum, specially since having a solid build is one of the 
-main purposes of the methodology, and taking into account that the projects in 
-out dataset are projects with a history of using continuous integration and 
-having a certain level of popularity, this threat is minimized. We therefore 
-consider Travis job success to be a proxy 
-for success when integrating a commit into a larger project.
-
-
-
-
-
+While we believe the build status is a good metric for contribution success,
+there is the chance that a problem in the projects's test cases, and no the
+contribution itself, led to the build failure.
 
 \section{Conclusion}
-In this study we have analyzed the probability of Travis job success as being predicted by two different categories of attributes: Technical and Social data.
-We gathered the attributes that describe complexity of each commit being pushed and have created a decision tree that predicts if a future pushed commit will be successfully integrated into its corresponding build or not.
-Afterwards, we have gathered social attributes from the developers who pushed each of these commits
-and we have augmented our dataset with these attributes to understand whether adding social information about the developer would help the decision tree predict with higher accuracy future 
-instances.
-
-Our results show that adding social data to the construction of the decision tree increases the probability this correctly predicting future commit's success in integrating into their corresponding projects by a margin of 4.09\% to 11.99\%, depending on the ratio of successful vs unsuccessful instances are used to train the desicion tree.
-\todo{maybe add here some other answers to smaller deduced RQ's}
+In this study we have analyzed the ability to use social factors to predict
+build integration success.
+Our results show that adding social data, which proxies experience, provides a
+small increases in prediction accuracy.  This leads us to conclude that while
+experience is important, it is not the only factor in build success.
+We have also found that non-core contributors cause not successful builds more
+than core contributors.  This leads us to believe that non-core contributions
+are not inspected as closely as they should be.
 
 % conference papers do not normally have an appendix
 
