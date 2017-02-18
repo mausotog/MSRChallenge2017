@@ -422,22 +422,25 @@
 
 
 \begin{abstract}
-One important aspect of developing open source software is deciding which
-commits to include in the main branch of a project.  
-Recent research has started to explore how the open source community manages
-this question and found that both technical and social factors are factors in 
+Software quality is an important and desirable aspect of the software 
+development process overall, especially with the increasing participation of a very
+diverse pool of developers, the number of commits and pull requests keeps increasing 
+and the mechanisms available to identify which developers are pushing high 
+quality commits and pull requests is scarce.
+Recent research has explored how the open source community manages
+this question finding that both technical and social factors are factors in 
 the success of project contributions on GitHub.  
 This investigation defined a successful project contribution as a project
 contribution that gets
-accepted to the project.  However, with the continuous integration, we can
+accepted to the project. However, with continuous integration, we can
 explore this question a step further.  We can better estimate the success of a
-contribution by investigating if the contribution passed the project's
-test cases.  We performed an initial investigation into the technical and
+contribution by investigating if the contribution passed all the quality standards set 
+by the repository owners.  We performed an initial investigation into the technical and
 social factors involved in a commit that successfully passes the integration
 tests. Specifically, we investigated if social factors (such as being a
 core member of the development team, having a large number of followers,
 or contributing a large number of commits) improve predictions of build
-success.  We have found that while social factors cause an noticeable increase
+success.  We have found that while social factors cause a noticeable increase
 in predictive power (12\%), further investigation into these factors are
 required.
 \end{abstract}
@@ -465,25 +468,39 @@ For managers of an open source project, it is important to ensure that the
 project consists of high quality contributions.  The decision to include code in
 a project has been described as a meritocracy, where only the code is a factor
 in the decision~\cite{Scacchi07}.  However, to better understand successful 
-project contributions, we must analyze factors which are common to all commits.  
-  
-
+project contributions, we must take into consideration and analyze 
+different social attributes from the developers creating the commits,
+which can be great predictors for the success of a contribution.
 
 Over the years, the open source
 community has developed various techniques to vet project contributions, such as pull
-requests which must be approved by a core team member~\cite{gousios14}. One such
-technique is continuous integration. Continuous integration automatically checks
+requests which must be approved by a core team member~\cite{gousios14}. 
+These kinds of mechanisms benefit in substancial part by knowing into which 
+aspects to look for as predictors of the quality of the contribution being made. 
+
+In this study we analyze a large set of technical and social attributes 
+and how these can be used to
+add certainty to the probability of a contribution being successful or not. 
+Our corpus is based on the entries of a large number of open source projects
+using continuous integration. Continuous integration automatically checks
 the contribution against the project's test cases, to notify the development
-team if the change caused a test case failure~\cite{Meyer14}.  When a change
-passes one of these vetting techniques, it shows that the project developers
-have confidence in the changes.
+team if the change caused a test case failure~\cite{Meyer14}. The
+projects using continuous integration provide quality standard barriers such as
+test cases which will cause the build to break if the commit does not perform
+accordingly to the standards. When a change
+passes these vetting techniques, it shows that the project developers
+have confidence in the changes, therefore, allowing us to analyze the success
+of the contributions made by passing the quality standards created by the 
+core developers of each project.
 
 In past studies, both technical factors and social factors have been found to be
-important when when predicting pull request success~\cite{tsay14icse,tsay14fse}.
-Yet, these factors may not be as important during continuous integration.
-Specifically, we want to investigate if social factors, which can be used a
-proxy for experience, are important when predicting build success when grouped
-with technical data, used as a proxy for commit complexity.
+important when predicting pull request success~\cite{tsay14icse,tsay14fse}.
+In this study we are interested in analyzing the quality of a contribution 
+at a lower granulairity level, commit level. We will analyze this in the 
+context of continuous integration, using some of the social attributes provided
+by Github as a proxy for the developer's experience level and familiarity with
+the process, and their importance when grouped with technical attributes of the commit as 
+confounds for the complexity of the commit being pushed. 
 
 The knowledge obtained by 
 analyzing how much impact social characteristics have on the success of a commit 
@@ -504,7 +521,7 @@ determine that the social connection between the developer who is asking the
 pull request and the integrators is a key factor torwards acceptance of a pull 
 request. Unlike this previous study, in our study we look at a broader aspect of 
 social aspects and how this attributes towards the success in Travis
-CI\todo{citation needed for Travis CI} jobs. 
+CI jobs.\footnote{https://docs.travis-ci.com/user/customizing-the-build} 
 Gousios et al~\cite{gousios14} study the relationship between the area of the 
 source code being modified by the developer requesting the changes to be pulled 
 and the acceptance rate of these changes is highly correlated. Also existence of 
@@ -520,7 +537,7 @@ attributes and how these relate to the success of the integration of a commit
 pushed by the developer being described by these social attributes.
 
 Our study shows that social factors are an important aspect of build success but
-these factors alone do not fully predict if a build will succeed.  We also show
+these factors alone do not fully predict if a contribution will be successfully integrated into the project. We also show
 that core team members are more likely to achieve build success than non-core
 team members and having followers increases the likelihood passing the
 continuous integration build.
@@ -532,17 +549,19 @@ al~\cite{Basili84}.
 
 \subsection{Goal}
 The goal of this study is to have a deeper understanding of the relationship 
-between the several different social properties that that estimate the
+between the several different social properties that estimate the
 developer's experience, and the likelihood of a developer's commit
-to be considered a successfully integrated in the project. We define successful
+to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
 
 \subsection{Question}
 
 Previous studies have identified a relationship between technical and social 
 factors and pull request acceptance. We are interested in understanding if
-social factors, that proxy experience, can be used to predict
-a different success measure: continuous integration success.
+social factors, used as a proxy for experience, can be used to predict
+a different success measure: commit integration success, therefore giving
+developers and integrators another tool to be able to identify the quality
+of a contribution performed by a particular developer.
 
 Therefore our main research question is presented as follows:
 \newline \newline
@@ -564,7 +583,7 @@ being pushed but also social attributes of the developer pushing the changes.
 
 
 \subsection{Metric}
-We created a linear regression model based on two different sets of data. Merely 
+We created a decision tree based on two different sets of data. Merely 
 technical data related to technical aspects of the complexity of the commit, and 
 a superset of this before-mentioned data and social data gathered from the 
 developer who pushed the commit. We evaluate the predictive power of these two 
@@ -573,11 +592,11 @@ predict with higher accuracy the success of unseen commits.
 
 \section{Building Dataset}
 \label{approach}
-To investigate our research questions, we built a dataset based on the 
-attributes that consisted of both technical and social factors.  We collected
-the technical factors from the provided data set~\cite{msr17challenge}.
+To investigate our research questions, we built a data set based on the 
+attributes that consisted of both technical and social factors. For the technical factors, we collected
+these from the data set provided by the MSR Challenge~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
-complexity and the build status.
+complexity and the build status as listed below:
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
@@ -592,88 +611,6 @@ complexity and the build status.
 \item tr\_status 
 \end{itemize}
 
-Once we had these attributes, we removed repeated rows \todo{Why did we have to
-remove repeated rows?}
-
-To collect the social data, we created a web scrapper to extract the social data
-from developer's profiles.
-We used the commit hash and the project name in the original data
-set~\cite{msr17challenge} to locate the web page of the commit using the syntax
-below. 
-\newline \newline
-\textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
-\newline \newline
-Then, we scraped the commit author's
-\textit{username} from the page. If the scrapper was able to find username, the
-scraper went to the user's profile information using the syntax below.
-\newline \newline
-\textit{https://github.com/\textbf{UserName}}
-\newline \newline
-The scrapper then extracted the following items from the user's profile.
-\begin{itemize}
-\item Repositories
-\item Stars
-\item Followers
-\item Following
-\item Contributions 
-\end{itemize}
-
-Repositories represents the repositories the developer has access to. This 
-includes where the developer is the repository owner,where the developer is a 
-collaborator, and repositories that the developer can access through an 
-organization membership.\footnote{https://developer.github.com/v3/repos/} Stars 
-represents a count of the projects the developer has stared. Starring  a project
-means to showing approval of the repository and creating a bookmark for later 
-access.\footnote{https://help.github.com/articles/about-stars/} Followers and 
-Following detail the number of developers that are following and being followed 
-by the developer in question. Finally, the last attribute studied is the number 
-of contributions made by the developer in the last year. 
-
-We also added one item from the original data set to the social factors:
-gh\_by\_core\_team\_member.
-This factor indicates if the developer making a contribution is a core member 
-of that project.
-
-We used this data to create two data sets.  One with only the technical
-factors and the build status, and another with both the technical and social
-factors along with the build status.
-
-The dataset used in this study~\cite{msr17challenge} is very diverse 
-and consists of commits that date from far back, and the social data we are 
-gathering is recent data, gathered in January 2017. The researchers of this 
-project acknowledge this discrepancy and in an effort to mitigate the threat of
-using future result to predict previous events,
-we removed the commits in the dataset that were not performed within the last
-three years of the data set's release (2014,2015,2016).  While this is not
-perfect, we believe that these numbers are unlikely to have changed
-significantly in the last three years.
-
-After building the data set, we converted the various Travis build statuses to
-successful (passed in the data set) or not successful (errored, failed, canceled
-and started in the data set).  This still left a big discrepancy in the two
-categories, with about a 3:1 successful to not successful ratio. To avoid having
-this discrepancy alter our results, we created a separate data set where the
-successful builds were randomly selected until the number of successful builds
-equaled the number of not successful builds (downsampled\todo{citation needed
-for down sampling}).  We used both the
-downsampled and non-downsampled data sets in our results.
-
-
-\section{Evaluation}
-
-We evaluated the predictive power of the social factors using a decision
-tree~\cite{Quinlan86}.
-Decision trees are a predictive model which uses binary decisions on the
-attributes to predict a final class.  The predicted class is represented as the
-leaves, while the attribute decisions used in the prediction cause the
-different branches.
-In this study, we used the Weka~\cite{Weka} J48~\cite{Quinlan1993} decision tree
-with default settings. The decision trees were evaluated using ten fold cross 
-validation with the data in each data set.
-
-\section{Results}
-
-\subsection{Success Classification}
 \begin{table*}[ht]
 \centering
 \begin{tabular}{l||r|r||r|r}
@@ -697,9 +634,93 @@ validation with the data in each data set.
 \end{tabular}
 \\
 \center
-  \caption{ Second and third columns: Comparison of performance when running 10 fold cross validation of two decision trees. The first column after the first double bar uses only technical attributes to predict the Travis Job status, the second column augments the dataset with social attributes. Fourth and fifth columns: The same intuition as the previous two, with the difference that the dataset was downsampled to provide the same number of successful and unsuccessful instances }
+  \caption{ Second and third columns: Comparison of performance when running 10 fold cross validation of two decision trees. The first column after the first double bar uses only technical attributes to predict the Travis Job status, the second column augments the data set with social attributes. Fourth and fifth columns: The same intuition as the previous two, with the difference that the data set was downsampled to provide the same number of successful and unsuccessful instances }
   \label{resultsTable}
-\end{table*} 
+\end{table*}
+
+As a result of extracting just these particular technical attributes, the new data set is conformed by a  big number of repeated rows, which would slow down the process of collecting the social data for each of these rows, therefore, at this point we removed the repeated rows and continued to collect the social attributes from the developers who pushed the commits.
+
+To collect the social data, we created a web scrapper to extract the social data
+from developer's profiles.
+We used the commit hash and the project name in the original data
+set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page of the commit using the syntax
+below. 
+\newline \newline
+\textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
+\newline \newline
+
+
+Then, we scraped the commit author's
+\textit{username} from the page. If the scrapper was able to find username, the
+scraper went to the user's profile information using the syntax below.
+\newline \newline
+\textit{https://github.com/\textbf{UserName}}
+\newline \newline
+The scrapper then extracted the following items from the user's profile.
+\begin{itemize}
+\item Repositories
+\item Stars
+\item Followers
+\item Following
+\item Contributions in the last year
+\end{itemize}
+
+Repositories represents the repositories the developer has access to. This 
+includes where the developer is the repository owner,where the developer is a 
+collaborator, and repositories that the developer can access through an 
+organization membership.\footnote{https://developer.github.com/v3/repos/} Stars 
+represents a count of the projects the developer has stared. Starring  a project
+means to showing approval of the repository and creating a bookmark for later 
+access.\footnote{https://help.github.com/articles/about-stars/} Followers and 
+Following detail the number of developers that are following and being followed 
+by the developer in question. Finally, the last attribute studied is the number 
+of contributions made by the developer in the last year. 
+
+We also added one item from the original data set to the social factors:
+gh\_by\_core\_team\_member.
+This factor indicates if the developer making a contribution is a core member 
+of that project.
+
+We used this data to create two data sets.  One with only the technical
+factors and the build status, and another with both the technical and social
+factors along with the build status.
+
+The data set used in this study~\cite{msr17challenge} is very diverse 
+and consists of commits that date from far back, and the social data we are 
+gathering is recent data, gathered in January 2017. The researchers of this 
+project acknowledge this discrepancy and in an effort to mitigate the threat of
+using future result to predict previous events,
+we removed the commits in the data set that were not performed within the last
+three years of the data set's release (2014,2015,2016).  While this is not
+perfect, we believe that these numbers are unlikely to have changed
+significantly in the last three years.
+
+After building the data set, we converted the various Travis build statuses to
+successful (passed in the data set) or not successful (errored, failed, canceled
+and started in the data set).  This still left a big discrepancy in the two
+categories, with about a 3:1 successful to not successful ratio. To avoid having
+this discrepancy alter our results, we created a separate data set where the
+successful builds were randomly selected until the number of successful builds
+equaled the number of not successful builds (downsampling process).  We used both the
+downsampled and non-downsampled data sets in our results.
+
+
+\section{Evaluation}
+
+We evaluated the predictive power of the social factors using a decision
+tree~\cite{Quinlan86}.
+Decision trees are a predictive model which uses binary decisions on the
+attributes to predict a final class.  The predicted class is represented as the
+leaves, while the attribute decisions used in the prediction cause the
+different branches.
+In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
+with default settings. The decision trees were evaluated using ten fold cross 
+validation with the data in each data set.
+
+\section{Results}
+
+\subsection{Success Classification}
+ 
 
  
 In the original data set, 74.43\% of the builds were successful, the rest were not
@@ -707,7 +728,7 @@ successful.  This means that a classifier which guesses successful every time
 would produce a classification rate of 74.43\% if ran on the full data set. 
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
-default Weka J48 decision tree algorithm.The decision tree built from
+default Weka J48 decision tree algorithm. The decision tree built from
 only the technical indicators has a correct classification rate of 77.01\% which
 means the technical attributes only increased the prediction accuracy by about 3\%.
 Adding the social data increased the classifier's accuracy from 77.01\% to
@@ -751,15 +772,16 @@ contributions had a 78.61\% success rate.
 
 
 \section{Discussion}
-We have found that social attributes which proxy experience produce a small but
-noticeable increase in predicting build success.  While the increase was very
-small with the full data set, there was a greater increase in prediction
-accuracy after performing downsampling.  These results show that experience is
-important to predicting build commit success but a strong predictor.
+We have found that social attributes which proxy experience produce a 
+noticeable increase in predicting build success.  While the increase was noticeable 
+with the full data set, there was a much greater increase in prediction
+accuracy after performing downsampling. These results show that social factors
+as the ones studied in this paper are important predictors when
+evaluating the predictive power of build commit success.
 
 The build success by core team member results show that core team members are
 more likely to have the build integration pass than non-core team members.  This
-result provides evidence that non-core team member commit are not throughly
+result provides evidence that non-core team member commit are not thoroughly
 scrutinized, although further studied will be required to draw definite
 conclusions.
 
@@ -853,35 +875,58 @@ likely to have a large number of followers.
 
 
 \section{Threats to validity}
-This study contains various threats to validity.
-
 \noindent\textbf{Internal validity:}\\
-One source of internal validity concern is the time mismatch between the
-technical and social data.  We restricted the commits to only the commits in the
-last three years of the data set to reduce this concern.
-There is also a chance that scripts we used to create the data sets contain an
-error.  For full transparency, we've released the scripts used to collect the
-data set at (This will be added after the anonymous review).
-
-%footnote{https://goo.gl/CqTX44}
+The researchers in this study used the dataset provided by the 
+ MSRChallenge~\cite{msr17challenge} to gain useful information regarding the 
+ behavior of developers when pushing commits and how well these commits integrate 
+ successfully with the project. The authors have used 
+ Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/} the well known tool for 
+ usage of machine learning algorithms to analyze our datasets. We are aware that, 
+ as every human written tool, Weka is prone to contain errors and/or bugs; 
+ nonetheless, Weka is a broadly used, open source tool that is subject to high 
+ quality standards and a vast user and developer base which makes it more likely 
+ to be a high quality code and to have less bugs than lesser used tools.
+ 
+ The scripts we have created to adapt and extract the datasets we needed, and the 
+ scripts to obtain the developer social data are publicly available to facilitate 
+ the transparency and quality of the process(Will be made available after double blind review).%\footnote{https://goo.gl/CqTX44}
 
 \noindent\textbf{External validity:} \\
-While we have used a data set with high quality standards~\cite{msr17challenge},
-these results may not generalized to non-open source projects.
+ To tackle the concern that the results of this study might not generalize to 
+ other instances outside of the studied cases, we have used a broad and rich 
+ dataset~\cite{msr17challenge} in our analysis that comprises 1,359 projects. The 
+ projects used in this dataset have also been filtered to be popular (having more 
+ than 10 watches on Github), and to have a history of using the continuous 
+ integration tool Travis CI for more than 50 builds. All these features help to 
+ build the notion that since we are building our analysis on top of a vast 
+ dataset comprehending a wide diversity of projects, the threat of this analysis 
+ not generalizing to other projects is mitigated.
 
 \noindent\textbf{Construct validity:}\\
-While we believe the build status is a good metric for contribution success,
-there is the chance that a problem in the project's test cases, and not the
-contribution itself, led to the build failure.  There are also other possible
-technical and social factors which were not explored in this study.  Future
-research will be required to determine if those factors are important.
+The authors understand that 
+ Travis job success is not the only way to analyze the success of a commit, and 
+ that for different reasons the job may not be successful even if the code 
+ commited does not have flaws (a flacky test case for example). Since continuous 
+ integration is a best known practice in industry and the use of this methodology 
+ spreads out into the open source community, we consider that cases of misuse of 
+ CI such that it will lead to failing travis jobs when they should have actually 
+ be successful are minimum, specially since having a solid build is one of the 
+ main purposes of the methodology, and taking into account that the projects in 
+ out dataset are projects with a history of using continuous integration and 
+ having a certain level of popularity, this threat is minimized. We therefore 
+ consider Travis job success to be a proxy 
+ for success when integrating a commit into a larger project.
 
 \section{Conclusion}
-In this study we have analyzed the ability to use social factors to predict
-build integration success.
-Our results show that adding social data, which proxies experience, provides a
-small increases in prediction accuracy.  This leads us to conclude that while
-experience is important, it is not the only factor in build success.
+In this study we have analyzed the probability of Travis job success as being predicted by two different categories of attributes: Technical and Social data.
+We gathered the attributes that describe complexity of each commit being pushed and have created a decision tree that predicts if a future pushed commit will be successfully integrated into its corresponding build or not.
+Afterwards, we have gathered social attributes from the developers who pushed each of these commits
+and we have augmented our dataset with these attributes to understand whether adding social information about the developer would help the decision tree predict with higher accuracy future 
+instances.
+
+Our results show that adding social data to the construction of the decision tree increases the probability this correctly predicting future commit's success in integrating into their corresponding projects by a margin of 4.09\% to 11.99\%, depending on the ratio of successful vs unsuccessful instances are used to train the desicion tree.
+
+
 We have also found that non-core contributors cause not successful builds more
 than core contributors.  This leads us to believe that non-core contributions
 are not inspected as closely as they should be.  We have also found that having
