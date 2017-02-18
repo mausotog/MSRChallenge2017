@@ -569,14 +569,13 @@ developer who pushed the commit. We evaluate the predictive power of these two
 models with 10 fold cross validation and we analyze which of them is able to 
 predict with higher accuracy the success of unseen commits.
 
-\section{Building and Augmenting dataset with social attributes} 
+\section{Building Dataset}
 \label{approach}
-For this section our goal is to build a dataset based on the attributes that are 
-intrinsic for the commit complexity and therefore for its probability of leading 
-to a successful Travis CI job.
-To do this we extracted the attributes from the original dataset 
-provided~\cite{msr17challenge} which work as a proxy for the complexity of the 
-commit being pushed.
+To investigate our research questions, we built a dataset based on the 
+attributes that consisted of both technical and social factors.  We collected
+the technical factors from the provided data set~\cite{msr17challenge}.
+We extracted only the attributes in the data set that proxy the commit's
+complexity and the build status.
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
@@ -588,28 +587,27 @@ commit being pushed.
 \item gh\_diff\_tests\_deleted 
 \item gh\_diff\_src\_files 
 \item gh\_sloc 
-%\item tr\_status 
+\item tr\_status 
 \end{itemize}
 
-Once we had these attributes, we removed repeated rows and we gathered the 
-social attributes for each of these rows. 
+Once we had these attributes, we removed repeated rows \todo{Why did we have to
+remove repeated rows?}
 
-To do this, we extracted from the original file provided~\cite{msr17challenge} 
-the commit hash and the project name. We removed the repeated rows and created a 
-script to gather the social data of the developer who pushed that commit.
-First we concatenated the two attributes before mentioned in the following way:
+To collect the social data, we created a web crawler to extract the social data
+from developer's profiles.
+We used the commit hash and the project name in the original data
+set~\cite{msr17challenge} to locate the webpage of the commit using the syntax
+below. 
 \newline \newline
 \textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
 \newline \newline
-We created a script that constructs this string and navigates through the html 
-representation of the website described above, and looks for the 
-\textit{username} of the developer in the Github platform. If it is able to find 
-one, we then create another string following the pattern:
+Then, we scraped the commit author's
+\textit{username} from the page. If the scrapper was able to find username, the
+scraper went to the user's profile information using the syntax below.
 \newline \newline
 \textit{https://github.com/\textbf{UserName}}
 \newline \newline
-We then navigate through the html representation of the developer's profile 
-website (described above) and gather the following attributes:
+The scrapper then extracted the following items from the user's profile.
 \begin{itemize}
 \item Repositories
 \item Stars
@@ -618,63 +616,57 @@ website (described above) and gather the following attributes:
 \item Contributions 
 \end{itemize}
 
-Repositories alludes to the repositories the developer has access to. This 
+Repositories represents the repositories the developer has access to. This 
 includes where the developer is the repository owner,where the developer is a 
 collaborator, and repositories that the developer can access through an 
 organization membership.\footnote{https://developer.github.com/v3/repos/} Stars 
-show the projects the developer has stared, where starring translates to showing 
-appreciation to the repository and creating a bookmark for later 
+represents a count of the projects the developer has stared. Starring  a project
+means to showing approval of the repository and creating a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/} Followers and 
 Following detail the number of developers that are following and being followed 
 by the developer in question. Finally, the last attribute studied is the number 
-of contributions made by the developer in the last year. To this dataset, we 
-also added from the original dataset provided~\cite{msr17challenge} the 
-attribute gh\_by\_core\_team\_member which we considered to have also social 
-weight, which describes if the developer pushing the commit is a core member of 
-the project the commit is being pushed to.
+of contributions made by the developer in the last year. 
 
-After performing this last data mining task, we created two different datasets. 
-One of them contains technical data that is seen as a proxy for the complexity 
-of the changes being performed in the commit. We also created a second dataset 
-which consists of the data mentioned in the first dataset, plus the set of 
-social attributes related to the developer who pushed the commit. 
+We also added one item from the original data set to the social factors:
+gh\_by\_core\_team\_member.
+This factor indicates if the developer making a contribution is a core member 
+of that project.
+
+We used this data to create two data sets.  One with only the technical
+factors and the build status, and another with both the technical and social
+factors along with the build status.
 
 The dataset used in this study~\cite{msr17challenge} is very diverse 
 and consists of commits that date from far back, and the social data we are 
 gathering is recent data, gathered in January 2017. The researchers of this 
-project acknowledge this discrepancy and in an effort to mitigate this threat to 
-validity, we filter the commits analyzed by looking only at the commits pushed 
-in the last 3 years of the dataset (2014,2015,2016), with the intuition that the 
-social data gathered by this study will have a closer relationship to the social 
-data if it were to be gathered in these years, than if we would compare it to 
-years further back.
+project acknowledge this discrepancy and in an effort to mitigate the threat of
+using future result to predict previous events,
+we removed the commits in the dataset that were not performed within the last
+three years of the data set's release (2014,2015,2016).  While this is not
+perfect, we believe that these numbers are unlikely to have changed
+significantly in the last three years.
 
-We constructed a decision tree with the dataset before mentioned, and we noticed that at this point the training data was unbalanced in a ratio close to 3:1 regarding successful and unsuccessful instances accordingly. To mitigate the risk of this being a skewing factor for the training process of the decision tree, we sampled randomly the successful instances to get an equal distribution of 
-successful and unsuccessful instances to train the decision tree. We present the results of both of these datasets in the following section.
+After building the data set, we converted the various Travis build statuses to
+successful (passed in the data set) or not successful (errored, failed, canceled
+and started in the data set).  This still left a big discrepancy in the two
+categories, with about a 3:1 successful to not successful ratio. To avoid having
+this discrepancy alter our results, we created a separate data set where the
+successful builds were randomly selected until the number of successful builds
+equaled the number of not successful builds (downsampled).  We used both the
+downsampled and non-downsampled data sets in our results.
+
 
 \section{Evaluation}
-\todo{I guess we have to remove the logisitic regression section here if we are not going to present those results. Depending on what Bogdan and Claire think.}
-\todo{consider moving this data preprocessing step to the previous section}
-To explore how much social aspects contributed to the build success, we first
-converted the build statuses to successful (passed) and not successful (errored,
-failed, canceled, and started).  We then created a decision tree classifier
-using the technical data to establish how influential the technical data is on 
-build success.  We then added the social data to the technical data and used
-that to create a new decision tree classifier.  The decision trees were
-evaluated using ten fold cross validation.
 
-\todo{this paragraph is now out of place.  Decide where to move it.}
-We also evaluate our dataset by using decision trees, a predictive model which 
-branches the different possible class values (represented as the leaves) 
-depending on the attributes used to predict the class value (represented as the 
-branches). In classification trees as the one being used in this study, each 
-attribute represents a branch (with some exceptions due to pruning) and 
-depending on the decisions taken while traversing the tree, the class value will 
-be determined when one of the decisions leads to a leaf of the tree, therefore a 
-class value will be encountered and a prediction can be made.
-
-
-
+We evaluated the predictive power of the social factors using a decision
+tree.\todo{citation needed}
+Decision trees are a predictive model which uses binary decisions on the
+attributes to predict a final class.  The predicted class is represented as the
+leaves, while the attribute decisions used in the prediction cause the
+different branches.
+In this study, we used the J48 Weka decision tree \todo{citation needed} with default settings. The 
+decision trees were evaluated using ten fold cross validation with the data in
+each data set.
 
 \section{Results}
 
@@ -706,13 +698,15 @@ class value will be encountered and a prediction can be made.
   \label{resultsTable}
 \end{table*} 
 
-Table~\ref{resultsTable} shows the results of running the data sets through the
-default Weka J48 decision tree algorithm. 
+ 
 In the original data set, 74.43\% of the builds were successful, the rest were not
 successful.  This means that a classifier which guesses successful every time
-would produce a classification rate of 74.43\%. The decision tree built from
-only the technical indicators has a correct classification rate of 77.01\%, so
-the technical attributes only increased the prediction accuracy by about 3\%.
+would produce a classification rate of 74.43\% if ran on the full data set. 
+
+Table~\ref{resultsTable} shows the results of running the two data sets through the
+default Weka J48 decision tree algorithm.The decision tree built from
+only the technical indicators has a correct classification rate of 77.01\% which
+means the technical attributes only increased the prediction accuracy by about 3\%.
 Adding the social data increased the classifier's accuracy from 77.01\% to
 81.10\%, about a 4\% increase.  
 
@@ -722,7 +716,6 @@ all instances would produce 50.00\% accuracy.  After including the social data
 in the data set, the classifier correctly predicted 76.09\% of the data set,
 about a 12\% improvement from only the technical data.
 
-The same
 
 \subsection{Build success by core team member}
 
@@ -733,16 +726,18 @@ passed.  Non-core team members triggered 10.61\% of the builds in the data set
 and 64.70\% of the builds passed.
 
 
-
-
-
-
 \section{Discussion}
-In this study we have analyzed how considering social data is beneficial to be able to predict if a commit will be successfully integrated into a project or not. We have analyzed different technical complexity measures that work as a proxy for the complexity of the task being commited, such as number of files added, size of the project, size of the commit, etc. It is worth noticing that these are not the only measures that can be used as a proxy for technical complexity of a commit. The same intuition applies to the social attributes we gathered. These are not the only proxies for experience a developer may have, but we are making use of a suitable feature Github provides, which are the social attributes being measured in this study. 
+We have found that social attributes which proxy experience produce a small but
+noticeable increase in predicting build success.  While the increase was very
+small with the full data set, there was a greater increase in prediction
+accuracy after performing downsampling.  These results show that experience is
+important to predicting build commit success but a strong predictor.
 
-This study is consistent with previous studies~\cite{Yu15,tsay14icse,tsay14fse} that show the importance of considering social traits  when dealing with a merely social process such as the software development process.  
-
-
+The build success by core team member results show that core team members are
+more likely to have the build integration pass than non-core team members.  This
+result provides evidence that non-core team member commit are not throughly
+scrutinized, although further studied will be required to draw definite
+conclusions.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -828,11 +823,9 @@ This study is consistent with previous studies~\cite{Yu15,tsay14icse,tsay14fse} 
 
 
 \section{Threats to validity}
-
+This study contains various threats to validity.
 
 \noindent\textbf{Internal validity:}
-The internal validity threats deal with possible errors in our implementation 
-and experiments.
 The researchers in this study used the dataset provided by the 
 MSRChallenge~\cite{msr17challenge} to gain useful information regarding the 
 behavior of developers when pushing commits and how well these commits integrate 
