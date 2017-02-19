@@ -1,0 +1,14 @@
+
+*.aux
+
+*.aux
+
+*.bbl
+
+*.blg
+
+*.log
+
+Paper/MSRChallenge2017.pdf
+
+Paper/MSRChallenge2017.synctex.gz
