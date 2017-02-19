@@ -547,13 +547,15 @@ continuous integration build.
 \section{Research Design}
 
 We present the approach taken to guide this study by
-following the Goal-Question-Metric (GQM) methodology descibed by Basili et 
-al~\cite{Basili84}.
+following the Goal-Question-Metric (GQM) methodology described by Basili et 
+al.~\cite{Basili84}.
 
 \paragraph{Goal}
 The goal of this study is to identify and understand the relationship 
 between the several different social properties that estimate the
-developer's experience such as contributions in the last year, repositories participated, stars, etc., technical properties, such as files added and modified, and the likelihood of a developer's commit
+developer's experience such as contributions in the last year, repositories 
+participated, stars, etc., technical properties, such as files added and 
+modified, and the likelihood of a developer's commit
 to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
 
@@ -576,7 +578,9 @@ Depending on the results of this question, we can further explore which
 attributes are most important for predicting build integration success.
 
 \begin{comment}
-we have created a dataset with technical attributes to be able to analyze the predictiveness of these attributes and its relationship with commit integration success. This way, we are able to create a model
+we have created a dataset with technical attributes to be able to analyze the 
+predictive power of these attributes and its relationship with commit integration 
+success. This way, we are able to create a model
 We are afterwards interested in knowing if adding social attributes to this 
 predictability model will increase the probability of the model asserting 
 correctly future instances by knowing not only technical data about the commit 
@@ -585,14 +589,16 @@ being pushed but also social attributes of the developer pushing the changes.
 
 
 \paragraph{Metric}
-\clg{I think I need a little bit more detail here, at multiple levels (like, why
-  a decision tree? among other questions.}
-We created a decision tree based on two different sets of data. Merely 
-technical data related to technical aspects of the complexity of the commit, and 
-a superset of this before-mentioned data and social data gathered from the 
-developer who pushed the commit. We evaluate the predictive power of these two 
-models with 10 fold cross validation and we analyze which of them is able to 
-predict with higher accuracy the success of unseen commits.
+Because decision trees are well tested and easy to interpret, we used a decision
+tree classifier to create models which predict build integration success. 
+The first model was generated with only
+the technical factors, that provide insight on the complexity of the commit, 
+to understand how well technical factors predicted build
+success.  We then added the social factors to the technical factors to determine
+the influence of additional social factors on predicting build success.
+We evaluate the predictive power of these two 
+models with 10-fold cross validation and determine the effects of adding social
+factors when predicting build integration success.
 
 \section{Building Dataset}
 \label{approach}
@@ -652,14 +658,16 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 \end{itemize}
 
 
-We also added one item from the original data set provided by the MSR Challenge to the social factors:
+We also added one item from the MSR Challenge data set to the social factors:
 gh\_by\_core\_team\_member.
 This factor indicates if the developer making a contribution is a core member 
 of that project.
 
-\textbf{Comparing two data sets:} We used the social data gathered to create two data sets: one with only the technical
+\textbf{Comparing two data sets:} We used the social data gathered to create two data 
+sets: one with only the technical
 factors and the build status, and another with both the technical and social
-factors, this is to be able to compare how well can the job status be predicted by just technical data, and adding social data.
+factors, this is to be able to compare how well can the job status be predicted 
+by just technical data, and adding social data.
 
 The data set used in this study~\cite{msr17challenge} is very diverse 
 and consists of commits that date from far back. The social data we 
@@ -668,21 +676,32 @@ using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
 three years of the data set's release (2014,2015,2016).  While this is not
 perfect, we believe that these numbers are unlikely to have changed
-significantly in the last three years.\clg{...did you spot check? RESPONSE: Spot check that they did belong to those years? Yeah}
+significantly in the last three years.\clg{...did you spot check? Mau's Response: Spot
+check that they did belong to those years? Yeah. Zack's Response: assuming you
+are asking a different question of if the values changed in the last three
+years, than no, we did not check because we weren't sure how.  What should we
+say here?}
 
-Since we are interested in the success of the job status of each row, we converted the Travis build statuses to just two possible values,
-successful (passed in the original provided data set) and not successful (errored, failed, canceled
-and started in the original data set). At this point we had a 3:1 successful to not successful ratio in the rows of the data sets. 
+Since we are interested in the success of the job status of each row, we 
+converted the Travis build statuses to just two possible values,
+successful (passed in the original provided data set) and not successful 
+(errored, failed, canceled
+and started in the original data set). At this point we had a 3:1 successful to 
+not successful ratio in the rows of the data sets. 
 
 In the non-downsampled data set, 74.43\% of the builds were successful, the rest were not
 successful.  This means that a classifier which guesses successful every time
 would produce a classification rate of 74.43\% if ran on the full data
 set. 
 
-To avoid this and have a 1:1 ratio successful to not successful, we created a separate data set where the
-successful builds were randomly selected until the number of successful builds
-equaled the number of not successful builds (downsampling process).\clg{How?}  We used both the
-downsampled and non-downsampled data sets in our results to show the difference of the behavior of the decision tree when it is trained with a equal ratio than when it is trained with a non equal ratio.
+To avoid this and have a 1:1 ratio successful to not successful, we created a 
+separate data set where the
+successful builds were a random sub-sample of successful builds were selected
+such that the number of successful builds equaled the number of failing builds,
+known as downsampling.  We used 
+both the downsampled and non-downsampled data sets in our results to show the 
+difference of the behavior of the decision tree when it is trained with a equal 
+ratio than when it is trained with a non equal ratio.
 
 
 \section{Evaluation}
@@ -710,8 +729,8 @@ downsampled and non-downsampled data sets in our results to show the difference 
 \end{tabular}
 \\
 \center
-  \caption{Comparison of predictive power by running 10
-    fold cross validation of two decision trees with a non-downsampled dataset (2nd and 3rd column) and downsampled (4th and 5th column). The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}}   
+  \caption{Comparison of predictive power by running 10-fold
+    cross validation of two decision trees with a non-downsampled dataset (2nd and 3rd column) and downsampled (4th and 5th column). The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}}   
 \end{table*}
 
 We evaluated the predictive power of the social factors using a decision
@@ -721,11 +740,12 @@ attributes to predict a final class.  The predicted class is represented as the
 leaves, while the attribute decisions used in the prediction cause the
 different branches.
 In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
-with default settings. The decision trees were evaluated using ten fold cross 
+with default settings. The decision trees were evaluated using 10-fold cross 
 validation with the data in each data set.
 To give an answer to main research question: ``Do social attributes, gathered 
 from the Github profiles of developers,
-allow for more accurate predictions than only using technical data?", we present the following results:
+allow for more accurate predictions than only using technical data?", we 
+present the following results:
 
 \subsection{Success Classification}
  
@@ -733,7 +753,8 @@ allow for more accurate predictions than only using technical data?", we present
 
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
-default Weka J48 decision tree algorithm, first without downsampling. The decision tree built from
+default Weka J48 decision tree algorithm, first without downsampling. The 
+decision tree built from
 only the technical indicators has a correct classification rate of 77.01\% which
 means the technical attributes only increased the prediction accuracy by about 3\%.
 Adding the social data increased the classifier's accuracy from 77.01\% to
@@ -743,18 +764,20 @@ On the downsampled data, the decision tree created from the technical attributes
 had a classification accuracy of 64.10\%, when predicting a successful build in
 all instances would produce 50.00\% accuracy.  After including the social data
 in the data set, the classifier correctly predicted 76.09\% of the data set,
-about a 12\% improvement from only the technical data
+about a 12\% improvement from only the technical data.  These results show that
+social data can be used to improve predictions of build integration success.
 
 \subsection{Build success by core team member}
 
-For the build success investigation,\clg{Is this a different investigation than
-  the previous subsection?}  we classified the build success rate for
-core team members and non-core team members.  We found that core team members
+To determine if core team member's have greater build success rates,
+we classified the build success rate for
+core team members and non-core team members in the data set without 
+downsampling.  We found that core team members
 triggered of 89.39\% of the builds in the data set and 75.58\% of those builds
-passed.  Non-core team members triggered 10.61\% of the builds in the\clg{which?} data set
-and 64.70\% of the builds passed.
+passed.  Non-core team members triggered 10.61\% of the builds in the data set
+and 64.70\% of the builds passed.  This shows that core team members are more
+likely to have a successful build integration than non-core team members.
 
-\clg{upshot?}
 
 
 \subsection{Follower effect on build success}
@@ -762,7 +785,8 @@ and 64.70\% of the builds passed.
 We also investigated if developers with followers were more likely to have a
 successful build integration, since have followers may be seen as vouching for
 the developer's abilities.  We specifically investigated if a developer with 
-followers was more likely to pass the build.  We found that only 0.87\% of the
+followers was more likely to pass the build in the data set without 
+downsampling.  We found that only 0.87\% of the
 contributions in the data set was performed by developers with zero 
 followers (excluding the developers in which we were not able to extract profile
 information for). We found that 99.13\% of the contributions were performed by
@@ -774,9 +798,9 @@ the time.
 We also investigated developers with a large number of followers (1000 or more
 followers).  We found that 6.94\% of the contributions in the data set were
 performed by developers with 1000 or more followers.  We found that these
-contributions had a 78.61\% success rate.
+contributions had a 78.61\% success rate.  These results show that developers
+with more followers are more likely to have a successful integration build.
 
-\clg{upshot?}
 
 
 \subsection{Discussion}
@@ -800,8 +824,8 @@ Developers with over 1000 followers had more than a 10\% increase compared to
 developers with no followers.  This shows that higher quality developers are more
 likely to have a large number of followers.
 
-\clg{connection back to theory?}
-
+Overall, this shows that while experience is not a perfect indicator, more
+experienced developers are more likely to make high quality project commits.
 
 \section{Threats to validity}
 
@@ -835,10 +859,10 @@ The researchers in this study used the dataset provided by the
 \paragraph{Construct validity}
  Travis job success is not the only way to analyze the success of a commit, and 
  that for different reasons the job may not be successful even if the code 
- commited does not have flaws (a flacky test case for example). Since continuous 
+ committed does not have flaws (a flacky test case for example). Since continuous 
  integration is a best known practice in industry and the use of this methodology 
  spreads out into the open source community, we consider that cases of misuse of 
- CI such that it will lead to failing travis jobs when they should have actually 
+ CI such that it will lead to failing Travis jobs when they should have actually 
  be successful are minimum, specially since having a solid build is one of the 
  main purposes of the methodology, and taking into account that the projects in 
  out dataset are projects with a history of using continuous integration and 
@@ -853,7 +877,11 @@ Afterwards, we have gathered social attributes from the developers who pushed ea
 and we have augmented our dataset with these attributes to understand whether adding social information about the developer would help the decision tree predict with higher accuracy future 
 instances.
 
-Our results show that adding social data to the construction of the decision tree increases the probability this correctly predicting future commit's success in integrating into their corresponding projects by a margin of 4.09\% to 11.99\%, depending on the ratio of successful vs unsuccessful instances are used to train the desicion tree.
+Our results show that adding social data to the construction of the decision 
+tree increases the probability this correctly predicting future commit's success 
+in integrating into their corresponding projects by a margin of 4.09\% to 
+11.99\%, depending on the ratio of successful vs unsuccessful instances are 
+used to train the decision tree.
 
 
 We have also found that non-core contributors cause not successful builds more
