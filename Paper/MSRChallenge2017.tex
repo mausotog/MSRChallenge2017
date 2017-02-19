@@ -466,10 +466,6 @@ Success; Social Coding
 
 
 \section{Introduction}
-\clg{detail nitpick: ``et al.'' has a paragraph after the al. (and not the et).
-  This is something I write about in the blog post you all claim to have read.
-  Please fix it throughout.}
-
 For managers of an open source project, it is important to ensure that the
 project consists of high quality contributions.  The decision to include code in
 a project has been described as a meritocracy, where only the code is a factor
@@ -522,21 +518,21 @@ developer in their integration practices.
 Similar studies have shown the relationship between different attributes and 
 different measures of success: pull request acceptance~\cite{gousios14, 
 gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
-Tsay et al~\cite{tsay14icse} performed a very relevant study where they 
+Tsay et al.~\cite{tsay14icse} performed a very relevant study where they 
 determine that the social connection between the developer who is asking the 
 pull request and the integrators is a key factor torwards acceptance of a pull 
 request. Unlike this previous study, in our study we look at a broader aspect of 
 social aspects and how this attributes towards the success in Travis
 CI jobs.\footnote{https://docs.travis-ci.com/user/customizing-the-build} 
-Gousios et al~\cite{gousios14} study the relationship between the area of the 
+Gousios et al.~\cite{gousios14} study the relationship between the area of the 
 source code being modified by the developer requesting the changes to be pulled 
 and the acceptance rate of these changes is highly correlated. Also existence of 
 tests and overall code quality~\cite{gousios15} are attributes that have a 
 strong relationship with the acceptance rate of a pull request. Bettenburgh et 
 al~\cite{bettenburgh10} discuss the impact of social interactions with 
-post-release defects, Vasilescu et al~\cite{vasilescu14} explored how different 
+post-release defects, Vasilescu et al.~\cite{vasilescu14} explored how different 
 project characteristics (programming language, project age, etc.) affect commit 
-success when integrated to the automatic build process. Yu et al~\cite{yu16} 
+success when integrated to the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in Github and its correlation with software 
 quality. Unlike the works previously listed, our study focuses on independent social 
 attributes and how these relate to the success of the integration of a commit 
@@ -555,15 +551,11 @@ following the Goal-Question-Metric (GQM) methodology descibed by Basili et
 al~\cite{Basili84}.
 
 \paragraph{Goal}
-The goal of this study is to identify and understand relationships 
+The goal of this study is to identify and understand the relationship 
 between the several different social properties that estimate the
-developer's experience, and the likelihood of a developer's commit
+developer's experience such as contributions in the last year, repositories participated, stars, etc., technical properties, such as files added and modified, and the likelihood of a developer's commit
 to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
-\clg{I might recommend a paragraph at the top of this section defining at a high
-  level the key terms, like ``technical elements'' versus ``social factors.''
-  You do concretize them in the next section, but conceptually here they're a
-  little bit UBD.}
 
 \paragraph{Question}
 Previous studies have identified a relationship between technical and social 
@@ -574,11 +566,11 @@ developers and integrators another tool to be able to identify the quality
 of a contribution performed by a particular developer.
 
 Therefore our main research question is presented as follows:
-\newline \newline
+
 \textbf{Do social attributes, gathered 
 from the Github profiles of developers,
 allow for more accurate predictions than only using technical data?}
-\newline \newline
+
 
 Depending on the results of this question, we can further explore which
 attributes are most important for predicting build integration success.
@@ -605,42 +597,28 @@ predict with higher accuracy the success of unseen commits.
 \section{Building Dataset}
 \label{approach}
 
-\clg{Perhaps it makes sense to break this down into subsections?}
-
 To investigate our research questions, we built a data set based on the 
-attributes that consisted of both technical and social factors. For the technical factors, we collected
+attributes that consisted of both technical and social factors. 
+
+\textbf{Technical Factors:} For the technical factors, we collected
 these from the data set provided by the MSR Challenge~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
-complexity and the build status as listed below:\clg{The listed terms don't mean
-  anything on their own; they're clearly grabbed from code.  Please rename them
-  to something descriptive (in English) and give a quick definition of each.
-  Even better is if you give some insight as to why they might be meaningful in
-  your theory (or not).}
-\begin{itemize}
+complexity such as the size of the changes being performed as listed below:\begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
-\item git\_diff\_src\_churn 
-\item gh\_diff\_files\_added 
-\item gh\_diff\_files\_deleted 
-\item gh\_diff\_files\_modified 
-\item gh\_diff\_tests\_added 
-\item gh\_diff\_tests\_deleted 
-\item gh\_diff\_src\_files 
-\item gh\_sloc 
-\item tr\_status 
+\item Source churn: How many lines of code were changed by the new commit in this build.
+\item Files added: How many files were added by this commit.
+\item Files deleted: How many files were deleted by this commit.
+\item Files modified: How many files were modified by this commit.
+\item Tests added: How many tests were added by this commit.
+\item Tests deleted: How many tests were deleted by this commit.
+\item Source files: Number of files in the new commits. 
+\item Source loc: Number of executable source lines of code, in the entire repository.
+\item Travis status: Status of the travis build.
 \end{itemize}
 
-As a result of extracting just these particular technical attributes, the new
-data set is conformed by a  big number of repeated rows, which would slow down
-the process of collecting the social data for each of these rows, therefore, at
-this point we removed the repeated rows and continued to collect the social
-attributes from the developers who pushed the commits.\clg{I'm afraid this
-  sentence/paragraph isn't parsing for me.  Please rephrase, clarify, expand,
-  and add precision.  Also break into multiple sentences, because it's really
-  really long, which doesn't help.  To start, I think the word ``conformed'' is
-  not what you mean.}
 
-To collect the social data, we created a web scraper to extract the social data
+\textbf{Social Factors:} To collect the social data, we created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
 set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page
@@ -653,43 +631,35 @@ commit hashes.
 % \newline \newline
 
 We scraped the commit author's
-\textit{username} from a commit page. If the scrapper\clg{you mean ``scraper''
-  not ``scrapper''; I fixed it once but you should fix it everywhere else.} was able to find username, the
+\textit{username} from a commit page. If the scraper was able to find username, the
 scraper went to the user's profile information
 (\textit{https://github.com/\textbf{UserName}}). 
 
-The scrapper then extracted the following items from the user's
-profile.\clg{slightly better than the above for technical factors because you do
-  define them in the text below but I think integrating into the itemized list
-  would be better.  Also, what does each of these mean?}
-\begin{itemize}
-\item Repositories
-\item Stars
-\item Followers
-\item Following
-\item Contributions in the last year
-\end{itemize}
+The scraper then extracted the following items from the user's
+profile.
 
-Repositories represents the repositories the developer has access to. This 
+\begin{itemize}
+\item Repositories: the repositories the developer has access to. This 
 includes where the developer is the repository owner,where the developer is a 
 collaborator, and repositories that the developer can access through an 
-organization membership.\footnote{https://developer.github.com/v3/repos/} Stars 
-represents a count of the projects the developer has stared. Starring  a project
+organization membership.\footnote{https://developer.github.com/v3/repos/}
+\item Stars: a count of the projects the developer has stared. Starring  a project
 means to showing approval of the repository and creating a bookmark for later 
-access.\footnote{https://help.github.com/articles/about-stars/} Followers and 
-Following detail the number of developers that are following and being followed 
-by the developer in question. Finally, the last attribute studied is the number 
-of contributions made by the developer in the last year. 
+access.\footnote{https://help.github.com/articles/about-stars/}
+\item Followers: number of developers that that are following the author. 
+\item Following: number of developers that that are being followed by the author.
+\item Contributions in the last year: Number of contributions made by the author in the last year.
+\end{itemize}
 
-We also added one item from the original\clg{...what?} data set to the social factors:
+
+We also added one item from the original data set provided by the MSR Challenge to the social factors:
 gh\_by\_core\_team\_member.
 This factor indicates if the developer making a contribution is a core member 
 of that project.
 
-We used this data to create two data sets.  One with only the technical
+\textbf{Comparing two data sets:} We used the social data gathered to create two data sets: one with only the technical
 factors and the build status, and another with both the technical and social
-factors along with the build status.\clg{This is not a complete
-  sentence.}\clg{also: why do you build two data sets?}
+factors, this is to be able to compare how well can the job status be predicted by just technical data, and adding social data.
 
 The data set used in this study~\cite{msr17challenge} is very diverse 
 and consists of commits that date from far back. The social data we 
@@ -698,19 +668,21 @@ using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
 three years of the data set's release (2014,2015,2016).  While this is not
 perfect, we believe that these numbers are unlikely to have changed
-significantly in the last three years.\clg{...did you spot check?}
+significantly in the last three years.\clg{...did you spot check? RESPONSE: Spot check that they did belong to those years? Yeah}
 
-After building the data set, we converted the\clg{which?} various Travis build statuses to
-successful (passed in the\clg{which?} data set) or not successful (errored, failed, canceled
-and started in the data set).  This still left a big discrepancy in the two
-categories, with about a 3:1 successful to not successful ratio.\clg{I think I'm
-  having ah ard time here because it's not clear which dataset we're referring
-  to, but I don't understand the previous sentence, and thus don't understand
-  the next sentence.} To avoid having
-this discrepancy alter our results, we created a separate data set where the
+Since we are interested in the success of the job status of each row, we converted the Travis build statuses to just two possible values,
+successful (passed in the original provided data set) and not successful (errored, failed, canceled
+and started in the original data set). At this point we had a 3:1 successful to not successful ratio in the rows of the data sets. 
+
+In the non-downsampled data set, 74.43\% of the builds were successful, the rest were not
+successful.  This means that a classifier which guesses successful every time
+would produce a classification rate of 74.43\% if ran on the full data
+set. 
+
+To avoid this and have a 1:1 ratio successful to not successful, we created a separate data set where the
 successful builds were randomly selected until the number of successful builds
 equaled the number of not successful builds (downsampling process).\clg{How?}  We used both the
-downsampled and non-downsampled data sets in our results.\clg{Why?}
+downsampled and non-downsampled data sets in our results to show the difference of the behavior of the decision tree when it is trained with a equal ratio than when it is trained with a non equal ratio.
 
 
 \section{Evaluation}
@@ -718,7 +690,7 @@ downsampled and non-downsampled data sets in our results.\clg{Why?}
 \begin{table*}[ht]
 \centering
 \begin{tabular}{l||r|r||r|r}
-  & \multicolumn{2}{|c||}{Original number of instances}  & \multicolumn{2}{|c}{Downsampled} \\
+  & \multicolumn{2}{|c||}{Non-Downsampled}  & \multicolumn{2}{|c}{Downsampled} \\
 \hline
   & Technical & Technical and Social & Technical & Technical and Social \\
 \hline
@@ -726,11 +698,11 @@ downsampled and non-downsampled data sets in our results.\clg{Why?}
 
 \textbf{Incorrectly Classified Instances}&  22.99\% & 18.90\% & 35.90\% & 23.91\%\\
 
-\textbf{Kappa statistic}& 0.21 &  0.42 & 0.28  & 0.52 \\
+%\textbf{Kappa statistic}& 0.21 &  0.42 & 0.28  & 0.52 \\
 
-\textbf{Mean absolute error}& 0.34 &  0.28 & 0.43 & 0.32\\
+%\textbf{Mean absolute error}& 0.34 &  0.28 & 0.43 & 0.32\\
 
-\textbf{Relative absolute error}& 88.64\% & 72.42\%  & 85.35\% & 63.07\%\\
+%\textbf{Relative absolute error}& 88.64\% & 72.42\%  & 85.35\% & 63.07\%\\
 \hline
 \textbf{Increase when adding social attributes}& \multicolumn{2}{|c||}{4.09\%}  & \multicolumn{2}{|c}{11.99\%}\\
 
@@ -738,20 +710,9 @@ downsampled and non-downsampled data sets in our results.\clg{Why?}
 \end{tabular}
 \\
 \center
-  \caption{ Second and third columns: Comparison of performance when running 10
-    fold cross validation\clg{We've discussed this phrasing surrounding 10-fold cross
-      validation.  Please fix.  What is the metric here?  How do I interpret
-      these numbers?} of two decision trees. The first column after
-    the first double bar uses only technical attributes to predict the Travis
-    Job status, the second column augments the data set with social
-    attributes. Fourth and fifth columns: \clg{this sentence is not a
-      sentence/is a bit awkward.} The same intuition as the previous
-    two, with the difference that the data set was downsampled to provide the
-    same number of successful and unsuccessful instances.\clg{...and what is the
-    takeaway from this table?} \clg{Small thing: labels should be inside the
-    caption otherwise the numbers sometimes get confused.  It's a stupid latex thing.}  \label{resultsTable}} 
+  \caption{Comparison of predictive power by running 10
+    fold cross validation of two decision trees with a non-downsampled dataset (2nd and 3rd column) and downsampled (4th and 5th column). The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}}   
 \end{table*}
-
 
 We evaluated the predictive power of the social factors using a decision
 tree~\cite{Quinlan86}.
@@ -762,38 +723,27 @@ different branches.
 In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
 with default settings. The decision trees were evaluated using ten fold cross 
 validation with the data in each data set.
-
-\clg{I killed the separation between ``evaluation'' and ``results'' because I
-  don't know why it existed in the first place.}
-\clg{I also wouldn't mind an enumeration of research questions; the stuff in
-  design (section 2) is high level and it's not obvious where you're going to go
-  at this juncture.}
+To give an answer to main research question: ``Do social attributes, gathered 
+from the Github profiles of developers,
+allow for more accurate predictions than only using technical data?", we present the following results:
 
 \subsection{Success Classification}
  
  
-In the original data set, 74.43\% of the builds were successful, the rest were not
-successful.  This means that a classifier which guesses successful every time
-would produce a classification rate of 74.43\% if ran on the full data
-set. \clg{This sentence migth be better place above, when you first discuss subsampling.}
+
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
-default Weka J48 decision tree algorithm. The decision tree built from
+default Weka J48 decision tree algorithm, first without downsampling. The decision tree built from
 only the technical indicators has a correct classification rate of 77.01\% which
 means the technical attributes only increased the prediction accuracy by about 3\%.
 Adding the social data increased the classifier's accuracy from 77.01\% to
-81.10\%, about a 4\% increase.\clg{It's not clear from this text that you're
-  talking about the unsampled data.}
+81.10\%, a 4.09\% increase.
 
 On the downsampled data, the decision tree created from the technical attributes
 had a classification accuracy of 64.10\%, when predicting a successful build in
 all instances would produce 50.00\% accuracy.  After including the social data
 in the data set, the classifier correctly predicted 76.09\% of the data set,
-about a 12\% improvement from only the technical data.
-
-\clg{...upshot? Also: there are various numbers in the Table that aren't
-  discussed or explained either in the caption or in these results, like, what's
-  a Kappa statistic, and what do we learn from them?}
+about a 12\% improvement from only the technical data
 
 \subsection{Build success by core team member}
 
@@ -835,7 +785,7 @@ Overall, we have found that social attributes which proxy experience produce a
 noticeable increase in predicting build success.  While the increase was noticeable 
 with the full data set, there was a much greater increase in prediction
 accuracy after performing downsampling. These results show that social factors
-as the ones studied in this paper are important\clg{...maybe a strong word?} predictors when
+as the ones studied in this paper are significant predictors when
 evaluating the predictive power of build commit success.
 
 The build success by core team member results show that core team members are
@@ -855,7 +805,7 @@ likely to have a large number of followers.
 
 \section{Threats to validity}
 
-\paragraph{Internal validity:}
+\paragraph{Internal validity}
 The researchers in this study used the dataset provided by the 
  MSRChallenge~\cite{msr17challenge} to gain useful information regarding the 
  behavior of developers when pushing commits and how well these commits integrate 
@@ -871,7 +821,7 @@ The researchers in this study used the dataset provided by the
  scripts to obtain the developer social data are publicly available to facilitate 
  the transparency and quality of the process(Will be made available after double blind review).%\footnote{https://goo.gl/CqTX44}
 
-\paragraph{External validity:} 
+\paragraph{External validity} 
  To tackle the concern that the results of this study might not generalize to 
  other instances outside of the studied cases, we have used a broad and rich 
  dataset~\cite{msr17challenge} in our analysis that comprises 1,359 projects. The 
@@ -882,7 +832,7 @@ The researchers in this study used the dataset provided by the
  dataset comprehending a wide diversity of projects, the threat of this analysis 
  not generalizing to other projects is mitigated.
 
-\paragraph{Construct validity:}
+\paragraph{Construct validity}
  Travis job success is not the only way to analyze the success of a commit, and 
  that for different reasons the job may not be successful even if the code 
  commited does not have flaws (a flacky test case for example). Since continuous 
@@ -947,8 +897,6 @@ The acknowledgments will be added for the camera ready version.
 %H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 %  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 %\end{thebibliography}
-
-\clg{per my email: fix the bibliography. Now.} 
 
 \bibliographystyle{plain}
 \bibliography{MSRChallenge2017}  % sigproc.bib is the name of the Bibliography in this case
