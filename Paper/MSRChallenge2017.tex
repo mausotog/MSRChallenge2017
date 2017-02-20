@@ -628,7 +628,13 @@ models with 10-fold cross validation.
 To investigate our research questions, we built a data set based on the 
 attributes that consisted of both technical and social factors. 
 
-\textbf{Technical Factors:} We collected these factors from the 
+\todo{I would like both attribute description subsections better if they
+  provided a sentence (or a half sentence) of intuition explaining why the
+  proposed factors might be correlated with build success.  Maybe not one
+  sentence per factor (since some might be repetitive), but some epxlanation on
+  the underlying intuition or theory.}
+
+\paragraph{Technical Factors:} We collected these factors from the 
 MSR Challenge data set~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
 complexity, such as the size of the changes being performed.  The technical
@@ -647,8 +653,7 @@ factors used are listed below:
 \item Travis status: status of the Travis build integration.
 \end{itemize}
 
-
-\textbf{Social Factors:} To collect the social data, we created a web scraper to extract the social data
+\paragraph{Social Factors:} To collect the social data, we created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
 set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page
@@ -673,6 +678,7 @@ profile.
 includes repositories the developer owns, repositories the developer contributes
 to, and repositories for which the developer has organizational membership access.
 \footnote{https://developer.github.com/v3/repos/}
+\todo{Is this a count, or what?}
 \item Stars: a count of the projects the developer has stared. Starring a project
 to shows approval of the repository and creates  a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/}
@@ -685,7 +691,9 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 We also added one item from the MSR Challenge data set to the social factors that indicates if the commit's developer is a core member 
 of that project.
 
-\textbf{Comparing two data sets:} We used the social data gathered to create two data 
+\paragraph{Comparing two data sets:} We used the social data\todo{Confusing,
+  since you proceed to say you build a dataset with technical factors as well as
+  social factors.} gathered to create two data 
 sets: one with only the technical
 factors and the build status, and another with both the technical and social
 factors. We performed this split to analyze how well technical factors alone,
@@ -693,13 +701,13 @@ and then both technical and social
 factors predict build integration status.
 
 The data set used in this study~\cite{msr17challenge} is very diverse.
-and consists of commits from multiple years ago. The social data we 
+and consists of commits from multiple\todo{How many? Please be precise.} years ago. The social data we 
 gather is recent, gathered in January 2017. In an effort to mitigate the threat of
 using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
 three years of the data set's release (2014,2015,2016).  While this is not
 a perfect solution , we believe that these numbers are unlikely to have changed
-significantly in the last three years.
+significantly in the last three years.\todo{Why?}
 
 Since we are interested in the success of the job status of each contribution, we 
 converted the Travis build statuses to just two possible values,
@@ -713,8 +721,9 @@ successful.  This means that a classifier which guesses successful every time
 would produce a classification rate of 74.43\% if ran on the full data
 set. 
 
-The high ratio of successful to not successful builds cause the classifier to 
-favor misclassifying not successful builds over successful builds, because a 1\%
+The high ratio of successful to not successful builds leads a naive classifier to 
+favor misclassifying not successful\todo{everywhere you say ``not successful'',
+  replace with ``unsuccessful''.} builds over successful builds, because a 1\%
 misclassification rate in 3/4th of the data is greater than a 1\%
 misclassification rate in 1/4th of the data.  To penalize misclassification for
 both classes equally, we created a separate data set where the
@@ -768,10 +777,14 @@ In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
 with default settings. The decision trees were evaluated using 10-fold cross 
 validation with the data in each data set.
 
+\todo{Maybe a quick list of the 3--4 factors you actually look at?}
+
 \subsection{Success Classification}
 
+\todo{a better subsection heading might be ``Classification with and without
+  social factors.'', since all experiments look at success classification.}
 Table~\ref{resultsTable} shows the results of running the two data sets through the
-default Weka J48 decision tree algorithm, first without downsampling. The 
+default Weka J48 decision tree algorithm.  Without downsampling, the 
 decision tree shows an increase of 4.09\% correctly classified instances when adding social data. On the downsampled data, the decision tree created from the technical attributes
 had a classification accuracy of 64.10\%, which outperformed the baseline of
 guessing all builds passed (50.00\%).
@@ -781,10 +794,19 @@ about a 12\% improvement from only the technical data.  These results show that
 both technical and social data can be used to improve predictions of build 
 integration success.
 
-It is also worth noticing that in both cases the Kappa statistic increases when adding social data (100\% and 85\% respectively) which represents a more robust measure than Correctly classified instances, since it takes into account the correctly guessed instances occurring by chance, and we may also notice that the Mean absolute error decreases, giving stronger confidence to our claims when considering eventual outcomes.
+It is also worth noticing that in both cases the Kappa statistic increases when
+adding social data (100\% and 85\% respectively) which represents a more robust
+measure than Correctly classified instances\todo{Whenever you use a phrase that
+  is a key label in your data (like ``Correctly classified''), find a way to
+  typeset it differently so it scans as an important concept.  Quotes or Italics/emphasis
+  is fine.}, since it takes into account the
+correctly guessed instances occurring by chance, and we may also notice that the
+Mean absolute error decreases, giving stronger confidence to our claims when
+considering eventual outcomes. 
 
 \subsection{Build success by core team member}
 
+\todo{One sentence introducing this experiment.}
 To determine if core team member's have greater build success rates,
 we classified the build success rate for
 core team members and non-core team members in the data set without 
@@ -798,8 +820,10 @@ likely to have a successful build integration than non-core team members.
 
 \subsection{Follower effect on build success}
 
-We also investigated if developers with followers were more likely to have a
-successful build integration, since have followers may be seen as vouching for
+\todo{Maybe ``relationship with'' rather than ``effect on''?
+
+We also investigated whether developers with followers were more likely to have a
+successful build integration, since followers may be seen as vouching for
 the developer's abilities.  We specifically investigated if a developer with 
 followers was more likely to pass the build in the data set without 
 downsampling.  We found that only 0.87\% of the
@@ -821,7 +845,8 @@ with more followers are more likely to have a successful integration build.
 
 \subsection{Discussion}
 
-Overall, we have found that social attributes which proxy experience produce a 
+Overall, we have found that social attributes which proxy experience\todo{, such
+  as, example,} produce a 
 noticeable increase in predicting build success.  While the increase was noticeable 
 with the full data set, there was a much greater increase in prediction
 accuracy after performing downsampling. These results show that social factors
@@ -865,6 +890,7 @@ experienced developers are more likely to make high quality project commits.
  build the notion that since we are building our analysis on top of a vast 
  data set, the threat of this analysis 
  not generalizing to other projects is mitigated.
+\todo{mention the threat of the collapsing of data as you were discussing over email.}
 
 
 \section{Conclusion}
