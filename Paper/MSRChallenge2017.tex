@@ -677,23 +677,25 @@ of that project.
 \textbf{Comparing two data sets:} We used the social data gathered to create two data 
 sets: one with only the technical
 factors and the build status, and another with both the technical and social
-factors. We performed this split to analyze how well job status be predicted 
-by just technical factors, and then with additional social factors.
+factors. We performed this split to analyze how well technical factors alone,
+and then both technical and social
+factors predict build integration status.
 
-The data set used in this study~\cite{msr17challenge} is very diverse 
-and consists of commits that date from far back. The social data we 
+The data set used in this study~\cite{msr17challenge} is very diverse.
+and consists of commits from multiple years ago. The social data we 
 gather is recent, gathered in January 2017. In an effort to mitigate the threat of
 using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
 three years of the data set's release (2014,2015,2016).  While this is not
-perfect, we believe that these numbers are unlikely to have changed
+a perfect solution , we believe that these numbers are unlikely to have changed
 significantly in the last three years.\clg{...did you spot check? Mau's Response: Spot
 check that they did belong to those years? Yeah. Zack's Response: assuming you
 are asking a different question of if the values changed in the last three
 years, than no, we did not check because we weren't sure how.  What should we
 say here?}
 
-Since we are interested in the success of the job status of each row, we 
+\todo{Zack: Mau, check this first sentence}
+Since we are interested in the success of the job status of each commit, we 
 converted the Travis build statuses to just two possible values,
 successful (passed in the original provided data set) and not successful 
 (errored, failed, canceled
