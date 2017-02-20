@@ -667,8 +667,8 @@ of that project.
 \textbf{Comparing two data sets:} We used the social data gathered to create two data 
 sets: one with only the technical
 factors and the build status, and another with both the technical and social
-factors, this is to be able to compare how well can the job status be predicted 
-by just technical data, and adding social data.
+factors. We performed this split to analyze how well job status be predicted 
+by just technical factors, and then with additional social factors.
 
 The data set used in this study~\cite{msr17challenge} is very diverse 
 and consists of commits that date from far back. The social data we 
@@ -687,7 +687,9 @@ Since we are interested in the success of the job status of each row, we
 converted the Travis build statuses to just two possible values,
 successful (passed in the original provided data set) and not successful 
 (errored, failed, canceled
-and started in the original data set). At this point we had a 3:1 successful to 
+and started in the original data set). We also condensed down all passing and
+failing builds in a commit to a single pass or fail for each build status.
+At this point we had a 3:1 successful to 
 not successful ratio in the rows of the data sets. 
 
 In the non-downsampled data set, 74.43\% of the builds were successful, the rest were not
@@ -695,14 +697,18 @@ successful.  This means that a classifier which guesses successful every time
 would produce a classification rate of 74.43\% if ran on the full data
 set. 
 
-To avoid this and have a 1:1 ratio successful to not successful, we created a 
-separate data set where the
-successful builds were a random sub-sample of successful builds were selected
-such that the number of successful builds equaled the number of failing builds,
-known as downsampling.  We used 
+The high ratio of successful to not successful builds cause the classifier to 
+favor misclassifying not successful builds over successful builds, because a 1\%
+misclassification rate in 3/4th of the data is greater than a 1\%
+misclassification rate in 1/4th of the data.  To penalize misclassification for
+both classes equally, we created a separate data set where the
+successful builds equaled the number of not successful builds.  
+We build this data set by copying over all not successful builds and randomly
+selecting a sub-sample of the successful builds until the two build status were
+equal, known as downsampling.  We used 
 both the downsampled and non-downsampled data sets in our results to show the 
 difference of the behavior of the decision tree when it is trained with a equal 
-ratio than when it is trained with a non equal ratio.
+ratio than when it is trained with a unequal ratio.
 
 
 \section{Evaluation}
