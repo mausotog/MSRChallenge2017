@@ -694,13 +694,16 @@ are asking a different question of if the values changed in the last three
 years, than no, we did not check because we weren't sure how.  What should we
 say here?}
 
-\todo{Zack: Mau, check this first sentence}
+\todo{Zack: Mau, check this paragraph}
 Since we are interested in the success of the job status of each commit, we 
 converted the Travis build statuses to just two possible values,
 successful (passed in the original provided data set) and not successful 
 (errored, failed, canceled
 and started in the original data set). We also condensed down all passing and
-failing builds in a commit to a single pass or fail for each build status.
+failing builds in a commit to a single pass or fail for each build status.  If
+the commit contained both passing and failing build statuses, we removed the
+commit from the data set.
+\todo{confirm that this number doesn't change}
 At this point we had a 3:1 successful to 
 not successful ratio in the rows of the data sets. 
 
@@ -748,8 +751,11 @@ ratio than when it is trained with a unequal ratio.
 \end{tabular}
 \\
 \center
-  \caption{Comparison of predictive power by running 10-fold
-    cross validation of two decision trees with a non-downsampled dataset (2nd and 3rd column) and downsampled (4th and 5th column). The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}}   
+	\caption{\label{resultsTable}Comparison of predictive power by running 10-fold
+    cross validation of two decision trees with a non-downsampled dataset (2nd and 3rd column) and downsampled (4th and 5th column). 
+	%The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}
+	%Zack: the above sentence isn't true for the second row.
+	}   
 \end{table*}
 
 We evaluated the predictive power of the social factors using a decision
