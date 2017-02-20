@@ -648,7 +648,7 @@ commit hashes.
 % \newline \newline
 
 We scraped the commit author's
-\textit{username} from a commit page. If the scraper was able to find username, the
+\textit{username} from a commit page. If the scraper was able to find the username, the
 scraper went to the user's profile information
 (\textit{https://github.com/\textbf{UserName}}). 
 
@@ -657,21 +657,21 @@ profile.
 
 \begin{itemize}
 \item Repositories: the repositories the developer has access to. This 
-includes where the developer is the repository owner,where the developer is a 
-collaborator, and repositories that the developer can access through an 
-organization membership.\footnote{https://developer.github.com/v3/repos/}
-\item Stars: a count of the projects the developer has stared. Starring  a project
-means to showing approval of the repository and creating a bookmark for later 
+includes repositories the developer owns, repositories the developer contributes
+to, and repositories for which the developer has organizational membership access.
+\footnote{https://developer.github.com/v3/repos/}
+\item Stars: a count of the projects the developer has stared. Starring a project
+to shows approval of the repository and creates  a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/}
-\item Followers: number of developers that that are following the author. 
-\item Following: number of developers that that are being followed by the author.
-\item Contributions in the last year: Number of contributions made by the author in the last year.
+\item Followers: number of developers that follow the author. 
+\item Following: number of developers that the author follows 
+\item Contributions in the last year: number of contributions made by the author in the last year.
 \end{itemize}
 
 
 We also added one item from the MSR Challenge data set to the social factors:
 gh\_by\_core\_team\_member.
-This factor indicates if the developer making a contribution is a core member 
+This factor indicates if the commit's developer is a core member 
 of that project.
 
 \textbf{Comparing two data sets:} We used the social data gathered to create two data 
