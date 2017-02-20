@@ -893,24 +893,16 @@ The researchers in this study used the dataset provided by the
  for success when integrating a commit into a larger project.
 
 \section{Conclusion}
-In this study we have analyzed the probability of Travis job success as being predicted by two different categories of attributes: Technical and Social data.
-We gathered the attributes that describe complexity of each commit being pushed and have created a decision tree that predicts if a future pushed commit will be successfully integrated into its corresponding build or not.
-Afterwards, we have gathered social attributes from the developers who pushed each of these commits
-and we have augmented our dataset with these attributes to understand whether adding social information about the developer would help the decision tree predict with higher accuracy future 
-instances.
+In this study we have analyzed how technical and social factors can be used to
+predict high quality contributions.  We have found that these factors provide
+insight when predicting the success of a build with a technical factors leading
+to a 14\% increase in predictive power, and another 12\% increase when
+incorporating social factors into the prediction.
 
-Our results show that adding social data to the construction of the decision 
-tree increases the probability this correctly predicting future commit's success 
-in integrating into their corresponding projects by a margin of 4.09\% to 
-11.99\%, depending on the ratio of successful vs unsuccessful instances are 
-used to train the decision tree.
-
-
-We have also found that non-core contributors cause not successful builds more
-than core contributors.  This leads us to believe that non-core contributions
-are not inspected as closely as they should be.  We have also found that having
-a follower, and especially a large follower base, can be an indicator of build
-integration success. 
+We have also found that being a core contributor and having a large follower
+base can be an indicator of build integration success.
+These results provide evidence that more experienced
+developers are more likely to generate a high quality contribution.
 
 % conference papers do not normally have an appendix
 
