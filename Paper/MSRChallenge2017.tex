@@ -470,50 +470,55 @@ Success; Social Coding
 For managers of an open source project, it is important to ensure that the
 project consists of high quality contributions.  The decision to include code in
 a project has been described as a meritocracy, where only the code is a factor
-in the decision~\cite{Scacchi07}.  However, to better understand successful 
-project contributions, we must take into consideration and analyze 
-different social attributes from the developers creating the commits,
-which can be great predictors for the success of a contribution.
+in the decision~\cite{Scacchi07}.  Yet, as social coding sites continue to get
+more users and specific projects become more popular, projects receive more
+community contributions.  As the number of contributions to a project increase,
+the project must dedicate more time to vetting these contributions. 
 
 Over the years, the open source
 community has developed various techniques to vet project contributions, such as pull
-requests which must be approved by a core team member~\cite{gousios14}. 
-These kinds of mechanisms benefit in substancial part by knowing into which 
-aspects to look for as predictors of the quality of the contribution being made. 
+requests which must be approved by a core team member~\cite{gousios14}. Another
+contribution mechanism these projects use is continuous
+integration, which notifies the team members if a change caused a test 
+failure~\cite{Meyer14}.
+Yet, these methods can become a bottleneck.
+To avoid a possible bottleneck, it would be beneficial to prioritize certain
+contributions.  This prioritize can be achieved with predictors of the
+contribution's quality.
 
+
+Past projects have shown that both technical factors, which describe the commit
+and the project receiving the commit, and social factors, which describe the
+developer making the commit, have been found useful when predicting a
+contribution's quality~\cite{tsay14icse,tsay14fse}.
 In this study we analyze a large set of technical and social attributes 
-and how these can be used to
-add certainty to the probability of a contribution being successful or not. 
-Our corpus is based on the entries of a large number of open source projects
-using continuous integration. Continuous integration automatically checks
-the contribution against the project's test cases, to notify the development
-team if the change caused a test case failure~\cite{Meyer14}. The
-projects using continuous integration provide quality standard barriers such as
-test cases which will cause the build to break if the commit does not perform
-accordingly to the standards. When a change
-passes these vetting techniques, it shows that the project developers
-have confidence in the changes, therefore, allowing us to analyze the success
-of the contributions made by passing the quality standards created by the 
-core developers of each project.
+and how these can be used to predict a contributions quality, measured by the
+success of build integration jobs.
+We performed this analysis with a large corpus of open source projects
+which incorporated continuous integration in their development practice. 
+When a contribution to these projects pass integration tests, 
+it shows that the project developers
+have confidence in the changes. 
+Thus, we can use the build integration status of the commit as documentation of
+the commit's quality.
 
-In past studies, both technical factors and social factors have been found to be
-important when predicting pull request success~\cite{tsay14icse,tsay14fse}.
-In this study we are interested in analyzing the quality of a contribution 
-at a lower granulairity level, commit level. We will analyze this in the 
-context of continuous integration, using some of the social attributes provided
-by GitHub as a proxy for the developer's experience level and familiarity with
-the process, and their importance when grouped with technical attributes of the commit as 
-confounds for the complexity of the commit being pushed. 
+While past studies have analyzed pull request
+success~\cite{tsay14icse,tsay14fse}, we are interested in analyzing the quality 
+of a contribution 
+at a lower granulairity level: individual commits. \todo{Zack question for Mau:
+did we really do the investigation at the individual commit level?} 
+We analyzed commits in the 
+context of continuous integration, using the technical factors found in the 
+some of the social attributes provided in the challenge
+corpus~\cite{msr17challenge}, and the social factors found on a developer's
+GitHub profile.  We used the technical factors to estimate the complexity of the
+commit, and the social factors to estimate the developer's experience.
 
-The knowledge obtained by 
-analyzing how much impact social characteristics have on the success of a commit 
-integration will help developers further understand what social attributes are 
-better proxies for experience and coding excellence; and it will also help code 
-integrators and core team members to know how to prioritize pull requests coming 
-from different developers, which of them may have a higher probability of 
-integration success based not only on the technical difficulty of the 
-integration, but also on social factors that determine the expertise of the 
-developer in their integration practices.
+
+This study investigates how well different technical and social factors predict
+commit quality.  This information will help core team members prioritize project
+contributions.  It will also provide a further understand of quality enforcement
+in the software development process.
 
 \textbf{Related work:}
 Similar studies have shown the relationship between different attributes and 
