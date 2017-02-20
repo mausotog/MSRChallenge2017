@@ -600,8 +600,8 @@ being pushed but also social attributes of the developer pushing the changes.
 We measure quality software contributions by based on the build status of the
 commit: if the build passes or fails.
 To determine which factors are important for predicting build success, we used
-a decision tree classifier, because decision tress are well a tested supervised 
-classifier that are easy to interpret.
+a decision tree classifier~\cite{Quinlan86}, because decision tress are well a 
+tested supervised classifier that are easy to interpret.
 To explore the question of technical and social factors, we first build a
 decision tree classifier using only the technical factors.  This first model
 allowed us to understand how well commit complexity estimated build integration
@@ -757,9 +757,10 @@ ratio than when it is trained with a unequal ratio.
 	%Zack: the above sentence isn't true for the second row.
 	}   
 \end{table*}
-
-We evaluated the predictive power of the social factors using a decision
-tree~\cite{Quinlan86}.
+To give an address to main research question: ``Do social attributes, gathered 
+from the GitHub profiles of developers,
+allow for more accurate predictions than only using technical data?", we 
+created a decision tree classifier~\cite{Quinlan86}.
 Decision trees are a predictive model which uses binary decisions on the
 attributes to predict a final class.  The predicted class is represented as the
 leaves, while the attribute decisions used in the prediction cause the
@@ -767,30 +768,26 @@ different branches.
 In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
 with default settings. The decision trees were evaluated using 10-fold cross 
 validation with the data in each data set.
-To give an answer to main research question: ``Do social attributes, gathered 
-from the GitHub profiles of developers,
-allow for more accurate predictions than only using technical data?", we 
-present the following results:
 
 \subsection{Success Classification}
- 
- 
-
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
 default Weka J48 decision tree algorithm, first without downsampling. The 
 decision tree built from
 only the technical indicators has a correct classification rate of 77.01\% which
-means the technical attributes only increased the prediction accuracy by about 3\%.
+means the technical attributes only increased the prediction accuracy by about 3\%
+compared to a base line rate of guessing the build passed in all cases.
 Adding the social data increased the classifier's accuracy from 77.01\% to
 81.10\%, a 4.09\% increase.
 
 On the downsampled data, the decision tree created from the technical attributes
-had a classification accuracy of 64.10\%, when predicting a successful build in
-all instances would produce 50.00\% accuracy.  After including the social data
+had a classification accuracy of 64.10\%, which outperformed the baseline of
+guessing all builds passed (50.00\%).
+ After including the social data
 in the data set, the classifier correctly predicted 76.09\% of the data set,
 about a 12\% improvement from only the technical data.  These results show that
-social data can be used to improve predictions of build integration success.
+both technical and social data can be used to improve predictions of build 
+integration success.
 
 \subsection{Build success by core team member}
 
@@ -798,7 +795,7 @@ To determine if core team member's have greater build success rates,
 we classified the build success rate for
 core team members and non-core team members in the data set without 
 downsampling.  We found that core team members
-triggered of 89.39\% of the builds in the data set and 75.58\% of those builds
+triggered 89.39\% of the builds in the data set and 75.58\% of those builds
 passed.  Non-core team members triggered 10.61\% of the builds in the data set
 and 64.70\% of the builds passed.  This shows that core team members are more
 likely to have a successful build integration than non-core team members.
@@ -816,7 +813,7 @@ contributions in the data set was performed by developers with zero
 followers (excluding the developers in which we were not able to extract profile
 information for). We found that 99.13\% of the contributions were performed by
 developers with at least one or more followers.
-We found that developers with 0 followers had a successful build commit 68.49\%
+Developers with 0 followers had a successful build commit 68.49\%
 of the time.  Developers with one or more followers were successful 74.78\% of
 the time.
 
