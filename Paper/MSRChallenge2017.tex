@@ -468,72 +468,90 @@ Success; Social Coding
 
 \section{Introduction}
 For managers of an open source project, it is important to ensure that the
-project consists of high quality contributions.  The decision to include code in
-a project has been described as a meritocracy, where only the code is a factor
-in the decision~\cite{Scacchi07}.  Yet, as social coding sites continue to get
-more users and specific projects become more popular, projects receive more
+project consists of high quality contributions.  As social coding sites attract
+more users and projects become more popular, they receive ever more
 community contributions.  As the number of contributions to a project increase,
 the project must dedicate more time to vetting these contributions. 
-
+%
 Over the years, the open source
 community has developed various techniques to vet project contributions, such as pull
 requests which must be approved by a core team member~\cite{gousios14}. 
-These methods can become a bottleneck, and to avoid a possible bottleneck, it is beneficial to prioritize certain
-contributions.  This prioritization can be achieved with predictors of the
+These methods can become a bottleneck, and thus it is beneficial to prioritize certain
+contributions.  This prioritization can be achieved with predictors of a
 contribution's quality.
 
-Past projects have shown that both technical factors, which describe the commit
+The decision to include code in
+a project has been described as a meritocracy, where only the code is a factor
+in the decision~\cite{Scacchi07}.
+However, past research 
+has shown that both technical factors, which describe the commit
 and the project receiving the commit, and social factors, which describe the
 developer making the commit, have been found useful when predicting a
-contribution's quality~\cite{tsay14icse,tsay14fse}.
-In this study we analyze a large set of technical and social attributes 
+contribution's quality~\cite{tsay14icse,tsay14fse}.\todo{One or two more
+  sentences, either here or earlier in the paragraph (between the first and
+  second sentence), about why social factors might be interesting to study, or informative.}
+
+This previous work has focused on the predicted acceptance of \emph{pull requests}. 
+By contrast,  we are interested in analyzing the quality 
+of a contribution in the context of continuous integration. \todo{What's the
+  difference, and why might it matter? Why is CI interesting or different as
+  compared to pull requests?(one sentence or so).} Thus, we propose to analyze the
+success every time a developer pushes a contribution to be built. 
+In this study, we analyze a large set of technical and social attributes 
 and how these can be used to predict a contributions quality, measured by the
 success of build integration jobs.
-We performed this analysis with a large corpus of open source projects
+We performed this analysis on a large corpus of open source projects
 which incorporated continuous integration in their development practice. 
-When a contribution to these projects pass integration tests, 
-it shows that the project developers
-have confidence in the changes. 
+When a contribution to these projects passes integration tests, 
+it suggests that the project developers
+might have confidence in the changes. 
 Thus, we can use the build integration status of the commit as documentation of
 the commit's quality.
 
-While past studies have analyzed pull request
-success~\cite{tsay14icse,tsay14fse}, we are interested in analyzing the quality 
-of a contribution in the context of continuous integration, we analyze the success every time a developer pushes a contribution to be built.
-We analyzed contributions in the 
+In particular, we analyzed contributions in the 
 context of continuous integration, using the technical factors found in
-some of the social attributes provided in the challenge
+some\todo{First: don't use the word some basically ever.  Second: I'm not sure
+  what it means to analyze technical factors found in social attributes.  Maybe rephrase?} of the social attributes provided in the challenge
 corpus~\cite{msr17challenge}, and the social factors found on a developer's
 GitHub profile.  We used the technical factors to estimate the complexity of the
 commit, and the social factors to estimate the developer's experience.
-
-
-This study investigates how well different technical and social factors predict
-contribution quality.  This information will help core team members prioritize project
+Overall, our study investigates how well different technical and social factors predict
+contribution quality.\todo{One sentence summary of results}  This information can help core team members prioritize project
 contributions, and will also provide a further understand of quality enforcement
 in the software development process.
 
 \textbf{Related work:}
-Similar studies have shown the relationship between different attributes and 
+Similar studies have shown the relationship between different\todo{which?
+  Social, technical?  Both?} attributes and 
 different measures of success: pull request acceptance~\cite{gousios14, 
 gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
-Tsay et al.~\cite{tsay14icse} performed a very relevant study where they 
-determine that the social connection between the developer who is asking the 
-pull request and the integrators is a key factor towards acceptance of a pull 
-request. Unlike this previous study, in our study we look at a broader aspect of 
-social aspects and how this attributes towards the success in Travis
-CI jobs.\footnote{https://docs.travis-ci.com/user/customizing-the-build} 
+Tsay et al.~\cite{tsay14icse} \todo{Read and delete this comment: one of you has
+  a habit of saying something like ``...performed a very relevant study where
+  they...'' in describing previous work.  This is needlessly wordy.  You can
+  write the exact same sentence, more or less (I changed ``determine'' to
+  ``show'', ``find'' might also work) without that clause} 
+show that the social connection between the developer initiating a
+pull request and the project integrators is a key factor towards acceptance of a pull 
+\todo{I think you mean something like ``in predicting acceptance'', not
+  ``towards''; do they argue causality?}
+request. Unlike this previous study, in our study, we look at a broader aspect of 
+social aspects and how this attributes\todo{wrong word (as in, this is a noun as
+  used); I'm not sure what you mean so I can't fix it.}towards the success in Travis
+CI jobs.\todo{Again, why are CI jobs interesting?  If you answre it appropriatey
+  above you may not need to say it again here.} \footnote{https://docs.travis-ci.com/user/customizing-the-build} 
 Gousios et al.~\cite{gousios14} study the relationship between the area of the 
-source code being modified by the developer requesting the changes to be pulled 
-and the acceptance rate of these changes is highly correlated. Also existence of 
+source code being modified by the developer initiating a pull request 
+and the acceptance rate of these changes is highly correlated.\todo{The
+  preceding sentence is not grammatical.  Please fix.} Also existence of 
 tests and overall code quality~\cite{gousios15} are attributes that have a 
-strong relationship with the acceptance rate of a pull request. Bettenburgh et 
+strong relationship with the acceptance rate of a pull request.\todo{the
+  previous sentence is not a sentence.} Bettenburgh et 
 al.~\cite{bettenburgh10} discuss the impact of social interactions with 
-post-release defects, Vasilescu et al.~\cite{vasilescu14} explored how different 
+post-release defects, Vasilescu et al.~\cite{vasilescu14} explore how different 
 project characteristics (programming language, project age, etc.) affect commit 
-success when integrated to the automatic build process. Yu et al.~\cite{yu16} 
+success when integrated to\todo{wrong word} the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in GitHub and its correlation with software 
-quality. Unlike the works previously listed, our study focuses on independent social 
+quality. Unlike the works previously listed, we focus on independent social 
 attributes and how these relate to the success of the integration of a commit 
 pushed by the developer being described by these social attributes.
 
@@ -542,7 +560,9 @@ these factors alone do not fully predict if a contribution will be successfully
 integrated into the project. We also show
 that core team members are more likely to achieve build success than non-core
 team members and a developer with followers is more likely to pass the
-continuous integration build.
+continuous integration build.\todo{This paragraph doesn't really belong in the
+  related work; I might move it above, near where I have a todo asking for a
+  summary of results.}
 
 \section{Research Design}
 
