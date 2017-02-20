@@ -559,10 +559,11 @@ al.~\cite{Basili84}.
 
 \paragraph{Goal}
 The goal of this study is to identify and understand the relationship 
-between the several different social properties that estimate the
-developer's experience such as contributions in the last year, repositories 
-participated, stars, etc., technical properties, such as files added and 
-modified, and the likelihood of a developer's commit
+between the social factors that describe the
+developer's experience (stars, followers, etc.) and technical properties that
+describe the commit's complexity
+(files added, files modified, etc.)
+when predicting the likelihood a developer's commit
 to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
 
@@ -596,38 +597,41 @@ being pushed but also social attributes of the developer pushing the changes.
 
 
 \paragraph{Metric}
-Because decision trees are well tested supervised classifiers and easy to interpret, we used a decision
-tree classifier to create models which predict build integration success. 
-The first model was generated with only
-the technical factors, that provide insight on the complexity of the commit, 
-to understand how well technical factors predicted build
-success.  We then added the social factors to the technical factors to determine
-the influence of additional social factors on predicting build success.
-We evaluate the predictive power of these two 
-models with 10-fold cross validation and determine the effects of adding social
-factors when predicting build integration success.
-
+We measure quality software contributions by based on the build status of the
+commit: if the build passes or fails.
+To determine which factors are important for predicting build success, we used
+a decision tree classifier, because decision tress are well a tested supervised 
+classifier that are easy to interpret.
+To explore the question of technical and social factors, we first build a
+decision tree classifier using only the technical factors.  This first model
+allowed us to understand how well commit complexity estimated build integration
+success.  We then added the social factors to understand how the social factors
+integrated with the technical factors when predicting build integration success.
+We evaluated the predictive power of these two 
+models with 10-fold cross validation.
 \section{Building Dataset}
 \label{approach}
 
 To investigate our research questions, we built a data set based on the 
 attributes that consisted of both technical and social factors. 
 
-\textbf{Technical Factors:} For the technical factors, we collected
-these from the data set provided by the MSR Challenge~\cite{msr17challenge}.
+\textbf{Technical Factors:} We collected these factors from the 
+MSR Challenge data set~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
-complexity such as the size of the changes being performed as listed below:\begin{itemize}
+complexity, such as the size of the changes being performed.  The technical
+factors used are listed below:
+\begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
-\item Source churn: How many lines of code were changed by the new commit in this build.
-\item Files added: How many files were added by this commit.
-\item Files deleted: How many files were deleted by this commit.
-\item Files modified: How many files were modified by this commit.
-\item Tests added: How many tests were added by this commit.
-\item Tests deleted: How many tests were deleted by this commit.
-\item Source files: Number of files in the new commits. 
-\item Source loc: Number of executable source lines of code, in the entire repository.
-\item Travis status: Status of the travis build.
+\item Source churn: lines of code changed by this commit
+\item Files added: files added by this commit
+\item Files modified: files modified by this commit
+\item Tests added: tests added by this commit
+\item Tests deleted: tests deleted by this commit
+\item Source files: files in project at the time of the commit
+\item Source loc: lines of source code in the project at
+	the time of the commit.
+\item Travis status: status of the Travis build integration
 \end{itemize}
 
 
