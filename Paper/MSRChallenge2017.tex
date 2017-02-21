@@ -483,20 +483,20 @@ contribution's quality.
 The decision to include code in
 a project has been described as a meritocracy, where only the code is a factor
 in the decision~\cite{Scacchi07}.
-However, past research 
-has shown that both technical factors, which describe the commit
-and the project receiving the commit, and social factors, which describe the
-developer making the commit, have been found useful when predicting a
-contribution's quality~\cite{tsay14icse,tsay14fse}.\todo{One or two more
-  sentences, either here or earlier in the paragraph (between the first and
-  second sentence), about why social factors might be interesting to study, or informative.}
+While one would think that only the complexity of the commit is important, past
+studies have shown that the developer making the commit is also an important
+indicator when investigating contribution quality~\cite{tsay14icse, tasy14fse}.
+Thus, both technical factors, which describe the complexity of the commit, and
+social factors, which describe the developer's experience, are important when
+investigating contribution quality.
 
 This previous work has focused on the predicted acceptance of \emph{pull requests}. 
 By contrast,  we are interested in analyzing the quality 
-of a contribution in the context of continuous integration. \todo{What's the
-  difference, and why might it matter? Why is CI interesting or different as
-  compared to pull requests?(one sentence or so).} Thus, we propose to analyze the
-success every time a developer pushes a contribution to be built. 
+of a contribution in the context of continuous integration.  While pull requests
+quality is determined through manual inspection, continuous integration quality
+is automatically determined through test cases, and thus approach the problem of
+quality determination differently.
+We investigate the factors involved in continuous integration build success.
 In this study, we analyze a large set of technical and social attributes 
 and how these can be used to predict a contributions quality, measured by the
 success of build integration jobs.
@@ -711,7 +711,7 @@ significantly in the last three years.\todo{Why?}
 
 Since we are interested in the success of the job status of each contribution, we 
 converted the Travis build statuses to just two possible values,
-successful (passed in the original provided data set) and not successful 
+successful (passed in the original provided data set) and unsuccessful 
 (errored, failed, canceled
 and started in the original data set). We also condensed down all passing and
 failing builds in a commit to a single pass or fail for each build status.  If
@@ -721,14 +721,13 @@ successful.  This means that a classifier which guesses successful every time
 would produce a classification rate of 74.43\% if ran on the full data
 set. 
 
-The high ratio of successful to not successful builds leads a naive classifier to 
-favor misclassifying not successful\todo{everywhere you say ``not successful'',
-  replace with ``unsuccessful''.} builds over successful builds, because a 1\%
+The high ratio of successful to unsuccessful builds leads a naive classifier to 
+favor misclassifying unsuccessful builds over successful builds, because a 1\%
 misclassification rate in 3/4th of the data is greater than a 1\%
 misclassification rate in 1/4th of the data.  To penalize misclassification for
 both classes equally, we created a separate data set where the
-successful builds equaled the number of not successful builds.  
-We build this data set by copying over all not successful builds and randomly
+successful builds equaled the number of unsuccessful builds.  
+We build this data set by copying over all unsuccessful builds and randomly
 selecting a sub-sample of the successful builds until the two build status were
 equal, a process known as downsampling.  We used 
 both the downsampled and non-downsampled data sets in our results to show the 
