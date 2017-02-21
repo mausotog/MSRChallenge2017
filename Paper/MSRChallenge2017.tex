@@ -439,10 +439,10 @@ social factors involved in a commit.
 Specifically, we investigated if social factors (such as being a
 core member of the development team, having a large number of followers,
 or contributing a large number of commits) improve predictions of build
-success.  We found that while social factors cause a noticeable increase
-in predictive power (12\%), further investigation into these factors are
-required.\todo{drop the post-comma clause and instead summarize the specific
-  effects we investigated (contributor, followers, etc).}
+success.  We found that social factors cause a noticeable increase
+in predictive power (12\%), core team members are more likely to pass the build
+tests (10\%), and users with 1000 or more follower are more likely to
+pass the build tests (10\%).
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -535,10 +535,7 @@ request. Unlike this previous study, in our study, we look at a broader aspect o
 social aspects, and focus on predicting the success in Travis
 CI jobs.Gousios et al.~\cite{gousios14} found that the change location of a commit was
 an important indicator in the acceptance rate of those commits by the project.
-Also, the inclusion of test cases with a commit has been shown to increase the
-commit's acceptance rate~\cite{gousios15}.\todo{Zack - Mau check that the
-previous sentence is correct.  I am just guessing by what you had earlier RESPONSE: Zack, I can't find what it used to say. You can just remove the sentence}.
-tests and overall code quality~\cite{gousios15} are attributes that have a 
+Tests and overall code quality~\cite{gousios15} are attributes that have a 
 strong relationship with the acceptance rate of a pull request.
  Bettenburgh et 
 al.~\cite{bettenburgh10} discuss the impact of social interactions with 
