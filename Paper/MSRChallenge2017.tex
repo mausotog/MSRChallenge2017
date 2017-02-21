@@ -633,7 +633,7 @@ attributes that consisted of both technical and social factors.
   sentence per factor (since some might be repetitive), but some epxlanation on
   the underlying intuition or theory.}
 
-\paragraph{Technical Factors:} We collected these factors from the 
+\paragraph{Technical Factors} We collected these factors from the 
 MSR Challenge data set~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
 complexity, such as the size of the changes being performed.  The technical
@@ -652,7 +652,7 @@ factors used are listed below:
 \item Travis status: status of the Travis build integration.
 \end{itemize}
 
-\paragraph{Social Factors:} To collect the social data, we created a web scraper to extract the social data
+\paragraph{Social Factors} To collect the social data, we created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
 set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page
@@ -689,15 +689,15 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 We also added one item from the MSR Challenge data set to the social factors that indicates if the commit's developer is a core member 
 of that project.
 
-\paragraph{Comparing two data sets:} We compiled all the gather data into 
+\paragraph{Comparing two data sets} We compiled all the gather data into 
 two data sets: one with only the technical
 factors and the build status, and another with both the technical and social
 factors and the build status. We performed this split to analyze how well technical factors alone,
 and then both technical and social
 factors predict build integration status.
 
-The data set used in this study~\cite{msr17challenge} is very diverse.
-and consists of commits from multiple\todo{How many? Please be precise.} years ago. The social data we 
+The data set used in this study~\cite{msr17challenge} is very diverse,
+and consists of commits that date as far back as 2011. The social data we 
 gather is recent, gathered in January 2017. In an effort to mitigate the threat of
 using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
@@ -772,10 +772,8 @@ validation with the data in each data set.
 
 \todo{Maybe a quick list of the 3--4 factors you actually look at?}
 
-\subsection{Success Classification}
+\subsection{Classification with and without social factors}
 
-\todo{a better subsection heading might be ``Classification with and without
-  social factors.'', since all experiments look at success classification.}
 Table~\ref{resultsTable} shows the results of running the two data sets through the
 default Weka J48 decision tree algorithm.  Without downsampling, the 
 decision tree shows an increase of 4.09\% correctly classified instances when adding social data. On the downsampled data, the decision tree created from the technical attributes
