@@ -537,7 +537,7 @@ CI jobs.Gousios et al.~\cite{gousios14} found that the change location of a comm
 an important indicator in the acceptance rate of those commits by the project.
 Also, the inclusion of test cases with a commit has been shown to increase the
 commit's acceptance rate~\cite{gousios15}.\todo{Zack - Mau check that the
-previous sentence is correct.  I am just guessing by what you had earlier}.
+previous sentence is correct.  I am just guessing by what you had earlier RESPONSE: Zack, I can't find what it used to say. You can just remove the sentence}.
 tests and overall code quality~\cite{gousios15} are attributes that have a 
 strong relationship with the acceptance rate of a pull request.
  Bettenburgh et 
@@ -546,9 +546,8 @@ post-release defects, Vasilescu et al.~\cite{vasilescu14} explore how different
 project characteristics (programming language, project age, etc.) affect commit 
 success when integrated into the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in GitHub and its correlation with software 
-quality. Unlike the works previously listed, we focus on independent social 
-attributes and how these relate to the success of the integration of a commit 
-pushed by the developer being described by these social attributes.
+quality. By contrast, we focus on the relationship between independent social 
+attributes and continuous integration success. 
 
 \section{Research Design}
 
@@ -568,16 +567,16 @@ to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
 
 \vspace{1ex}
-
 \noindent\textbf{Question.}
-Previous studies have identified a relationship between technical and social 
-factors and pull request acceptance. We are interested in understanding if
+%Previous studies have identified a relationship between technical and social 
+%factors and pull request acceptance. 
+We are interested in understanding whether
 social factors, used as a proxy for experience, can be used to predict
 a different success measure: commit integration success, therefore giving
 developers and integrators another tool to be able to identify the quality
 of a contribution performed by a particular developer.
 %
-Therefore our main research question, upon which we can build by investigating particular attributes, is:
+Our main research question, upon which we can build by investigating particular attributes, is:
 
 \textbf{Do social attributes, gathered 
 from the GitHub profiles of developers,
@@ -594,18 +593,16 @@ being pushed but also social attributes of the developer pushing the changes.
 \end{comment}
 
 \vspace{1ex}
-\noindent\textbf{Metric.} We measure quality software contributions by based on the build status of the
-commit: if the build passes or fails.
-To determine which factors are important for predicting build success, we used
-a decision tree classifier~\cite{Quinlan86}, because decision tress are well a 
-tested supervised classifier that are easy to interpret.
-To explore the question of technical and social factors, we first build a
-decision tree classifier using only the technical factors.  This first model
-allowed us to understand how well commit complexity estimated build integration
-success.  We then added the social factors to understand how the social factors
-integrated with the technical factors when predicting build integration success.
-We evaluated the predictive power of these two 
-models with 10-fold cross validation.
+\noindent\textbf{Metric.} We measure quality software contributions based on the build status of the
+commit. We used a decision tree classifier~\cite{Quinlan86} to identify
+important factors in predicting build success;  decision tress are well
+established  and interpretable. 
+We first build a
+decision tree classifier using only technical factors, which highlights
+the degree to which commit complexity predicts build integration
+success.  We then added the social factors to identify the degree to which they
+add predictive power to a the initial technical model. 
+We use 10-fold cross validation across our evaluation. 
 
 \section{Building Dataset}
 \label{approach}
