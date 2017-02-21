@@ -607,15 +607,15 @@ We use 10-fold cross validation across our evaluation.
 \section{Building Dataset}
 \label{approach}
 
-To investigate our research questions, we built a data set based on the 
-attributes that consisted of both technical and social factors. 
+We built a data set of
+attributes consisting of both technical and social factors:
 
-\paragraph{Technical Factors} We collected these factors from the 
+\vspace{1ex}
+\noindent\textbf{Technical Factors} We collected technical factors from the 
 MSR Challenge data set~\cite{msr17challenge}.
-We extracted only the attributes in the data set that proxy the commit's
-complexity, such as the size of the changes being performed.  
-The technical
-factors used are listed below:
+We extracted only the attributes in the data set that proxy a commit's
+complexity, such as commit size. 
+The technical factors used are:
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
@@ -634,7 +634,8 @@ The first five factors represent the changes caused by the commit.  The next two
 factors cover the size of the project.  These factors represent the complexity
 of the change, and the complexity of the project incorporating the change. 
 
-\paragraph{Social Factors} To collect the social data, we created a web scraper to extract the social data
+\vspace{1ex}
+\noindent\textbf{Social Factors} To collect the social data, we created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
 set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page
@@ -648,11 +649,9 @@ commit hashes.
 
 We scraped the commit author's
 \textit{username} from each commit page, and then
-collected user's public profile information. 
+collected the following from the user's public profile information:
 %(\textit{https://github.com/\textbf{UserName}}). 
 %
-The scraper then extracted the following items from the user's
-profile.
 
 \begin{itemize}
 \item Repositories: a count of the repositories the developer has access to. This 
@@ -667,32 +666,35 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 \item Contributions in the last year: number of contributions made by the author in the last year.
 \end{itemize}
 
-These social factors are all factors that are tied to a GitHub user's profile.
-These factors are likely to increase as developers spend more time on the site
-and gain more open source experience.  Thus, we use them as a proxy for
+
+These social factors are all factors that are tied to a GitHub user's profile
+and that are generally correlated with user time and engagement with the site.
+Thus, we use them as a proxy for
 experience.
+We also added one item from the MSR Challenge data set, indiating
+whether the commit's developer is a core member  
+of the associated project.
 
-
-We also added one item from the MSR Challenge data set to the social factors that indicates if the commit's developer is a core member 
-of that project.
-
-\paragraph{Comparing two data sets} We compiled all the gather data into 
+\vspace{1ex}
+\noindent\textbf{Comparing two data sets.} We compiled the gathered data into 
 two data sets: one with only the technical
-factors and the build status, and another with both the technical and social
+factors and the build status, and another with both technical and social
 factors and the build status. We performed this split to analyze how well technical factors alone,
 and then both technical and social
 factors predict build integration status.
 
-The data set used in this study~\cite{msr17challenge} is very diverse,
-and consists of commits that date as far back as 2011. The social data we 
+Our data set~\cite{msr17challenge} is very diverse, consisting
+of commits that date as far back as 2011. The social data we 
 gather is recent, gathered in January 2017. In an effort to mitigate the threat of
 using future result to predict previous events,
 we removed the commits in the data set that were not performed within the last
-three years of the data set's release (2014,2015,2016).  This is with the intuition that the social attributes are more likely to have similar values in the most recent years than if we were to consider the whole time span of the projects in the data set.
+three years of the data set's release (2014--2016).  Our intuition is
+that the social attributes are less likely to have substantively changed over a
+recent time span. 
 
 Since we are interested in the success of the job status of each contribution, we 
-converted the Travis build statuses to just two possible values,
-successful (passed in the original provided data set) and unsuccessful 
+converted all Travis build statuses to two possible values:
+\emph{successful} (passed in the original provided data set) and \emph{unsuccessful}
 (errored, failed, canceled
 and started in the original data set). We also condensed down all passing and
 failing builds in a commit to a single pass or fail for each build status.  If
