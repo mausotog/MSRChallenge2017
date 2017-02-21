@@ -79,6 +79,7 @@
 \usepackage[usenames,dvipsnames]{color}
 \newcommand{\todo}[1]
   {{\scriptsize \textbf{\color{red} {#1}}}}
+
 %\newcommand{\todo}[1] {}
 \newcommand{\clg}[1]
   {{\scriptsize \textbf{\color{blue} {CLG says: #1}}}}
@@ -700,8 +701,9 @@ classifer that always guesses ``successful'' would succeed 74.43\% of the time.
 To penalize misclassification for
 both classes equally, we created a second balanced dataset by randomly 
 sub-sampling the successful builds until the two build status were
-equal, a process known as downsampling.  We show results on both the 
-downsampled and non-downsampled data sets.
+equal, a process known as downsampling.  We train on the down-sampled data but show results on both 
+downsampled and non-downsampled data sets.\todo{CLG says: that last sentence is
+  true, right?}
 
 \section{Evaluation}
 \begin{table*}[ht]
@@ -841,35 +843,32 @@ experienced developers are more likely to make high quality project commits.
 \section{Threats to validity}
 
 %\paragraph{Internal validity}
- The authors used 
- Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/} the well known tool for 
- usage of machine learning algorithms to analyze our datasets. We are aware that, 
- as every human written tool, Weka is prone to contain errors and/or bugs; 
- nonetheless, Weka is a broadly used, open source tool that is subject to high 
- quality standards and a vast user and developer base which makes it more likely 
- to be a high quality code and to have less bugs than lesser used tools.
- 
+We use Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, a well known machine-learning tool,
+to analyze our data.
+Like all tools, Weka is prone to contain errors and/or bugs. 
+Nonetheless, Weka is a well-known used, open source tool, and as such is likely
+to be of relatively high quality, mitigating threats to internal validity. 
+
  The scripts we have created to adapt and extract the datasets we needed, and the 
  scripts to obtain the developer social data are publicly available to facilitate 
  the transparency and quality of the process (Will be available after double blind review).%\footnote{https://goo.gl/CqTX44}
 
 %\paragraph{External validity} 
- To tackle the concern that the results of this study might not generalize to 
- other instances outside of the studied cases, we have used a broad and rich 
- dataset~\cite{msr17challenge} in our analysis that comprises 1,359 popular projects, which help to 
- build the notion that since we are building our analysis on top of a vast 
- data set, the threat of this analysis 
- not generalizing to other projects is mitigated.
-
+Our results might not generalize to 
+ other instances outside of the studied cases.  To mitigate this risk, we have used a broad and rich 
+ dataset~\cite{msr17challenge} in our analysis, comprising 1,359 popular projects.
  Other concerns of the study include the possibility that the social factors
  have changed significantly in the past three years, the collapsing of a
  commit's build success to a single successful build and unsuccessful build
  distorted the results, and the possibility that unsuccessful builds were due to
- incorrect test cases and not low quality contributions.
+ incorrect test cases and not low quality contributions.\todo{...and?  Something
+   like ``future work remains to assess the degree of these threats'' will do.}
 
 \section{Conclusion}
-In this study we have analyzed how technical and social factors can be used to
-predict high quality contributions.  We have found that these factors provide
+
+We have analyzed how technical and social factors can be used to
+predict high quality open source contributions, as measured by continuous
+integration build success.  We have found that these factors provide
 insight when predicting the success of a build with a technical factors leading
 to a 14\% increase in predictive power, and another 12\% increase when
 incorporating social factors into the prediction.
