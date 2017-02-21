@@ -502,8 +502,7 @@ which incorporated continuous integration in their development practice.
 When a contribution to these projects passes integration tests, 
 it suggests that the project developers
 might have confidence in the changes. 
-Thus, we can use the build integration status of the commit as documentation of
-the commit's quality.
+Thus, we use the commit's build integration status as a proxy for its quality.
 
 In particular, we analyzed contributions in the 
 context of continuous integration, using the technical factors and one social
@@ -516,14 +515,15 @@ contribution quality. This information can help core team members prioritize pro
 contributions, and will also provide a further understand of quality enforcement
 in the software development process.
 
-Our study shows that social factors are an important aspect of build success but
+We find that social factors are an important aspect of build success but
 these factors alone do not fully predict if a contribution will be successfully 
-integrated into the project. We also show
+integrated into the project. We find
 that core team members are more likely to achieve build success than non-core
-team members and a developer with followers is more likely to pass the
+members, and that developers with more followers are more likely to submit commits that pass the
 continuous integration build.
 
-\textbf{Related work:}
+\vspace{1ex}
+\noindent\textbf{Related work:}
 Similar studies have shown the relationship between both social and technical attributes attributes and 
 different measures of success: pull request acceptance~\cite{gousios14, 
 gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
@@ -556,7 +556,8 @@ We present the approach taken to guide this study by
 following the Goal-Question-Metric (GQM) methodology described by Basili et 
 al.~\cite{Basili84}.
 
-\paragraph{Goal}
+\vspace{1ex}
+\noindent\textbf{Goal.}
 The goal of this study is to identify and understand the relationship 
 between the social factors that describe the
 developer's experience (stars, followers, etc.) and technical properties that
@@ -566,23 +567,21 @@ when predicting the likelihood a developer's commit
 to be considered successfully integrated in the project. We define successful
 integration as passing the continuous integration build tests in the project.
 
-\paragraph{Question}
+\vspace{1ex}
+
+\noindent\textbf{Question.}
 Previous studies have identified a relationship between technical and social 
 factors and pull request acceptance. We are interested in understanding if
 social factors, used as a proxy for experience, can be used to predict
 a different success measure: commit integration success, therefore giving
 developers and integrators another tool to be able to identify the quality
 of a contribution performed by a particular developer.
-
-Therefore our main research question is presented as follows:
+%
+Therefore our main research question, upon which we can build by investigating particular attributes, is:
 
 \textbf{Do social attributes, gathered 
 from the GitHub profiles of developers,
 allow for more accurate predictions than only using technical data?}
-
-
-Depending on the results of this question, we can further explore which
-attributes are most important for predicting build integration success.
 
 \begin{comment}
 we have created a dataset with technical attributes to be able to analyze the 
@@ -594,9 +593,8 @@ correctly future instances by knowing not only technical data about the commit
 being pushed but also social attributes of the developer pushing the changes.
 \end{comment}
 
-
-\paragraph{Metric}
-We measure quality software contributions by based on the build status of the
+\vspace{1ex}
+\noindent\textbf{Metric.} We measure quality software contributions by based on the build status of the
 commit: if the build passes or fails.
 To determine which factors are important for predicting build success, we used
 a decision tree classifier~\cite{Quinlan86}, because decision tress are well a 
@@ -608,6 +606,7 @@ success.  We then added the social factors to understand how the social factors
 integrated with the technical factors when predicting build integration success.
 We evaluated the predictive power of these two 
 models with 10-fold cross validation.
+
 \section{Building Dataset}
 \label{approach}
 
@@ -651,10 +650,10 @@ commit hashes.
 % \newline \newline
 
 We scraped the commit author's
-\textit{username} from a commit page. If the scraper was able to find the username, the
-scraper went to the user's profile information
-(\textit{https://github.com/\textbf{UserName}}). 
-
+\textit{username} from each commit page, and then
+collected user's public profile information. 
+%(\textit{https://github.com/\textbf{UserName}}). 
+%
 The scraper then extracted the following items from the user's
 profile.
 
@@ -930,6 +929,8 @@ The acknowledgments will be added for the camera ready version.
 %H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 %  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 %\end{thebibliography}
+
+\todo{It is not acceptable to only use the shortened venue name.  Also, bilbiography entries are missing venues again; fix it.}
 
 \bibliographystyle{plain}
 \bibliography{MSRChallenge2017}  % sigproc.bib is the name of the Bibliography in this case
