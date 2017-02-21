@@ -616,15 +616,15 @@ The technical factors used are:
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
-\item Source churn: a count of the lines of code changed by this commit.
-\item Files added: a count of the files added by this commit.
-\item Files modified: a count of the files modified by this commit.
-\item Tests added: a count of the tests added by this commit.
-\item Tests deleted: a count of the tests deleted by this commit.
-\item Source files: a count of the files in project at the time of the commit.
-\item Source loc: a count of the lines of source code in the project at
+\item Source churn, changed lines of code.
+\item Files added by this commit.
+\item Files modified by this commit.
+\item Tests added by this commit.
+\item Tests deleted by this commit.
+\item Total source files in project at the time of the commit.
+\item Source lines of source code in the project at
 	the time of the commit.
-\item Travis status: status of the Travis build integration.
+\item Travis status, or status of the Travis build integration.
 \end{itemize}
 
 The first five factors represent the changes caused by the commit.  The next two
@@ -651,9 +651,9 @@ collected the following from the user's public profile information:
 %
 
 \begin{itemize}
-\item Repositories: a count of the repositories the developer has access to. This 
-includes repositories the developer owns, repositories the developer contributes
-to, and repositories for which the developer has organizational membership access.
+\item Repositories: number of repositories the developer can access, including those
+the developer owns, contributes
+to, and for which the developer has organizational membership access.%
 \footnote{https://developer.github.com/v3/repos/}
 \item Stars: a count of the projects the developer has stared. Starring a project
 to shows approval of the repository and creates  a bookmark for later 
