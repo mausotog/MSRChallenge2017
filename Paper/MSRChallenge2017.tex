@@ -614,16 +614,11 @@ models with 10-fold cross validation.
 To investigate our research questions, we built a data set based on the 
 attributes that consisted of both technical and social factors. 
 
-\todo{I would like both attribute description subsections better if they
-  provided a sentence (or a half sentence) of intuition explaining why the
-  proposed factors might be correlated with build success.  Maybe not one
-  sentence per factor (since some might be repetitive), but some epxlanation on
-  the underlying intuition or theory.}
-
 \paragraph{Technical Factors} We collected these factors from the 
 MSR Challenge data set~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy the commit's
-complexity, such as the size of the changes being performed.  The technical
+complexity, such as the size of the changes being performed.  
+The technical
 factors used are listed below:
 \begin{itemize}
 %\item tr\_original\_commit
@@ -638,6 +633,10 @@ factors used are listed below:
 	the time of the commit.
 \item Travis status: status of the Travis build integration.
 \end{itemize}
+
+The first five factors represent the changes caused by the commit.  The next two
+factors cover the size of the project.  These factors represent the complexity
+of the change, and the complexity of the project incorporating the change. 
 
 \paragraph{Social Factors} To collect the social data, we created a web scraper to extract the social data
 from developer's profiles.
@@ -671,6 +670,11 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 \item Following: number of developers that the author follows 
 \item Contributions in the last year: number of contributions made by the author in the last year.
 \end{itemize}
+
+These social factors are all factors that are tied to a GitHub user's profile.
+These factors are likely to increase as developers spend more time on the site
+and gain more open source experience.  Thus, we use them as a proxy for
+experience.
 
 
 We also added one item from the MSR Challenge data set to the social factors that indicates if the commit's developer is a core member 
