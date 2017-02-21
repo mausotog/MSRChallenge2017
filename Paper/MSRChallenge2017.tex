@@ -516,9 +516,16 @@ corpus~\cite{msr17challenge}, and the social factors found on a developer's
 GitHub profile.  We used the technical factors to estimate the complexity of the
 commit, and the social factors to estimate the developer's experience.
 Overall, our study investigates how well different technical and social factors predict
-contribution quality.\todo{One sentence summary of results}  This information can help core team members prioritize project
+contribution quality. This information can help core team members prioritize project
 contributions, and will also provide a further understand of quality enforcement
 in the software development process.
+
+Our study shows that social factors are an important aspect of build success but
+these factors alone do not fully predict if a contribution will be successfully 
+integrated into the project. We also show
+that core team members are more likely to achieve build success than non-core
+team members and a developer with followers is more likely to pass the
+continuous integration build.
 
 \textbf{Related work:}
 Similar studies have shown the relationship between different\todo{which?
@@ -539,30 +546,22 @@ social aspects and how this attributes\todo{wrong word (as in, this is a noun as
   used); I'm not sure what you mean so I can't fix it.}towards the success in Travis
 CI jobs.\todo{Again, why are CI jobs interesting?  If you answre it appropriatey
   above you may not need to say it again here.} \footnote{https://docs.travis-ci.com/user/customizing-the-build} 
-Gousios et al.~\cite{gousios14} study the relationship between the area of the 
-source code being modified by the developer initiating a pull request 
-and the acceptance rate of these changes is highly correlated.\todo{The
-  preceding sentence is not grammatical.  Please fix.} Also existence of 
+Gousios et al.~\cite{gousios14} found that the change location of a commit was
+an important indicator in the acceptance rate of those commits by the project.
+Also, the inclusion of test cases with a commit has been shown to increase the
+commit's acceptance rate~\cite{gousios15}.\todo{Zack - Mau check that the
+previous sentence is correct.  I am just guessing by what you had earlier}.
 tests and overall code quality~\cite{gousios15} are attributes that have a 
-strong relationship with the acceptance rate of a pull request.\todo{the
-  previous sentence is not a sentence.} Bettenburgh et 
+strong relationship with the acceptance rate of a pull request.
+ Bettenburgh et 
 al.~\cite{bettenburgh10} discuss the impact of social interactions with 
 post-release defects, Vasilescu et al.~\cite{vasilescu14} explore how different 
 project characteristics (programming language, project age, etc.) affect commit 
-success when integrated to\todo{wrong word} the automatic build process. Yu et al.~\cite{yu16} 
+success when integrated into the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in GitHub and its correlation with software 
 quality. Unlike the works previously listed, we focus on independent social 
 attributes and how these relate to the success of the integration of a commit 
 pushed by the developer being described by these social attributes.
-
-Our study shows that social factors are an important aspect of build success but
-these factors alone do not fully predict if a contribution will be successfully 
-integrated into the project. We also show
-that core team members are more likely to achieve build success than non-core
-team members and a developer with followers is more likely to pass the
-continuous integration build.\todo{This paragraph doesn't really belong in the
-  related work; I might move it above, near where I have a todo asking for a
-  summary of results.}
 
 \section{Research Design}
 
@@ -642,13 +641,13 @@ factors used are listed below:
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
-\item Source churn: lines of code changed by this commit.
-\item Files added: files added by this commit.
-\item Files modified: files modified by this commit.
-\item Tests added: tests added by this commit.
-\item Tests deleted: tests deleted by this commit.
-\item Source files: files in project at the time of the commit.
-\item Source loc: lines of source code in the project at
+\item Source churn: a count of the lines of code changed by this commit.
+\item Files added: a count of the files added by this commit.
+\item Files modified: a count of the files modified by this commit.
+\item Tests added: a count of the tests added by this commit.
+\item Tests deleted: a count of the tests deleted by this commit.
+\item Source files: a count of the files in project at the time of the commit.
+\item Source loc: a count of the lines of source code in the project at
 	the time of the commit.
 \item Travis status: status of the Travis build integration.
 \end{itemize}
@@ -674,11 +673,10 @@ The scraper then extracted the following items from the user's
 profile.
 
 \begin{itemize}
-\item Repositories: the repositories the developer has access to. This 
+\item Repositories: a count of the repositories the developer has access to. This 
 includes repositories the developer owns, repositories the developer contributes
 to, and repositories for which the developer has organizational membership access.
 \footnote{https://developer.github.com/v3/repos/}
-\todo{Is this a count, or what?}
 \item Stars: a count of the projects the developer has stared. Starring a project
 to shows approval of the repository and creates  a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/}
