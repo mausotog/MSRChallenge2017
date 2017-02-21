@@ -79,6 +79,7 @@
 \usepackage[usenames,dvipsnames]{color}
 \newcommand{\todo}[1]
   {{\scriptsize \textbf{\color{red} {#1}}}}
+
 %\newcommand{\todo}[1] {}
 \newcommand{\clg}[1]
   {{\scriptsize \textbf{\color{blue} {CLG says: #1}}}}
@@ -601,7 +602,7 @@ success.  We then added the social factors to identify the degree to which they
 add predictive power to a the initial technical model. 
 We use 10-fold cross validation across our evaluation. 
 
-\section{Building Dataset}
+\section{Building the Dataset}
 \label{approach}
 
 We built a data set of
@@ -632,10 +633,10 @@ factors cover the size of the project.  These factors represent the complexity
 of the change, and the complexity of the project incorporating the change. 
 
 \vspace{1ex}
-\noindent\textbf{Social Factors} To collect the social data, we created a web scraper to extract the social data
+\noindent\textbf{Social Factors.} We created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
-set provided by the MSR Challenge~\cite{msr17challenge} to locate the web page
+set provided by the MSR Challenge~\cite{msr17challenge} to locate thecommit web page
 of the commit, leveraging \textit{github.com}'s URL standard for projects and
 commit hashes.
 %  using the syntax
@@ -643,10 +644,10 @@ commit hashes.
 % \newline \newline
 % \textit{https://github.com/\textbf{NameOfProject}/commit/\textbf{CommitHash}}
 % \newline \newline
-
+%
 We scraped the commit author's
 \textit{username} from each commit page, and then
-collected the following from the user's public profile information:
+collected the following from the user's public profile:
 %(\textit{https://github.com/\textbf{UserName}}). 
 %
 
@@ -680,14 +681,12 @@ factors and the build status. We performed this split to analyze how well techni
 and then both technical and social
 factors predict build integration status.
 
-Our data set~\cite{msr17challenge} is very diverse, consisting
+Our data set~\cite{msr17challenge} consists
 of commits that date as far back as 2011. The social data we 
-gather is recent, gathered in January 2017. In an effort to mitigate the threat of
-using future result to predict previous events,
-we removed the commits in the data set that were not performed within the last
-three years of the data set's release (2014--2016).  Our intuition is
-that the social attributes are less likely to have substantively changed over a
-recent time span. 
+gather is recent, gathered in January 2017. To mitigate the threat of
+using future results to predict previous events,
+we removed only include data set commits from the years 2014--2016.  Our intuition is
+that the social attributes are less likely to have substantively changed more recently.
 
 Since we are interested in the success of the job status of each contribution, we 
 converted all Travis build statuses to two possible values:
@@ -695,24 +694,16 @@ converted all Travis build statuses to two possible values:
 (errored, failed, canceled
 and started in the original data set). We also condensed down all passing and
 failing builds in a commit to a single pass or fail for each build status.  If
-the commit contained both passing and failing build statuses, this means it is a failed build and we qualify it as such.
-At this point 74.43\% of the builds were successful, the rest were not
-successful.  This means that a classifier which guesses successful every time
-would produce a classification rate of 74.43\% if ran on the full data
-set. 
+the commit contained both passing and failing build statuses, we treat it as a failed build. 
 
-The high ratio of successful to unsuccessful builds leads a naive classifier to 
-favor misclassifying unsuccessful builds over successful builds, because a 1\%
-misclassification rate in 3/4th of the data is greater than a 1\%
-misclassification rate in 1/4th of the data.  To penalize misclassification for
-both classes equally, we created a separate data set where the
-successful builds equaled the number of unsuccessful builds.  
-We build this data set by copying over all unsuccessful builds and randomly
-selecting a sub-sample of the successful builds until the two build status were
-equal, a process known as downsampling.  We used 
-both the downsampled and non-downsampled data sets in our results to show the 
-difference of the behavior of the decision tree when it is trained with a equal 
-ratio than when it is trained with a unequal ratio.
+74.43\% of the builds in the reduced dataset were successful, and thus a naive
+classifer that always guesses ``successful'' would succeed 74.43\% of the time.
+To penalize misclassification for
+both classes equally, we created a second balanced dataset by randomly 
+sub-sampling the successful builds until the two build status were
+equal, a process known as downsampling.  We train on the down-sampled data but show results on both 
+downsampled and non-downsampled data sets.\todo{CLG says: that last sentence is
+  true, right?}
 
 \section{Evaluation}
 \begin{table*}[ht]
@@ -852,35 +843,32 @@ experienced developers are more likely to make high quality project commits.
 \section{Threats to validity}
 
 %\paragraph{Internal validity}
- The authors used 
- Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/} the well known tool for 
- usage of machine learning algorithms to analyze our datasets. We are aware that, 
- as every human written tool, Weka is prone to contain errors and/or bugs; 
- nonetheless, Weka is a broadly used, open source tool that is subject to high 
- quality standards and a vast user and developer base which makes it more likely 
- to be a high quality code and to have less bugs than lesser used tools.
- 
+We use Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, a well known machine-learning tool,
+to analyze our data.
+Like all tools, Weka is prone to contain errors and/or bugs. 
+Nonetheless, Weka is a well-known used, open source tool, and as such is likely
+to be of relatively high quality, mitigating threats to internal validity. 
+
  The scripts we have created to adapt and extract the datasets we needed, and the 
  scripts to obtain the developer social data are publicly available to facilitate 
  the transparency and quality of the process (Will be available after double blind review).%\footnote{https://goo.gl/CqTX44}
 
 %\paragraph{External validity} 
- To tackle the concern that the results of this study might not generalize to 
- other instances outside of the studied cases, we have used a broad and rich 
- dataset~\cite{msr17challenge} in our analysis that comprises 1,359 popular projects, which help to 
- build the notion that since we are building our analysis on top of a vast 
- data set, the threat of this analysis 
- not generalizing to other projects is mitigated.
-
+Our results might not generalize to 
+ other instances outside of the studied cases.  To mitigate this risk, we have used a broad and rich 
+ dataset~\cite{msr17challenge} in our analysis, comprising 1,359 popular projects.
  Other concerns of the study include the possibility that the social factors
  have changed significantly in the past three years, the collapsing of a
  commit's build success to a single successful build and unsuccessful build
  distorted the results, and the possibility that unsuccessful builds were due to
- incorrect test cases and not low quality contributions.
+ incorrect test cases and not low quality contributions.\todo{...and?  Something
+   like ``future work remains to assess the degree of these threats'' will do.}
 
 \section{Conclusion}
-In this study we have analyzed how technical and social factors can be used to
-predict high quality contributions.  We have found that these factors provide
+
+We have analyzed how technical and social factors can be used to
+predict high quality open source contributions, as measured by continuous
+integration build success.  We have found that these factors provide
 insight when predicting the success of a build with a technical factors leading
 to a 14\% increase in predictive power, and another 12\% increase when
 incorporating social factors into the prediction.
