@@ -77,9 +77,9 @@
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 \usepackage[usenames,dvipsnames]{color}
-\newcommand{\todo}[1]
-  {{\scriptsize \textbf{\color{red} {#1}}}}
-%\newcommand{\todo}[1] {}
+%\newcommand{\todo}[1]
+%  {{\scriptsize \textbf{\color{red} {#1}}}}
+\newcommand{\todo}[1] {}
 \newcommand{\clg}[1]
   {{\scriptsize \textbf{\color{blue} {CLG says: #1}}}}
 
@@ -502,8 +502,7 @@ which incorporated continuous integration in their development practice.
 When a contribution to these projects passes integration tests, 
 it suggests that the project developers
 might have confidence in the changes. 
-Thus, we can use the build integration status of the commit as documentation of
-the commit's quality.
+Thus, we use the commit's build integration status as a proxy for its quality.
 
 In particular, we analyzed contributions in the 
 context of continuous integration, using the technical factors and one social
@@ -516,14 +515,15 @@ contribution quality. This information can help core team members prioritize pro
 contributions, and will also provide a further understand of quality enforcement
 in the software development process.
 
-Our study shows that social factors are an important aspect of build success but
+We find that social factors are an important aspect of build success but
 these factors alone do not fully predict if a contribution will be successfully 
-integrated into the project. We also show
+integrated into the project. We find
 that core team members are more likely to achieve build success than non-core
-team members and a developer with followers is more likely to pass the
+members, and that developers with more followers are more likely to submit commits that pass the
 continuous integration build.
 
-\textbf{Related work:}
+\vspace{1ex}
+\noindent\textbf{Related work:}
 Similar studies have shown the relationship between both social and technical attributes attributes and 
 different measures of success: pull request acceptance~\cite{gousios14, 
 gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
