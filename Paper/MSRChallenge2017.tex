@@ -770,9 +770,14 @@ In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
 with default settings. The decision trees were evaluated using 10-fold cross 
 validation with the data in each data set.
 
-\todo{Maybe a quick list of the 3--4 factors you actually look at?}
+In Section~\ref{sec:successClassification} we discuss the build classification
+success rate for the technical and social factors.  In Section~\ref{sec:core},
+we compare the build success rate of core project members to non-core project
+members.  In Section~\ref{sec:folowerSuccess}, we compare the relationship
+between a developer's followers and the build integration success.
 
 \subsection{Classification with and without social factors}
+\label{sec:successClassification}
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
 default Weka J48 decision tree algorithm.  Without downsampling, the 
@@ -796,6 +801,7 @@ Mean absolute error decreases, giving stronger confidence to our claims when
 considering eventual outcomes. 
 
 \subsection{Build success by core team member}
+\label{sec:core}
 
 \todo{One sentence introducing this experiment.}
 To determine if core team member's have greater build success rates,
@@ -810,6 +816,7 @@ likely to have a successful build integration than non-core team members.
 
 
 \subsection{Follower relationship with build success}
+\label{sec:followerSuccess}
 
 We also investigated whether developers with followers were more likely to have a
 successful build integration, since followers may be seen as vouching for
