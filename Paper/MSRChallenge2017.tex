@@ -611,7 +611,7 @@ attributes consisting of both technical and social factors:
 
 \vspace{1ex}
 \noindent\textbf{Technical Factors} We collected technical factors from the 
-MSR Challenge data set~\cite{msr17challenge}.
+Mining Software Repositories (MSR) Challenge data set~\cite{msr17challenge}.
 We extracted only the attributes in the data set that proxy a commit's
 complexity, such as commit size. 
 The technical factors used are:
@@ -637,7 +637,8 @@ of the change, and the complexity of the project incorporating the change.
 \noindent\textbf{Social Factors.} We created a web scraper to extract the social data
 from developer's profiles.
 We used the commit hash and the project name in the original data
-set provided by the MSR Challenge~\cite{msr17challenge} to locate thecommit web page
+set provided by the MSR Challenge~\cite{msr17challenge} to locate the
+commit web page
 of the commit, leveraging \textit{github.com}'s URL standard for projects and
 commit hashes.
 %  using the syntax
@@ -670,7 +671,7 @@ These social factors are all factors that are tied to a GitHub user's profile
 and that are generally correlated with user time and engagement with the site.
 Thus, we use them as a proxy for
 experience.
-We also added one item from the MSR Challenge data set, indiating
+We also added one item from the MSR Challenge data set, indicating
 whether the commit's developer is a core member  
 of the associated project.
 
@@ -698,7 +699,7 @@ failing builds in a commit to a single pass or fail for each build status.  If
 the commit contained both passing and failing build statuses, we treat it as a failed build. 
 
 74.43\% of the builds in the reduced dataset were successful, and thus a naive
-classifer that always guesses ``successful'' would succeed 74.43\% of the time.
+classifier that always guesses ``successful'' would succeed 74.43\% of the time.
 To penalize misclassification for
 both classes equally, we created a second balanced dataset by randomly 
 sub-sampling the successful builds until the two build status were
