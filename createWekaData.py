@@ -79,6 +79,7 @@ with open('wekaData.arff','w') as outFile:
             location = location.replace("'",'')
             projectsLastYear = lineItems[8].rstrip()
             if projectsLastYear == '':
+                print(line)
                 projectsLastYear = '?'
             print('{0},{1},{2},{3},{4},{5},{6},{7}'.format(lineItems[0], lineItems[3], lineItems[4], lineItems[5], lineItems[6], location, projectsLastYear, lineItems[2]), file= outFile)
 
