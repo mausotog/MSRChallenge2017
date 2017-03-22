@@ -1,0 +1,113 @@
+----------------------- REVIEW 1 ---------------------
+PAPER: 19
+TITLE: Analyzing the impact of social attributes on commit integration success
+AUTHORS: Mauricio Soto, Zack Coker and Claire Le Goues
+
+Overall evaluation: 1 (weak accept)
+
+----------- Overall evaluation -----------
+# Summary
+This paper investigates how social and technical factors related to open source projects can affect CI builds. In particular, the authors examine whether core members and members with many followers have more successful builds possibly because of their experience.
+
+# Significance
+The objective of the paper that evaluates how social and technical factors can predict contribution quality is very interesting. Also, from the first paragraph of the paper the authors make clear the impact of the results of this work for the OSS community and the maintenance of OSS projects.
+
+# Validation
+
+Pros:
+-The paper uses decision trees for the required predictions.
+-The authors developed a web scraper to download more social data from related OSS projects.
+-They used 10-fold cross validation.
+
+Cons:
+-One small issue is that they could justify the significance of their results in B. and C. in the evaluation section.
+
+# Presentation
+
+Pros:
+- The paper is well written and organized.
+- The authors clearly present the dataset they use in their analysis.
+
+Cons:
+- A minor issue is that the related work could be in a separate section in the end of the paper. Just as a convention.
+- Another issue is that the authors should specify where they present the results of their datasets (before the beginning of the Evaluation section).
+-Finally, the final paragraph of the classification factors (A.) section is too large. The authors could split this in smaller sentences.
+
+# Minor comments
+
+thecommit -> the commit
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 19
+TITLE: Analyzing the impact of social attributes on commit integration success
+AUTHORS: Mauricio Soto, Zack Coker and Claire Le Goues
+
+Overall evaluation: 2 (accept)
+
+----------- Overall evaluation -----------
+In their work the authors looked at how social factors (e.g., number of followers on GitHub, number of starred projects) can improve the prediction of build success. They used decision trees to compare the classification accuracy when only considering technical factors and when combining technical factors with social factors. Results show that social factors do slightly increase predictive power (up to 12%).
+
+Short summary of pros and cons:
++ well written and structured paper
++ solid analyses and discussion
++ reasonable related work
+- variable importance would be nice to have
+- social attributes do only cover activities in open source projects
+
+Overall, I really enjoyed reading this paper. I would have been nice to dive deeper into result discussion and interpretation. The authors did a great job presenting interesting results including a solid analysis and discussion within those 4 pages. Their findings have potential to be investigated in future research in more detail.
+
+In one of their analyses, the authors investigated whether developers with followers (on GitHub) were more likely to have a successful build outcome. They looked specifically at developers without any follower and at developers with more than 1000 followers. However, both groups represent only a small subset of the overall population, i.e., 0.87% and 6.94% of the contributions respectively. Consequently, we cannot make any conclusion about the majority of contributions. Therefore, it would have been interesting to see whether there is a change on the “success rate” when looking at developers between those two groups (in terms of their number of followers).
+
+As a developer’s GitHub profile provides only insights to activities in open source projects, the social attributes extracted for the purpose of the analyses do not tell the entire truth. Clearly, this paper and the used data set focusses on open source projects, but I would at least recommend the authors to acknowledge this fact as a threat to validity.
+
+Finally, in their analyses the authors included multiple technical and social factors. It would be somehow nice to get an idea about the importance of single factors (e.g., by applying random forest classification). However, given the limited space of only 4 pages, this is more an item for potential future work.
+
+In summary, this paper provides a good contribution. However, better proof-reading is required to fix some typos.
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 19
+TITLE: Analyzing the impact of social attributes on commit integration success
+AUTHORS: Mauricio Soto, Zack Coker and Claire Le Goues
+
+Overall evaluation: 1 (weak accept)
+
+----------- Overall evaluation -----------
+# Summary
+The authors of this paper investigated whether social factors collected from GitHub profiles of developers help to predict build results more accurately than using only technical data. To retrieve the social factors, the authors investigated the GitHub profiles of developers and collected, for instance, the number of repositories a developer can access, the number of own projects, or the number of developers that follow the author. For technical factors, they consider, for instance, changed lines of code, added and modified files, and tests.
+Regarding the build result, they used downsampling to balance the data set. The authors then input the balanced data set into a decision tree to create their model. Furthermore, they applied ten fold cross validation and computed the Kappa statistic to evaluate the model. The results showed that additionally considering social factors improves the accuracy of the prediction up to 12%.
+
+# Pros
+- clear research design
+- methodology seems to be sound
+
+# Cons
+- hard to read due to many typos
+- the hypothesis that the build is equal to commit integration success has not been shown
+
+# Comments
+The authors used the goal-question-metric approach to design their research. In the goals, they defined a successful integration as 'passing the continuous integration build tests in the project'. However, it is not described why a successful build implies a successful commit integration. I can see the implication that a failing build will most probably not be integrated but I cannot automatically assume the other implication.
+
+The research question does not clearly state the target variable (i.e. what is to be predicted?) and could be made stronger by using a 'to which extent […]' wording.
+
+In Section III - Social Factors the authors stated that they use the social factors as a proxy for experience. I am wondering how the 'number of developers that the author follows' and the 'number of projects the developer has stared' are related to the experience of the developer. These metrics can easily be manipulated by the developer and hence, I think they might not be good indicators for the developers’ experience.
+
+In Section III - Comparing two data sets. The authors described that they removed some data and included some data. However, it is not fully clear to me which data they investigated to retrieve the developers’ experience. Furthermore, the hypothesis that social attributes change less likely recently should at least be supported by some kind of evidence (e.g. showing that this holds for this data set).
+
+In Section IV, the authors used J48 decision tree from Weka for their predictions. However, they did not motivate why they use exactly this classifier instead of other classifiers.
+
+To measure the performance of the classification, the authors mentioned the accuracy of the correctly predicted build results in Section IV.A. The authors should definitively mention also other metrics, such as precision, recall or f1 score, to show the performance of the classifier and achieve a fair comparison between the two used methods. Furthermore, they mentioned the Kappa statistic. However, they did not explain where the Kappa statistic come from and what it means.
+
+Regarding the classification with decision tree, the authors did not explicitly state if they used the downsampled data only for training or also for testing the model. It is not fully clear to me which part of the data set has been downsampled (should be the training data set of each fold of the cross validation).
+
+In Section IV.C, the authors investigated the relationship between followers and build success. Further information about how many developers have 0/1/<1000 followers would be helpful, as well as an explanation why the authors set the threshold to one follower.
+
+The authors should mention the papers of Hassan, Wolf, and Kwan and how they differ from these approaches:
+- A. E. Hassan and K. Zhang, "Using decision trees to predict the certification result of a build", ASE, 2006.
+- T. Wolf, A. Schroter, D. Damian, and T. Nguyen, “Predicting build failures using social network analysis on developer communication",  ICSE, 2009.
+- I. Kwan, A. Schroter, and D. Damian, "Does socio-technical congruence have an effect on software build success? a study of coordination in a software project", Transactions on Software Engineering, 2011.
+
+
+# Minor comments
+The authors should definitively clean up the english and proofread the paper again.
