@@ -26,8 +26,8 @@ possible todos
 
 probably not doing
 ----------
-Furthermore, the hypothesis that social attributes change less likely recently should at least be supported by some kind of evidence (e.g. showing that this holds for this data set).
+- Furthermore, the hypothesis that social attributes change less likely recently should at least be supported by some kind of evidence (e.g. showing that this holds for this data set).
 - Therefore, it would have been interesting to see whether there is a change on the “success rate” when looking at developers between those two groups (in terms of their number of followers).
 - It would be somehow nice to get an idea about the importance of single factors (e.g., by applying random forest classification).
- - can we provide evidence that social factors are a proxy for experience
+- can we provide evidence that social factors are a proxy for experience
 
