@@ -682,7 +682,8 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 These social factors are all factors that are tied to a GitHub user's profile
 and that are generally correlated with user time and engagement with the site.
 Thus, we use them as a proxy for
-experience.
+experience. If we were unable to find information about an author than we
+assigned the commit empty values for these factors.
 We also added one item from the MSR Challenge data set, indicating
 whether the commit's developer is a core member  
 of the associated project.
@@ -796,9 +797,12 @@ team members have greater build success rates.
 We classified the build success rate for
 core team members and non-core team members using the data set without 
 downsampling.  We found that core team members
-triggered 89.39\% of the builds in the data set and 75.58\% of those builds
-passed.  Non-core team members triggered 10.61\% of the builds in the data set
-and 64.70\% of the builds passed.  This shows that core team members are more
+triggered 89.39\% (331827/371208) of the builds in the data set and 75.58\%
+(250808/331827) of those builds
+passed.  Non-core team members triggered 10.61\% (39381/371208) of the builds 
+in the data set
+and 64.70\% (25479/39381) of the builds passed.  This shows that core team 
+members are more
 likely to have a successful build integration than non-core team members.
 
 
@@ -810,22 +814,29 @@ We also investigated whether developers with followers were more likely to have 
 successful build integration, since followers may be seen as vouching for
 the developer's abilities.  We specifically investigated if a developer with 
 followers was more likely to pass the build in the data set without 
-downsampling.  We found that only 0.87\% of the
-contributions in the data set was performed by developers with zero 
+downsampling.  We first investigated whether developers with one or more followers
+were more likely to pass the build than developers without any followers, to
+verify the assumption that followers vouch for a developer's abilities. To
+investigate this question, we removed the commits without author profile
+information (20374 builds which reduced the total build count from 371208 to
+350834). We found 
+that only 0.87\% (3059/350834) of the
+contributions in the data set were performed by developers with zero 
 followers (excluding the developers in which we were not able to extract profile
-information for). We found that 99.13\% of the contributions were performed by
+information for). We found that 99.13\% (347775/350834) of the contributions 
+were performed by
 developers with at least one or more followers.
-Developers with 0 followers had a successful build commit 68.49\%
-of the time.  Developers with one or more followers were successful 74.78\% of
-the time.
+Developers with 0 followers had a successful build commit 68.49\% (2095/3059)
+of the time.  Developers with one or more followers were successful 74.78\%
+(260056/347775) of the time.
 
 We also investigated developers with a large number of followers (1000 or more
-followers).  We found that 6.94\% of the contributions in the data set were
+followers).  We found that 6.94\% (24347/350834) of the contributions in the 
+data set were
 performed by developers with 1000 or more followers.  We found that these
-contributions had a 78.61\% success rate.  These results show that developers
+contributions had a 78.61\% (19138/24347) success rate.  These results show 
+developers
 with more followers are more likely to have a successful integration build.
-
-
 
 \subsection{Discussion}
 
