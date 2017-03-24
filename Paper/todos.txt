@@ -21,6 +21,7 @@ possible todos
 - To measure the performance of the classification, the authors mentioned the accuracy of the correctly predicted build results in Section IV.A. The authors should definitively mention also other metrics, such as precision, recall or f1 score, to show the performance of the classifier and achieve a fair comparison between the two used methods. Furthermore, they mentioned the Kappa statistic. However, they did not explain where the Kappa statistic come from and what it means.
 - Regarding the classification with decision tree, the authors did not explicitly state if they used the downsampled data only for training or also for testing the model. It is not fully clear to me which part of the data set has been downsampled (should be the training data set of each fold of the cross validation).
 - (Z) In Section IV.C, the authors investigated the relationship between followers and build success. Further information about how many developers have 0/1/<1000 followers would be helpful, as well as an explanation why the authors set the threshold to one follower.
+-finalize paper for submission
 
 
 probably not doing
