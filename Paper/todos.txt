@@ -4,6 +4,7 @@ done
 -  clearly, this paper and the used data set focusses on open source projects, but i would at least recommend the authors to acknowledge this fact as a threat to validity.
 - cite and compare to A. E. Hassan and K. Zhang, "Using decision trees to predict the certification result of a build", ASE, 2006.
 - (Z) cite and compare to I. Kwan, A. Schroter, and D. Damian, "Does socio-technical congruence have an effect on software build success? a study of coordination in a software project", Transactions on Software Engineering, 2011.
+- (Z) cite and compare to T. Wolf, A. Schroter, D. Damian, and T. Nguyen, “Predicting build failures using social network analysis on developer communication",  ICSE, 2009.
 
 
 possible todos
@@ -20,7 +21,6 @@ possible todos
 - To measure the performance of the classification, the authors mentioned the accuracy of the correctly predicted build results in Section IV.A. The authors should definitively mention also other metrics, such as precision, recall or f1 score, to show the performance of the classifier and achieve a fair comparison between the two used methods. Furthermore, they mentioned the Kappa statistic. However, they did not explain where the Kappa statistic come from and what it means.
 - Regarding the classification with decision tree, the authors did not explicitly state if they used the downsampled data only for training or also for testing the model. It is not fully clear to me which part of the data set has been downsampled (should be the training data set of each fold of the cross validation).
 - (Z) In Section IV.C, the authors investigated the relationship between followers and build success. Further information about how many developers have 0/1/<1000 followers would be helpful, as well as an explanation why the authors set the threshold to one follower.
-- (Z) cite and compare to T. Wolf, A. Schroter, D. Damian, and T. Nguyen, “Predicting build failures using social network analysis on developer communication",  ICSE, 2009.
 
 
 probably not doing
