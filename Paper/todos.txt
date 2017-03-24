@@ -20,7 +20,7 @@ possible todos
 - In Section IV, the authors used J48 decision tree from Weka for their predictions. However, they did not motivate why they use exactly this classifier instead of other classifiers.
 - To measure the performance of the classification, the authors mentioned the accuracy of the correctly predicted build results in Section IV.A. The authors should definitively mention also other metrics, such as precision, recall or f1 score, to show the performance of the classifier and achieve a fair comparison between the two used methods. Furthermore, they mentioned the Kappa statistic. However, they did not explain where the Kappa statistic come from and what it means.
 - Regarding the classification with decision tree, the authors did not explicitly state if they used the downsampled data only for training or also for testing the model. It is not fully clear to me which part of the data set has been downsampled (should be the training data set of each fold of the cross validation).
-- add the counts for the decision tree results
+- (Z) add the counts for the decision tree results
 -finalize paper for submission
 
 
