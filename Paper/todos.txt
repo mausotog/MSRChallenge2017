@@ -6,13 +6,13 @@ done
 - (Z) cite and compare to I. Kwan, A. Schroter, and D. Damian, "Does socio-technical congruence have an effect on software build success? a study of coordination in a software project", Transactions on Software Engineering, 2011.
 - (Z) cite and compare to T. Wolf, A. Schroter, D. Damian, and T. Nguyen, “Predicting build failures using social network analysis on developer communication",  ICSE, 2009.
 - (Z) In Section IV.C, the authors investigated the relationship between followers and build success. Further information about how many developers have 0/1/<1000 followers would be helpful, as well as an explanation why the authors set the threshold to one follower.
+- (M) A minor issue is that the related work could be in a separate section in the end of the paper. Just as a convention.
+- (M)Finally, the final paragraph of the classification factors (A.) section is too large. The authors could split this in smaller sentences.
 
 possible todos
 ---------
 -One small issue is that they could justify the significance of their results in B. and C. in the evaluation section.
-(M)- A minor issue is that the related work could be in a separate section in the end of the paper. Just as a convention.
 - Another issue is that the authors should specify where they present the results of their datasets (before the beginning of the Evaluation section).
-(M)-Finally, the final paragraph of the classification factors (A.) section is too large. The authors could split this in smaller sentences.
 - hard to read due to many typos
 - the hypothesis that the build is equal to commit integration success has not been shown
 (M)- The research question does not clearly state the target variable (i.e. what is to be predicted?) and could be made stronger by using a 'to which extent […]' wording.
