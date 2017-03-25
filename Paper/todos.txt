@@ -16,13 +16,14 @@ possible todos
 - (M) Furthermore, they mentioned the Kappa statistic. However, they did not explain where the Kappa statistic come from and what it means.
 - (M)-One small issue is that they could justify the significance of their results in B. and C. in the evaluation section.
 - (M) In Section IV, the authors used J48 decision tree from Weka for their predictions. However, they did not motivate why they use exactly this classifier instead of other classifiers.
+- (Z) add the counts for the decision tree results
 
 ---------
 
 - hard to read due to many typos
 - the hypothesis that the build is equal to commit integration success has not been shown
 - To measure the performance of the classification, the authors mentioned the accuracy of the correctly predicted build results in Section IV.A. The authors should definitively mention also other metrics, such as precision, recall or f1 score, to show the performance of the classifier and achieve a fair comparison between the two used methods. 
-- (Z) add the counts for the decision tree results
+- Add the acknowledgements
 
 
 
