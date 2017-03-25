@@ -557,7 +557,9 @@ Our main research question, upon which we can build by investigating particular 
 
 \textbf{Do social attributes, gathered 
 from the GitHub profiles of developers,
-allow for more accurate predictions than only using technical data?}
+allow for more accurate predictions of 
+the developer's build success
+than only using technical data?}
 
 \begin{comment}
 we have created a dataset with technical attributes to be able to analyze the 
@@ -652,7 +654,7 @@ experience. If we were unable to find information about an author than we
 assigned the commit empty values for these factors.
 We also added one item from the MSR Challenge data set, indicating
 whether the commit's developer is a core member  
-of the associated project.
+of the associated project. These values were investigated to understand and be able to quantify the developers’ experience.
 
 \vspace{1ex}
 \noindent\textbf{Comparing two data sets.} We compiled the gathered data into 
@@ -682,9 +684,9 @@ classifier that always guesses ``successful'' would succeed 74.43\% of the time.
 To penalize misclassification for
 both classes equally, we created a second balanced dataset by randomly 
 sub-sampling the successful builds until the two build status were
-equal, a process known as downsampling.  We train and present results for both
-data sets individually.
-\section{Evaluation}
+equal, a process known as downsampling. We downsampled the entire dataset being analyzed and then performed cross-validation on it. Since the cross-validation is stratified, the proportion of 50-50 is maintained through the training and testing folds. We train and present results for both
+data sets individually in Sections \ref{eval}A, \ref{eval}B and \ref{eval}C.
+\section{Evaluation} \label{eval}
 \begin{table*}[ht]
 \centering
 \begin{tabular}{l||r|r||r|r}
