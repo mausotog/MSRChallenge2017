@@ -406,13 +406,13 @@
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
 % 
-\author{\IEEEauthorblockN{
-Mauricio Soto, Zack Coker, and
+\author{\IEEEauthorblockN{Zack Coker,
+Mauricio Soto and
 Claire Le Goues}
 \IEEEauthorblockA{School of Computer Science\\
 Carnegie Mellon University,
 Pittsburgh PA\\ 
-mauriciosoto@cmu.edu, zfc@cs.cmu.edu, clegoues@cs.cmu.edu}
+zfc@cs.cmu.edu, mauriciosoto@cmu.edu, clegoues@cs.cmu.edu}
 } 
 
 
@@ -575,7 +575,7 @@ being pushed but also social attributes of the developer pushing the changes.
 \noindent\textbf{Metric.} We measure quality software contributions based on the build status of the
 commit. We used a decision tree classifier~\cite{Quinlan86} to identify
 important factors in predicting build success;  decision tress are well
-established  and interpretable. 
+established  and interpretable. In particular, we use a J48 decision tree because this classification mechanism has the ability to identify the attributes that discriminate the various instances most clearly, and we are interested in analyzing what particular features can predict with higher accuracy build success.
 We first build a
 decision tree classifier using only technical factors, which highlights
 the degree to which commit complexity predicts build integration
@@ -749,7 +749,7 @@ both technical and social data can be used to improve predictions of build
 integration success.
 
 It is also worth noting that the Kappa statistic increases in both cases when
-adding social data (100\% and 85\% respectively). The Kappa statistic is a more 
+adding social data (100\% and 85\% respectively). The Kappa statistic is a measurement that also accounts for the accuracy of the predicting power of the model. Furthermore, Kappa is a more 
 robust measure than \textit{correctly classified} instances, since it takes into account the
 correctly guessed instances occurring by chance. The mean absolute error also
 decreases in both cases, which provides further evidences that social factors
@@ -771,7 +771,7 @@ passed.  Non-core team members triggered 10.61\% (39381/371208) of the builds
 in the data set
 and 64.70\% (25479/39381) of the builds passed.  This shows that core team 
 members are more
-likely to have a successful build integration than non-core team members.
+likely to have a successful build integration than non-core team members. We hypothesize the reason for this to be that core team members are more familiar with the code, therefore are more likely to have their builds pass.
 
 
 
@@ -804,7 +804,7 @@ data set were
 performed by developers with 1000 or more followers.  We found that these
 contributions had a 78.61\% (19138/24347) success rate.  These results show 
 developers
-with more followers are more likely to have a successful integration build.
+with more followers are more likely to have a successful integration build. Reasons for this might be 
 
 \subsection{Discussion}
 
