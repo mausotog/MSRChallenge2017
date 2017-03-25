@@ -561,16 +561,6 @@ allow for more accurate predictions of
 the developer's build success
 than only using technical data?}
 
-\begin{comment}
-we have created a dataset with technical attributes to be able to analyze the 
-predictive power of these attributes and its relationship with commit integration 
-success. This way, we are able to create a model
-We are afterwards interested in knowing if adding social attributes to this 
-predictability model will increase the probability of the model asserting 
-correctly future instances by knowing not only technical data about the commit 
-being pushed but also social attributes of the developer pushing the changes.
-\end{comment}
-
 \vspace{1ex}
 \noindent\textbf{Metric.} We measure quality software contributions based on the build status of the
 commit. We used a decision tree classifier~\cite{Quinlan86} to identify
@@ -694,9 +684,11 @@ data sets individually in Sections \ref{eval}A, \ref{eval}B and \ref{eval}C.
 \hline
   & Technical & Technical and Social & Technical & Technical and Social \\
 \hline
-\textbf{Correctly Classified Instances}&  77.01\% & 81.10\%  & 64.10\% & 76.09\%\\
+	\textbf{Correctly Classified Instances}&  285882 (77.01\%) & 301068
+	(81.10\%)  & 121694 (64.10\%) & 144441 (76.09\%)\\
 
-\textbf{Incorrectly Classified Instances}&  22.99\% & 18.90\% & 35.90\% & 23.91\%\\
+	\textbf{Incorrectly Classified Instances}&  85326 (22.99\%) & 70140
+	(18.90\%) & 68147 (35.90\%) &  45400 (23.91\%)\\
 
 \textbf{Kappa statistic}& 0.21 &  0.42 & 0.28  & 0.52 \\
 
@@ -842,7 +834,7 @@ to be of relatively high quality, mitigating threats to internal validity.
 
  The scripts we have created to adapt and extract the datasets we needed, and the 
  scripts to obtain the developer social data are publicly available to facilitate 
- the transparency and quality of the process (Will be available after double blind review).%\footnote{https://goo.gl/CqTX44}
+ the transparency and quality of the process\footnote{https://goo.gl/CqTX44}.
 
 %\paragraph{External validity} 
 Our results might not generalize to 
@@ -858,7 +850,7 @@ Our results might not generalize to
  only capture a developer's experience with open source projects. Future work 
  will be required to investigate the influence of these threats.
  
-\section{Related work:}
+\section{Related work}
 The most similar related work to this paper is a case study investigating how
 social, technical, coordination, and prior-certification factors affect build
 success for a project with 40 developers at IBM Toronto Labs~\cite{Hassan06}.  This work 
@@ -869,7 +861,7 @@ Another study investigated the relationship between authors, files in project,
 and team organization when predicting build
 success on an IBM project with 151 developers.  The study found that as the
 number of authors or files in a build increases, the probability of build
-success decreases~\cite{Kwan11}. Another investigation used a dataset from the
+success decreases~\cite{Kwan11}. A separate investigation used a dataset from the
 same project and
 found that team structures affected the teams' build success rate~\cite{Wolf09}.
 Similar studies have shown the relationship between both social and technical attributes attributes and 
@@ -891,7 +883,7 @@ post-release defects, Vasilescu et al.~\cite{vasilescu14} explore how different
 project characteristics (programming language, project age, etc.) affect commit 
 success when integrated into the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in GitHub and its correlation with software 
-quality. By contrast, we focus on the relationship between independent social 
+quality. By contrast with their work, we focus on the relationship between independent social 
 attributes and continuous integration success. 
 
 \section{Conclusion}
