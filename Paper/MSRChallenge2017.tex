@@ -699,6 +699,11 @@ datasets in Section~\ref{sec:successClassification},  and only the full dataset 
 	(18.90\%) & 68147 (35.90\%) &  45400 (23.91\%)\\
 
 \textbf{Kappa statistic}& 0.21 &  0.42 & 0.28  & 0.52 \\
+\textbf{Avg Precision}& 0.75 & 0.80  & 0.65  & 0.76 \\
+\textbf{Avg Recall}& 0.77 & 0.81 & 0.64 & 0.76 \\
+\textbf{Avg F-Measure}& 0.72 & 0.79  & 0.63  & 0.76 \\
+
+
 
 \textbf{Mean absolute error}& 0.34 &  0.28 & 0.43 & 0.32\\
 
@@ -752,9 +757,18 @@ integration success.
 It is also worth noting that the Kappa statistic increases in both cases when
 adding social data (100\% and 85\% respectively). The Kappa statistic is a measurement that also accounts for the accuracy of the predicting power of the model. Furthermore, Kappa is a more 
 robust measure than \textit{correctly classified} instances, since it takes into account the
-correctly guessed instances occurring by chance. The mean absolute error also
-decreases in both cases, providing further evidence that social factors
-importantly predict build success.
+correctly guessed instances occurring by chance. The precision, recall and F-measure are calculated over the successful and unsuccessful classes and then averaged (standard procedure in Weka). Precision and recall are calculated as follows: 
+
+\begingroup
+    \fontsize{9pt}{12pt}\selectfont
+Precision = True Positives / (True Positives + False Positives)\
+
+Recall = True Positives / (True Positives + False Negatives)
+\endgroup
+
+F-score is a correlation\todo{this is not true; please correct} of these two values. We can see that all these measures increase when we add social data into the feature space, making the prediction more reliable. Besides this, the mean absolute error
+decreases in both cases, which provides further evidences that social factors
+are important when predicting build success.
 
 \subsection{Build success by core team member}
 \label{sec:core}
