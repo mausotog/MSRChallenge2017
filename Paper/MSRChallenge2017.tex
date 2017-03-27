@@ -819,29 +819,29 @@ influenced their build success.
 \label{sec-threats}
 
 %\paragraph{Internal validity}
-We use Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, a well known machine-learning tool,
+We use Weka, a well known machine-learning toolkit,
 to analyze our data.
-Like all tools, Weka is prone to contain errors and/or bugs. 
-Nonetheless, Weka is a well-known used, open source tool, and as such is likely
+Like all tools, Weka may contain errors and/or bugs. 
+Nonetheless, it is a well-known used, open source tool, and as such is likely
 to be of relatively high quality, mitigating threats to internal validity. 
-
- The scripts we have created to create the datasets and the 
- scripts to obtain the developer social data are publicly available 
- \footnote{https://goo.gl/CqTX44}.
-
+We have made our scripts, which analyzed the datasets and
+obtained social data publicly available\footnote{https://goo.gl/CqTX44}, for
+extension and reproducibility.
+We mitigate the risk that our results fail to 
 %\paragraph{External validity} 
-Our results might not generalize to 
- other instances outside of the studied cases.  To mitigate this risk, we have used a broad and rich 
- dataset~\cite{msr17challenge} in our analysis, comprising 1,359 popular projects.
-
- Other concerns of the study include the possibility that the social factors
- have changed significantly in the past three years, the collapsing of a
- commit's build success to a single successful build and unsuccessful build
- distorted the results, and the possibility that unsuccessful builds were due to
- incorrect test cases and not low quality contributions. Also, the social factors used
- in this study may not apply to closed source applications, and the factors may
- only capture a developer's experience with open source projects. Future work 
- will be required to investigate the influence of these threats.
+generalize externally by studying a broad and rich 
+ dataset~\cite{msr17challenge} comprising 1,359 popular projects.
+Similarly, the social factors we study may not apply to closed-source
+applications; however, open-source ecosystems are intellectually
+valuable sources of study on their own. 
+%
+ Other concerns include the possibility that social factors
+ have changed significantly in the past three years, that unsuccessful
+ builds are due to
+ incorrect test cases (rather than low quality contributions), and that
+ information is lost in collapsing commits' multiple builds. We believe these
+ are similarly mitigated by a large and varied dataset, but leave investigation
+ of the effects of these decisions to future work. 
  
 \section{Related work}
 The most similar related work to this paper is a case study investigating how
