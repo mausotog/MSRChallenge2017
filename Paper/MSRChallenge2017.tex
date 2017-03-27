@@ -724,22 +724,24 @@ datasets in Section~\ref{sec:successClassification},  and only the full dataset 
 	}   
 \end{table*}
 
-We created decision tree classifiers~\cite{Quinlan86} to address our main research question: ``Do social attributes, gathered 
-from the GitHub profiles of developers,
-allow for more accurate predictions than only using technical data?''
+We assess our main research question using decision tree
+classifiers~\cite{Quinlan86}, using
+%
+% to address our main research question: ``Do social attributes, gathered 
+%from the GitHub profiles of developers,
+%allow for more accurate predictions than only using technical data?''
 %   The predicted class is represented as the
 % leaves, while the attribute decisions used in the prediction cause the
 % different branches.
-We used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
-with default settings. We mitigate the risk of overfitting through 10-fold 
+the Weka J48 decision tree~\cite{Weka,Quinlan1993}
+with default settings and 10-fold 
 cross-validation.
-
-In Section~\ref{sec:successClassification} we discuss the build classification
-success rate for the technical and social factors.  In Section~\ref{sec:core},
-we compare the build success rate of core project members to non-core project
-members.  In Section~\ref{sec:followerSuccess}, we compare the relationship
-between a developer's followers and build integration success. We conclude the
-section with a discussion of threats to validity (Section~\ref{sec-threats}). 
+We present classification
+success rate for technical versus social factors
+(Section~\ref{sec:successClassification}); 
+build success rate of core project members versus non-core 
+members (Section~\ref{sec:core}); and the relationship 
+between follower count and build success (Section~\ref{sec:followerSuccess}).
 
 \subsection{Classification with and without social factors}
 \label{sec:successClassification}
@@ -815,7 +817,7 @@ This may be due to the fact that developers with followers are more likely to
 have open source development experience, and the developers' experience
 influenced their build success.
 
-\subsection{Threats to validity}
+\section{Threats to validity}
 \label{sec-threats}
 
 %\paragraph{Internal validity}
