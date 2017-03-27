@@ -74,6 +74,7 @@
 
 \usepackage{booktabs}
 \usepackage{verbatim}
+\usepackage{balance}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 \usepackage[usenames,dvipsnames]{color}
@@ -565,7 +566,8 @@ follower count, similarly correlate with success.
 \noindent\textbf{Metric.} We measure software contribution quality by the
 build status of the
 commit. We used a decision tree classifier~\cite{Quinlan86} to identify
-important factors in predicting build success;  decision trees are well
+important factors in predicting build success. Decision trees are a predictive model which uses binary decisions on the
+attributes to predict a final class. They are well
 established and interpretable. We use a J48 decision tree, which
 has the ability to identify which attributes 
 discriminate the various instances most clearly.
@@ -716,23 +718,22 @@ datasets in Section~\ref{sec:successClassification},  and only the full dataset 
 	%Zack: the above sentence isn't true for the second row.
 	}   
 \end{table*}
-To address our main research question: ``Do social attributes, gathered 
+
+We created decision tree classifiers~\cite{Quinlan86} to address our main research question: ``Do social attributes, gathered 
 from the GitHub profiles of developers,
-allow for more accurate predictions than only using technical data?", we 
-created a decision tree classifier~\cite{Quinlan86}.
-Decision trees are a predictive model which uses binary decisions on the
-attributes to predict a final class.  The predicted class is represented as the
-leaves, while the attribute decisions used in the prediction cause the
-different branches.
-In this study, we used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
-with default settings. The decision trees were evaluated using 10-fold 
-cross-validation with the data in each data set.
+allow for more accurate predictions than only using technical data?''
+%   The predicted class is represented as the
+% leaves, while the attribute decisions used in the prediction cause the
+% different branches.
+We used the Weka J48 decision tree~\cite{Weka,Quinlan1993}
+with default settings. We mitigate the risk of overfitting through 10-fold 
+cross-validation.
 
 In Section~\ref{sec:successClassification} we discuss the build classification
 success rate for the technical and social factors.  In Section~\ref{sec:core},
 we compare the build success rate of core project members to non-core project
 members.  In Section~\ref{sec:followerSuccess}, we compare the relationship
-between a developer's followers and the build integration success.
+between a developer's followers and build integration success.
 
 \subsection{Classification with and without social factors}
 \label{sec:successClassification}
@@ -752,16 +753,15 @@ It is also worth noting that the Kappa statistic increases in both cases when
 adding social data (100\% and 85\% respectively). The Kappa statistic is a measurement that also accounts for the accuracy of the predicting power of the model. Furthermore, Kappa is a more 
 robust measure than \textit{correctly classified} instances, since it takes into account the
 correctly guessed instances occurring by chance. The mean absolute error also
-decreases in both cases, which provides further evidences that social factors
-are important when predicting build success.
+decreases in both cases, providing further evidence that social factors
+importantly predict build success.
 
 \subsection{Build success by core team member}
 \label{sec:core}
 
-
-Based on the decision tree results, we noticed that core team members were
-important when classifying build success, so we decided to investigate if core
-team members have greater build success rates.
+The decision tree results suggested that core team members are
+important to classifying build success, and thus we investigated the question
+directly. 
 We classified the build success rate for
 core team members and non-core team members using the data set without 
 downsampling.  We found that core team members
@@ -779,61 +779,60 @@ likely to have a successful build integration than non-core team members. We hyp
 \label{sec:followerSuccess}
 
 We also investigated whether developers with followers were more likely to have a
-successful build integration, since followers may be seen as vouching for
-the developer's abilities.  We specifically investigated if a developer with 
-followers was more likely to pass the build in the data set without 
-downsampling.  We first investigated whether developers with one or more followers
-were more likely to pass the build than developers without any followers, to
-verify the assumption that followers vouch for a developer's abilities. To
-investigate this question, we removed the commits without author profile
-information (20374 builds which reduced the total build count from 371208 to
-350834). We found 
-that only 0.87\% (3059/350834) of the
+successful build integration, since followers may be seen as ``vouching'' for
+the developer's abilities.  We therefore investigated the relationship between
+follower count and build success rate (on the data without 
+downsampling).  We first investigated whether developers with one or more followers
+were more likely to pass the build than those without any followers by
+removing commits without any author profile
+information (20374 builds, reducing the total build count to
+350834). Only 0.87\% (3059/350834) of the
 contributions in the data set were performed by developers with zero 
-followers. We found that 99.13\% (347775/350834) of the contributions 
-were performed by
-developers with at least one or more followers.
+followers.  %, leaving 99.13\% (347775/350834) of the contributions 
+%performed by developers with at least one follower.
 Developers with 0 followers had a successful build commit 68.49\% (2095/3059)
 of the time.  Developers with one or more followers were successful 74.78\%
 (260056/347775) of the time.
+%
+By contrast, developers with a large number of followers (1000 or more),
+performed 6.94\% (24347/350834) of the contributions in the 
+data set; their
+contributions had a 78.61\% (19138/24347) success rate.  
 
-We also investigated developers with a large number of followers (1000 or more
-followers).  We found that 6.94\% (24347/350834) of the contributions in the 
-data set were
-performed by developers with 1000 or more followers.  We found that these
-contributions had a 78.61\% (19138/24347) success rate.  These results show 
-developers
+These results suggest that developers
 with more followers are more likely to have a successful integration build.
-These
-result may be due to the fact that developers with followers are more likely to
+This may be due to the fact that developers with followers are more likely to
 have open source development experience, and the developers' experience
-influenced the build success rate.. 
+influenced their build success.
 
-\subsection{Discussion}
+\subsection{Summary}
 
-Overall, we have found that social attributes which proxy experience, such as if
-the developer is a core project contributor , produce a 
-noticeable increase in predicting build success.  While the increase was noticeable 
+Social attributes proxying experience, such as whether
+the developer is a core project contributor,
+noticeably influence build success prediction.  While the increase was noticeable 
 with the full data set, there was a much greater increase in prediction
-accuracy after performing downsampling. These results show that social factors,
-such 
-as the ones studied in this paper, are significant predictors when
-evaluating the predictive power of build commit success.
-
-The build success by core team member results show that core team members are
+accuracy after downsampling. 
+%These results suggest that social factors
+%are significant predictors when
+%evaluating the predictive power of build commit success.
+%
+In particular, core team members are
 more likely to have the build integration pass than non-core team members.  This
-result provides evidence that non-core team member commits are not as
-scrutinized as core team member commits before the integration build tests, although further studied will be required to draw definite
+result provides evidence that non-core team member commits may not be as
+scrutinized as core team member commits before the integration build tests,
+although further study is required to draw definitive
 conclusions.
-
-The follower results indicate that developers with more followers are more
+%
+Likewise, developers with more followers are more
 likely to pass the build, although followers are not a perfect indicator.
-Developers with over 1000 followers had more than a 10\% increase compared to
-developers with no followers.  This shows that higher quality open source developers are more
+Developers with 1000+ followers were more than a 10\% more succesful in their
+builds as compared to
+developers with no followers.  This suggests that open source developers with
+high quality commits may be more
 likely to have a large number of followers.
 
-Overall, we have found that while experience is not a perfect indicator, 
-experienced developers are more likely to make high quality project commits.
+Overall, although experience is an imperfect indicator, but
+experienced developers appear more likely to make high quality commits.
 
 \section{Threats to validity}
 
@@ -949,6 +948,7 @@ The acknowledgments will be added for the camera ready version.
 %\end{thebibliography}
 
  
+\balance
 \bibliographystyle{plain}
 \bibliography{MSRChallenge2017}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
