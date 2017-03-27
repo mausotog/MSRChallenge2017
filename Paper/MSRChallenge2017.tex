@@ -638,15 +638,14 @@ access.\footnote{https://help.github.com/articles/about-stars/}
 \item Number of contributions made in the last year.
 \end{itemize}
 
-
-These social factors are all factors that are tied to a GitHub user's profile
-and that are generally correlated with user time and engagement with the site.
-Thus, we use them as a proxy for
-experience. If we were unable to find information about an author, then we
-assigned the commit empty values for these factors.
 We also added one item from the MSR Challenge data set, indicating
 whether the commit's developer is a core member  
-of the associated project. These values were investigated to estimate developers’ experience.
+of the associated project.
+These social factors are all tied to a GitHub user's profile,
+and are generally correlated with user time and engagement with the site.
+Thus, we use them as a proxy for
+experience.  If we were unable to find information about an author, we
+assigned empty values to the commit.
 
 \vspace{1ex}
 \noindent\textbf{Comparing two data sets.} We compiled the gathered data into 
@@ -660,14 +659,13 @@ The challenge dataset~\cite{msr17challenge} consists
 of commits that date as far back as 2011. The social data we 
 gathered is accurate for January 2017. To mitigate the threat of
 using future results to predict previous events,
-we removed only include data set commits from the years 2014--2016.  Our intuition is
+we only include commits from the years 2014--2016.  Our intuition is
 that these social attributes are unlikely to have significant recent changes.
 
-Since we are interested in the success of the job status of each contribution, we 
-converted all Travis build statuses to two possible values:
-\emph{successful} (passed in the challenge dataset~\cite{msr17challenge}) and \emph{unsuccessful}
+We converted all Travis build statuses to two possible values:
+\emph{successful} (passed in the challenge dataset) and \emph{unsuccessful}
 (errored, failed, canceled
-and started in the original data set). We also condensed all passing and
+or started in the original data set). We also condensed all passing and
 failing builds in a commit to a single pass or fail for each build status.  If
 the commit contained both passing and failing build statuses, we treat it as
 both a passing and failed build. 
@@ -675,14 +673,14 @@ both a passing and failed build.
 74.43\% of the builds in the reduced dataset were successful, and thus a naive
 classifier that always guesses ``successful'' would succeed 74.43\% of the time.
 To penalize misclassification for
-both classes equally, we created a second balanced dataset by randomly 
+both classes equally, we created a second \emph{balanced} dataset by randomly 
 sub-sampling the successful builds until the two build status were
 equal, through a process known as downsampling. We downsampled the entire
-dataset and then trained decision tree classifiers.  We validated the
+dataset and then trained decision tree classifiers on both.  We validated the
 classifiers with cross-validation. Since the cross-validation is stratified, the
 proportion of 50-50 is maintained through the training and testing folds for the
 downsampled data. We present results for both
-datasets in Section \ref{eval}A,  and only the full dataset for Sections \ref{eval}B and \ref{eval}C.
+datasets in Section~\ref{sec:successClassification},  and only the full dataset for Sections~\ref{sec:core} and \ref{sec:followerSuccess}.
 
 \section{Evaluation} \label{eval}
 \begin{table*}[ht]
