@@ -476,12 +476,11 @@ the project must dedicate more time to vetting these contributions.
 Over the years, the open source
 community has developed various techniques to vet project contributions, such as pull
 requests which must be approved by a core team member~\cite{gousios14}. 
-These methods can become a bottleneck, and thus it is beneficial to prioritize certain
-contributions.  This prioritization can be achieved with predictors of a
-contribution's quality.
+This can become a bottleneck, and thus it is beneficial to prioritize certain
+contributions, ideally by predicted quality.
 
-The decision to include code in
-a project has been described as a meritocracy, where only the code is a factor
+Ideally, the decision to include code in
+a project is meritocratic, such that only the code is a factor
 in the decision~\cite{Scacchi07}.
 While one would think that only the complexity of the commit is important, past
 studies have shown that the developer making the commit is also an important
@@ -492,11 +491,11 @@ investigating contribution quality.
 
 This previous work has focused on the predicted acceptance of \emph{pull requests}. 
 By contrast,  we are interested in analyzing the quality 
-of a contribution in the context of continuous integration.  While pull requests
+of a contribution in the context of \emph{continuous integration}.  While pull request
 quality is determined through manual inspection, continuous integration quality
 is automatically determined through test cases, and thus approach the problem of
 quality determination differently.
-We investigate the factors involved in continuous integration build success.
+We investigate the factors related to continuous integration build success.
 In this study, we analyze a large set of technical and social attributes 
 and how these can be used to predict a contribution's quality, measured by the
 success of build integration jobs.
@@ -507,22 +506,22 @@ it suggests that the project developers
 might have confidence in the changes. 
 Thus, we use the commit's build integration status as a proxy for its quality.
 
-In particular, we analyzed contributions in the 
-context of continuous integration, using technical factors and one social
+We analyzed contributions in the 
+context of continuous integration using technical factors and one social
 factor from the challenge
 corpus~\cite{msr17challenge}, and social factors from a developer's
 GitHub profile.  We used the technical factors to estimate the commit's
 complexity, and the social factors to estimate the developer's experience.
 Overall, our study investigates how different technical and social factors predict
 contribution quality. This information can help core team members prioritize project
-contributions, and will also provide a further understand of quality enforcement
-in the software development process.
+contributions, and increases understanding of quality enforcement
+in software development.
 
-We find that social factors are an important aspect of build success but
-these factors alone do not fully predict whether a contribution will be successfully 
-pass the build tests. We find
+We find that social factors are an important aspect of build success ,
+do not fully predict whether a contribution will 
+pass all build tests;
 that core team members are more likely to achieve build success than non-core
-members, and that developers with more followers are more likely to submit commits that pass the
+members; and that developers with more followers are more likely to submit commits that pass the
 continuous integration build.
 
 
