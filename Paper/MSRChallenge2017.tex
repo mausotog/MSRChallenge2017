@@ -528,15 +528,14 @@ continuous integration build.
 \section{Research Design}
 
 We present the approach taken to guide this study by
-following the Goal-Question-Metric (GQM) methodology described by Basili et 
-al.~\cite{Basili84}.
+following the Goal-Question-Metric (GQM) methodology~\cite{Basili84}:
 
 \vspace{1ex}
 \noindent\textbf{Goal.}
-The goal of this study is to identify and understand the relationship 
+The \emph{goal} of this study is to identify and understand the relationship 
 between the social factors that describe the
 developer's experience (stars, followers, etc.) and technical properties that
-describe the commit's complexity
+describe a commit's complexity
 (files added, files modified, etc.)
 when predicting the likelihood that a developer's commit
 will pass the continuous integration build tests for the project.
@@ -553,29 +552,27 @@ of a developer's contribution.
 %
 Our main research question is:
 
-\textbf{Do social attributes, gathered 
-from developers' GitHub profiles ,
-allow for more accurate predictions of 
-the developer's build success
-than only technical attributes?}
+\vspace{1ex}
+\noindent \emph{Do social attributes, gathered from developers' GitHub profiles, allow for
+  more accurate predictions of the developer's build success than only technical
+  attributes?}
 
-If social attributes improve the prediction of build success, then we are
-interested in investigating how certain attributes, such as the developer's
-follower count, correlates with build success.
+If social attributes improve build success predication, we are
+interested in investigating how particular attributes, such as the developer's
+follower count, similarly correlate with success.
 
 \vspace{1ex}
-\noindent\textbf{Metric.} We measure quality software contributions based on the
+\noindent\textbf{Metric.} We measure software contribution quality by the
 build status of the
 commit. We used a decision tree classifier~\cite{Quinlan86} to identify
-important factors in predicting build success;  decision tress are well
-established and interpretable. In particular, we use a J48 decision tree because
-this classifier has the ability to identify which attributes 
-discriminate the various instances most clearly, and we are interested in
-analyzing which features can be used to predict build success.
+important factors in predicting build success;  decision trees are well
+established and interpretable. We use a J48 decision tree, which
+has the ability to identify which attributes 
+discriminate the various instances most clearly.
 We first build a
-decision tree classifier using only technical factors to determine
-how well commit complexity predicts build integration
-success.  We then include the social factors in the classification problem to 
+decision tree classifier using only technical factors to 
+predict build integration
+success.  We then include the social factors, to 
 identify the degree to which the social factors improve the model's predictive
 power.
 We evaluate the models with 10-fold cross-validation. 
@@ -589,9 +586,8 @@ attributes consisting of both technical and social factors:
 \vspace{1ex}
 \noindent\textbf{Technical Factors.} We collected technical factors from the 
 Mining Software Repositories (MSR) Challenge data set~\cite{msr17challenge}.
-We extracted only the attributes in the data set that proxy a commit's
-complexity, such as commit size. 
-The technical factors used are:
+We extracted the following techical attributes as proxy to a commit's
+complexity: 
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
@@ -601,7 +597,7 @@ The technical factors used are:
 \item Tests added by this commit.
 \item Tests deleted by this commit.
 \item Total source files in project at the time of the commit.
-\item Source lines of source code in the project at
+\item Number of source lines of code in the project at
 	the time of the commit.
 \item Travis status, or status of the Travis build integration.
 \end{itemize}
@@ -613,10 +609,9 @@ of the change, and the complexity of the project incorporating the change.
 \vspace{1ex}
 \noindent\textbf{Social Factors.} We created a web scraper to extract the social data
 from developer's profiles.
-We used the commit hash and the project name in the original data
-set provided by the MSR Challenge~\cite{msr17challenge} to locate the
-commit web page
-of the commit, leveraging \textit{github.com}'s URL standard for projects and
+We used the commit hash and the project name in the 
+MSR Challenge~\cite{msr17challenge} dataset to locate the
+commit web page, leveraging \textit{github.com}'s URL standard for projects and
 commit hashes.
 %  using the syntax
 % below. 
@@ -625,23 +620,22 @@ commit hashes.
 % \newline \newline
 %
 We scraped the commit author's
-\textit{username} from each commit page, and then
-collected the following from the user's public profile:
+\textit{username} from each commit page to
+collect the following from the user's public profile:
 %(\textit{https://github.com/\textbf{UserName}}). 
 %
 
 \begin{itemize}
 	\item Number of repositories the developer can access (including those
-the developer owns, contributes
-		to, and for which the developer has organizational membership
-		access).%
+the developer owns, contributes to, or for which they have
+organizational membership access).%
 \footnote{https://developer.github.com/v3/repos/}
 \item  Number of projects the developer has stared. Starring a project
 to shows approval of the repository and creates a bookmark for later 
 access.\footnote{https://help.github.com/articles/about-stars/}
 \item Number of developers that follow the author. 
 \item Number of developers that the author follows.
-\item Number of contributions made by the author in the last year.
+\item Number of contributions made in the last year.
 \end{itemize}
 
 
@@ -716,8 +710,8 @@ datasets in Section \ref{eval}A,  and only the full dataset for Sections \ref{ev
 \end{tabular}
 \\
 \center
-	\caption{\label{resultsTable}Comparison of predictive power by running 10-fold
-    cross-validation of two decision trees with a non-downsampled dataset
+	\caption{\label{resultsTable} Predictive power 
+      decision trees with a non-downsampled dataset
 	(2\textsuperscript{nd} and 3\textsuperscript{rd} column) and downsampled
 	(4\textsuperscript{th} and 5\textsuperscript{th} column). 
 	%The higher the percentages represent the higher number of instances we are able to correctly predict. \label{resultsTable}
