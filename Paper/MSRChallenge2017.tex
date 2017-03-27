@@ -846,35 +846,36 @@ valuable sources of study on their own.
  of the effects of these decisions to future work. 
  
 \section{Related work}
+
 The most similar related work to this paper is a case study investigating how
 social, technical, coordination, and prior-certification factors affect build
 success for a project with 40 developers at IBM Toronto Labs~\cite{Hassan06}.  This work 
 focused on one project and measured experience as the number of contributions to
-the project while our study focuses on a wide range of open source projects and
-measures experience through developers' profile information.
-Another study investigated the relationship between authors, files in project,
-and team organization when predicting build
-success on an IBM project with 151 developers.  The study found that as the
+the project. We focus on a wide range of open source projects and
+measure experience through developer profile information.
+Another study of the relationship between authors, files in project,
+and team organization and build
+success on an IBM project with 151 developers found that as the
 number of authors or files in a build increases, the probability of build
-success decreases~\cite{Kwan11}. A separate investigation used a dataset from the
-same project and
-found that team structures affected the teams' build success rate~\cite{Wolf09}.
-Similar studies have shown the relationship between both social and technical attributes attributes and 
-different measures of success: pull request acceptance~\cite{gousios14, 
-gousios15,tsay14icse,tsay14fse}, pull request evaluation latency~\cite{Yu15}.
+success decreases~\cite{Kwan11}. A separate investigation of the
+same project 
+found that team structure affected the teams' build success rate~\cite{Wolf09}.
+Others have established relationships between both social and technical attributes and 
+different measures of success, such as pull request acceptance~\cite{gousios14, 
+gousios15,tsay14icse,tsay14fse} or evaluation latency~\cite{Yu15}.
 Tsay et al.~\cite{tsay14icse} 
 show that the social connection between the developer initiating a
 pull request and the project integrators is a key factor in predicting 
 acceptance of a pull 
-request. Unlike this previous study, in our study, we look at a broader aspect of 
-social aspects, and focus on predicting the success in Travis
-CI jobs. Gousios et al.~\cite{gousios14} found that the change location of a commit was
-an important indicator in the acceptance rate of those commits by the project.
-Also, the inclusion of test cases with a commit has been shown to increase the
+request. Unlike this previous study, we look at a broader aspect of 
+social factors, and focus on predicting the Travis CI build success.
+Gousios et al.~\cite{gousios14} found that the commit change location is
+an important indicator to commit acceptance rate, and that including
+test cases increases a
 commit's acceptance rate~\cite{gousios15}.
 Bettenburgh et 
 al.~\cite{bettenburgh10} discuss the impact of social interactions with 
-post-release defects, Vasilescu et al.~\cite{vasilescu14} explore how different 
+post-release defects, while Vasilescu et al.~\cite{vasilescu14} explore how different 
 project characteristics (programming language, project age, etc.) affect commit 
 success when integrated into the automatic build process. Yu et al.~\cite{yu16} 
 analyze the impact of CI usage in GitHub and its correlation with software 
@@ -923,7 +924,7 @@ experienced developers appear more likely to make high quality commits.
 \section*{Acknowledgments}
 
 The authors gratefully acknowledge the partial support
-of the AFRL under AFRL Contract No. FA8750-15-2-0075. Any views, opinions,
+of the AFRL (AFRL Contract No. FA8750-15-2-0075). Any 
 findings or recommendations are those of the author(s) and do not
 necessarily reflect the views of the sponsoring agencies.
 
