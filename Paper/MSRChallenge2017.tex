@@ -738,7 +738,8 @@ In Section~\ref{sec:successClassification} we discuss the build classification
 success rate for the technical and social factors.  In Section~\ref{sec:core},
 we compare the build success rate of core project members to non-core project
 members.  In Section~\ref{sec:followerSuccess}, we compare the relationship
-between a developer's followers and build integration success.
+between a developer's followers and build integration success. We conclude the
+section with a discussion of threats to validity (Section~\ref{sec-threats}). 
 
 \subsection{Classification with and without social factors}
 \label{sec:successClassification}
@@ -754,23 +755,16 @@ about a 12\% improvement from only the technical data.  These results show that
 both technical and social data can be used to improve predictions of build 
 integration success.
 
-It is also worth noting that the Kappa statistic increases in both cases when
-adding social data (100\% and 85\% respectively). The Kappa statistic is a measurement that also accounts for the accuracy of the predicting power of the model. Furthermore, Kappa is a more 
-robust measure than \textit{correctly classified} instances, since it takes into account the
-correctly guessed instances occurring by chance. The precision, recall and F-measure are calculated over the successful and unsuccessful classes and then averaged (standard procedure in Weka). Precision and recall are calculated as follows: 
-
-\begingroup
-    \fontsize{9pt}{12pt}\selectfont
-Precision = True Positives / (True Positives + False Positives)\
-
-Recall = True Positives / (True Positives + False Negatives)
-\endgroup
-
-F-score is a correlation\todo{this is not true; please correct.  Also, we really
-don't have the space to include precision/recall formulae, given that they're
-well-known; correct your understanding, then delete this comment and the formulae} of these two values. We can see that all these measures increase when we add social data into the feature space, making the prediction more reliable. Besides this, the mean absolute error
-decreases in both cases, which provides further evidences that social factors
-are important when predicting build success.
+Note also that the Kappa statistic increases in both cases when
+adding social data (100\% and 85\% respectively). The Kappa statistic accounts
+for the accuracy of the model's predictive power. It is more
+robust than \textit{correctly classified} instances alone, since it takes into account the
+correctly guessed instances occurring by chance. The precision, recall and
+F-measure are calculated over the successful and unsuccessful classes and then
+averaged (standard procedure in Weka).  All these measures increase with social
+data in the feature space, making the prediction more reliable. The mean absolute error
+decreases in both cases, further subtantiating the importance of social factors
+in predicting build success.
 
 \subsection{Build success by core team member}
 \label{sec:core}
@@ -821,36 +815,8 @@ This may be due to the fact that developers with followers are more likely to
 have open source development experience, and the developers' experience
 influenced their build success.
 
-\subsection{Summary}
-
-Social attributes proxying experience, such as whether
-the developer is a core project contributor,
-noticeably influence build success prediction.  While the increase was noticeable 
-with the full data set, there was a much greater increase in prediction
-accuracy after downsampling. 
-%These results suggest that social factors
-%are significant predictors when
-%evaluating the predictive power of build commit success.
-%
-In particular, core team members are
-more likely to have the build integration pass than non-core team members.  This
-result provides evidence that non-core team member commits may not be as
-scrutinized as core team member commits before the integration build tests,
-although further study is required to draw definitive
-conclusions.
-%
-Likewise, developers with more followers are more
-likely to pass the build, although followers are not a perfect indicator.
-Developers with 1000+ followers were more than a 10\% more succesful in their
-builds as compared to
-developers with no followers.  This suggests that open source developers with
-high quality commits may be more
-likely to have a large number of followers.
-
-Overall, although experience is an imperfect indicator, but
-experienced developers appear more likely to make high quality commits.
-
-\section{Threats to validity}
+\subsection{Threats to validity}
+\label{sec-threats}
 
 %\paragraph{Internal validity}
 We use Weka,\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, a well known machine-learning tool,
@@ -922,10 +888,32 @@ insight when predicting the success of a build with a technical factors leading
 to a 14\% increase in predictive power, and another 12\% increase when
 incorporating social factors into the prediction.
 
-We have also found that being a core contributor and having a large follower
-base can be an indicator of build integration success.
-These results provide evidence that more experienced
-developers are more likely to generate a high quality contribution.
+Overall, we conclude that social attributes proxying experience, such as whether
+the developer is a core project contributor,
+noticeably influence build success prediction.  While the increase was noticeable 
+with the full data set, there was a much greater increase in prediction
+accuracy after downsampling. 
+%These results suggest that social factors
+%are significant predictors when
+%evaluating the predictive power of build commit success.
+%
+In particular, core team members are
+more likely to have the build integration pass than non-core team members.  This
+result provides evidence that non-core team member commits may not be as
+scrutinized as core team member commits before the integration build tests,
+although further study is required to draw definitive
+conclusions.
+%
+Likewise, developers with more followers are more
+likely to pass the build, although followers are not a perfect indicator.
+Developers with 1000+ followers were more than a 10\% more succesful in their
+builds as compared to
+developers with no followers.  This suggests that open source developers with
+high quality commits may be more
+likely to have a large number of followers.
+
+Although experience is an imperfect indicator, 
+experienced developers appear more likely to make high quality commits.
 
 % conference papers do not normally have an appendix
 
