@@ -430,7 +430,7 @@ mauriciosoto@cmu.edu, zfc@cs.cmu.edu, clegoues@cs.cmu.edu}
 
 
 \begin{abstract}
-As the software development community makes it easier for everyone
+As the software development community makes it easier 
 to contribute to open source projects, the number of commits and pull requests 	
 keep increasing. However, this exciting growth
 renders it more difficult to only accept quality contributions.
@@ -471,12 +471,12 @@ Success; Social Coding
 For managers of an open source project, it is important to ensure that the
 project consists of high quality contributions.  As social coding sites attract
 more users and projects become more popular, they receive ever more
-community contributions.  As the number of contributions to a project increase,
+community contributions.  As the number of project contributions increase,
 the project must dedicate more time to vetting these contributions. 
 %
 Over the years, the open source
 community has developed various techniques to vet project contributions, such as pull
-requests which must be approved by a core team member~\cite{gousios14}. 
+requests that must be approved by a core team member~\cite{gousios14}. 
 This can become a bottleneck, and thus it is beneficial to prioritize certain
 contributions, ideally by predicted quality.
 
@@ -485,18 +485,22 @@ a project is meritocratic, such that only the code is a factor
 in the decision~\cite{Scacchi07}.
 While one would think that only the complexity of the commit is important, past
 studies have shown that the developer making the commit is also an important
-indicator when investigating contribution quality~\cite{tsay14icse, tsay14fse}.
-Thus, both technical factors, which describe the complexity of the commit, and
+indicator for contribution quality~\cite{tsay14icse, tsay14fse}.
+Thus, both technical factors, which describe the commit's complexity, and
 social factors, which describe the developer's experience, are important when
 investigating contribution quality.
 
-This previous work has focused on the predicted acceptance of \emph{pull requests}. 
-By contrast,  we are interested in analyzing the quality 
-of a contribution in the context of \emph{continuous integration}.  While pull request
+Previous work has focused on the predicted acceptance of open source \emph{pull
+requests}~\cite{tsay14icse, tsay14fse} and \emph{continuous integration} builds
+in a single project.
+By contrast,  we are interested in analyzing contribution quality 
+in \emph{continuous integration} across multiple open source projects.  While 
+pull request
 quality is determined through manual inspection, continuous integration quality
-is automatically determined through test cases, and thus approach the problem of
-quality determination differently.
-We investigate the factors related to continuous integration build success.
+is automatically determined through test cases, and thus may lead to different
+quality predictors. 
+We investigate the factors related to continuous integration build success
+across open source projects.
 In this study, we analyze a large set of technical and social attributes 
 and how these can be used to predict a contribution's quality, measured by the
 success of build integration jobs.
@@ -518,11 +522,12 @@ contribution quality. This information can help core team members prioritize pro
 contributions, and increases understanding of quality enforcement
 in software development.
 
-We find that social factors are an important aspect of build success,
-do not fully predict whether a contribution will 
+We find that social factors are an important predictor of build success,
+but do not fully predict whether a contribution will 
 pass all build tests;
 that core team members are more likely to achieve build success than non-core
-members; and that developers with more followers are more likely to submit commits that pass the
+members; and that developers with more followers are more likely to submit 
+commits that pass the
 continuous integration build.
 
 
@@ -533,12 +538,12 @@ following the Goal-Question-Metric (GQM) methodology~\cite{Basili84}:
 
 \vspace{1ex}
 \noindent\textbf{Goal.}
-The \emph{goal} of this study is to identify and understand the relationship 
-between the social factors that describe the
+The \emph{goal} of this study is to understand the relationship 
+between social factors that describe 
 developer's experience (stars, followers, etc.) and technical properties that
 describe a commit's complexity
 (files added, files modified, etc.)
-when predicting the likelihood that a developer's commit
+when predicting whether a developer's commit
 will pass the continuous integration build tests for the project.
 
 \vspace{1ex}
@@ -554,9 +559,9 @@ of a developer's contribution.
 Our main research question is:
 
 \vspace{1ex}
-\noindent \emph{Do social attributes, gathered from developers' GitHub profiles, allow for
-  more accurate predictions of the developer's build success than only technical
-  attributes?}
+\noindent \emph{Do social attributes
+improve the predictions of a contribution's build success when compared to
+predictions from only technical attributes?}
 
 If social attributes improve build success predication, we are
 interested in investigating how particular attributes, such as the developer's
@@ -566,7 +571,8 @@ follower count, similarly correlate with success.
 \noindent\textbf{Metric.} We measure software contribution quality by the
 build status of the
 commit. We used a decision tree classifier~\cite{Quinlan86} to identify
-important factors in predicting build success. Decision trees are a predictive model which uses binary decisions on the
+important factors in predicting build success. Decision trees are a predictive 
+model which uses binary decisions on the
 attributes to predict a final class. They are well
 established and interpretable. We use a J48 decision tree, which
 has the ability to identify which attributes 
@@ -764,8 +770,9 @@ robust than \textit{correctly classified} instances alone, since it takes into a
 correctly guessed instances occurring by chance. The precision, recall and
 F-measure are calculated over the successful and unsuccessful classes and then
 averaged (standard procedure in Weka).  All these measures increase with social
-data in the feature space, making the prediction more reliable. The mean absolute error
-decreases in both cases, further subtantiating the importance of social factors
+data in the feature space, making the prediction more reliable. The mean 
+absolute error decreases in both cases, further substantiating the importance 
+of social factors
 in predicting build success.
 
 \subsection{Build success by core team member}
