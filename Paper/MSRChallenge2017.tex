@@ -781,7 +781,9 @@ triggered 89.39\% (331827/371208) of the builds in the data set and 75.58\%
 (250808/331827) of those builds
 passed.  Non-core team members triggered 10.61\% (39381/371208) of the builds 
 in the data set
-and 64.70\% (25479/39381) of the builds passed.  This shows that core team 
+and 64.70\% (25479/39381) of the builds passed.  The p-value from a Fisherexact
+test 0.0000, which means that this difference is extremely unlikely to occur by
+chance. These results show core team 
 members are more
 likely to have a successful build integration than non-core team members. We hypothesize the reason for this to be that core team members are more familiar with the code, therefore are more likely to have their builds pass.
 
@@ -804,12 +806,19 @@ followers.  %, leaving 99.13\% (347775/350834) of the contributions
 %performed by developers with at least one follower.
 Developers with 0 followers had a successful build commit 68.49\% (2095/3059)
 of the time.  Developers with one or more followers were successful 74.78\%
-(260056/347775) of the time.
+(260056/347775) of the time.  The p-value of this difference, calculated with a
+Fisher exact test, is 0.000.  This shows commit success difference between
+developers with no followers and developers with at least one follower is
+very unlikely to occur by chance.
 %
 By contrast, developers with a large number of followers (1000 or more),
 performed 6.94\% (24347/350834) of the contributions in the 
 data set; their
-contributions had a 78.61\% (19138/24347) success rate.  
+contributions had a 78.61\% (19138/24347) success rate. The p-value calculated
+by comparing this success rate to the success rate of developers with no
+followers is 0.0000.  The p-value means that that the difference between
+developers with 1000 followers and developers with no followers is very unlikely
+to occur by chance.
 
 These results suggest that developers
 with more followers are more likely to have a successful integration build.
