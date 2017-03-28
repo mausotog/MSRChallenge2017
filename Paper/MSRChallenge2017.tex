@@ -574,7 +574,7 @@ commit. We used a decision tree classifier~\cite{Quinlan86} to predict build
 success. Decision trees 
 use binary decisions on the
 attributes to predict a final class. They are well
-established and interpretable. We used a WEKA J48 decision tree for readability.
+established and interpretable. We used a Weka J48 decision tree for readability.
 We first built a
 decision tree classifier using only technical factors to 
 predict build integration
@@ -753,7 +753,7 @@ between follower count and build success (Section~\ref{sec:followerSuccess}).
 
 Table~\ref{resultsTable} shows the results of running the two data sets through the
 default Weka J48 decision tree algorithm.  Without downsampling, the 
-decision tree\footnote{decisions trees and datasets: } shows an increase of 4.09\% \textit{correctly classified} instances when adding social data. On the downsampled data, the decision tree created from the technical attributes
+decision tree shows an increase of 4.09\% \textit{correctly classified} instances when adding social data. On the downsampled data, the decision tree created from the technical attributes
 had a classification accuracy of 64.10\%, which outperformed the baseline of
 guessing all builds passed (50.00\%).
 After including the social data
@@ -831,22 +831,23 @@ This may be due to the fact that developers with followers are more likely to
 have open source development experience, and the developers' experience
 influenced their build success.
 
-\section{Threats to validity}
+\section{Threats to Validity}
 \label{sec-threats}
 
 %\paragraph{Internal validity}
-We use Weka, a well known machine-learning toolkit,
+We have made our scripts, data, and decision tree results publicly 
+available\footnote{https://goo.gl/CqTX44}. 
+We released these files for
+extension, reproducibility, and further investigation of results.
+In the study, we use Weka, a well known machine-learning toolkit,
 to analyze our data.
 Like all tools, Weka may contain bugs. 
 Nonetheless, it is a community tested open source tool, which mitigates threats to 
 internal validity. 
-We have made our scripts, which analyzed the data sets and
-obtained social data publicly available\footnote{https://goo.gl/CqTX44}, for
-extension and reproducibility.
 We mitigate the risk that our results fail to 
 %\paragraph{External validity} 
 generalize externally by studying a broad and rich 
- data set~\cite{msr17challenge} comprising 1,359 popular projects.
+data set~\cite{msr17challenge} comprising 1,359 popular projects.
 Similarly, the social factors we study may not apply to closed-source
 applications; however, open-source ecosystems are intellectually
 valuable sources of study on their own. 
@@ -919,8 +920,7 @@ builds compared to
 developers with no followers.  This suggests that open source developers with
 high quality commits may be more
 likely to have a large number of followers.
-
-Although experience is an imperfect indicator, 
+Although we find experience is an imperfect indicator, 
 experienced developers appear more likely to make high quality commits.
 
 % conference papers do not normally have an appendix
