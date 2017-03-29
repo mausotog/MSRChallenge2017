@@ -471,34 +471,34 @@ Success; Social Coding
 For managers of an open source project, it is important to ensure that the
 project consists of high quality contributions.  As social coding sites attract
 more users and projects become more popular, they receive ever more
-community contributions.  As the number of project contributions increase,
+community contributions.  As the number of project contributions increases,
 the project must dedicate more time to vetting these contributions. 
 %
-Over the years, the open source
-community has developed various techniques to vet project contributions, such as pull
-requests that must be approved by a core team member~\cite{gousios14}. 
+The open source
+community has developed various techniques to vet project contributions, such as
+requiring that pull requests be approved by a core team member~\cite{gousios14}. 
 This can become a bottleneck, and thus it is beneficial to prioritize certain
 contributions, ideally by predicted quality.
 
 Ideally, the decision to include code in
-a project is meritocratic, such that only the code is a factor
+a project is meritocratic, such that only code quality is a factor
 in the decision~\cite{Scacchi07}.
-While one would think that only the complexity of the commit is important, past
-studies have shown that the developer making the commit is also an important
-indicator for contribution quality~\cite{tsay14icse, tsay14fse}.
+However, beyond commit complexity or correctness, past
+studies have shown that the social factors describing the committing developer also importantly
+predict contribution success~\cite{tsay14icse, tsay14fse}.
 Thus, both technical factors, which describe the commit's complexity, and
 social factors, which describe the developer's experience, are important when
-investigating contribution quality.
+investigating contribution success (and thus by extension predicted quality).
 
-Previous work has focused on the predicted acceptance of open source \emph{pull
+This previous work has focused on the predicted acceptance of open source \emph{pull
 requests}~\cite{tsay14icse, tsay14fse} and \emph{continuous integration} builds
-in a single project.
+in a single project. %TODO: should there be a ref here?
 By contrast,  we are interested in analyzing contribution quality 
 in \emph{continuous integration} across multiple open source projects.  While 
 pull request
-quality is determined through manual inspection, continuous integration quality
-is automatically determined through test cases, and thus may lead to different
-quality predictors. 
+quality is ultimately determined through manual inspection, continuous
+integration uses test cases to automatically assess commit quality,
+and thus may provide different quality predictors. 
 We investigate the factors related to continuous integration build success
 across open source projects.
 In this study, we analyze a large set of technical and social attributes 
@@ -533,7 +533,7 @@ continuous integration build.
 
 \section{Research Design}
 
-We present the approach taken to guide this study by
+We present the approach we took to design our study by
 following the Goal-Question-Metric (GQM) methodology~\cite{Basili84}:
 
 \vspace{1ex}
@@ -558,10 +558,11 @@ of a developer's contribution.
 %
 Our main research question is:
 
-\vspace{1ex}
-\noindent \emph{Do social attributes
-improve the predictions of a contribution's build success when compared to
-predictions from only technical attributes?}
+\begin{quotation}
+\noindent\emph{Do social attributes
+improve prediction of a contribution's build success when compared to
+predictions based only on technical attributes?}
+\end{quotation}
 
 If social attributes improve build success predication, we are
 interested in investigating how particular attributes, such as the developer's
@@ -581,7 +582,7 @@ predict build integration
 success.  We then included the social factors, to 
 identify the degree to which social factors improve the model's predictive
 power.
-We evaluated the models with 10-fold cross-validation. 
+%We evaluated the models with 10-fold cross-validation. 
 
 \section{Building the Dataset}
 \label{approach}
@@ -607,13 +608,13 @@ complexity:
 \item Travis status, or status of the Travis build integration.
 \end{itemize}
 
-The first five factors represent the changes caused by the commit.  The next two
-factors cover the size of the project.  These factors represent the commit's complexity
-, and the complexity of the project incorporating the commit. 
+The first five factors describe the changes in the commit.  The next two
+factors cover the size of the project.  These factors proxy both the commit's complexity,
+and the complexity of the project incorporating it.
 
 \vspace{1ex}
 \noindent\textbf{Social Factors.} We created a web scraper to extract social data
-from developer's profiles.
+from developers' profiles.
 We used the commit hash and the project name in the 
 MSR Challenge~\cite{msr17challenge} data set to locate the
 commit web page, leveraging \textit{github.com}'s URL standard for projects and
@@ -653,13 +654,13 @@ experience.  If we were unable to find information about an author, we
 assigned empty values to the commit.
 
 \vspace{1ex}
-\noindent\textbf{Comparing two data sets.} We compiled the gathered data into 
+\noindent\textbf{Compiling the data sets.} We compiled the gathered data into 
 two data sets: one with only the technical
 factors and the build status, and another with both technical and social
 factors and the build status. We performed this split to analyze how well 
 technical factors alone,
 and then both technical and social
-factors predict build integration status.
+factors together predict build integration status.
 
 The challenge data set~\cite{msr17challenge} consists
 of commits that date as far back as 2011. The social data we 
@@ -684,7 +685,7 @@ sub-sampling the successful builds until the two build status were
 equal, through a process known as downsampling. We downsampled the entire
 data set and then trained decision tree classifiers on both.  We validated the
 classifiers with cross-validation. Since the cross-validation is stratified, the
-proportion of 50-50 is maintained through the training and testing folds for the
+50-50 proportion is maintained through the training and testing folds for the
 downsampled data. We present results for both
 data sets in Section~\ref{sec:successClassification},  and only the full data 
 set in Sections~\ref{sec:core} and \ref{sec:followerSuccess}.
@@ -754,43 +755,43 @@ between follower count and build success (Section~\ref{sec:followerSuccess}).
 Table~\ref{resultsTable} shows the results of running the two data sets through the
 default Weka J48 decision tree algorithm.  Without downsampling, the 
 decision tree shows an increase of 4.09\% \textit{correctly classified} instances when adding social data. On the downsampled data, the decision tree created from the technical attributes
-had a classification accuracy of 64.10\%, which outperformed the baseline of
-guessing all builds passed (50.00\%).
+had a classification accuracy of 64.10\%, which outperformed the na\"ive
+baseline model that 
+guesses all builds passed (50.00\%).
 After including the social data
 in the data set, the classifier correctly predicted 76.09\% of the data set,
-about a 12\% improvement from only the technical data.  These results show that
-both technical and social data can be used to improve predictions of build 
-integration success.
+about a 12\% improvement over the model that uses only the technical data.  These results show that
+while technical data is helpful in predicting build integration success, social
+data can be used to measurably improve predictive accuracy. 
 
 The precision, recall, and
 F-measure are calculated over the successful and unsuccessful classes and then
 averaged (standard in Weka).  All these measures, along with the Kappa
 statistic, increase with social features, which provide evidence that social 
 factors improve build success predictions. The mean 
-absolute error also decreases, further substantiating the importance 
-of social factors
-in predicting build success.
+absolute error also decreases, further substantiating the result. 
 
 \subsection{Build success by core team member}
 \label{sec:core}
 
-The decision tree results suggested that core team members are
-important to classifying build success, and thus we investigated the question
+The decision tree results suggested that core team membership is
+important to classifying build success (results not shown), and thus we investigated the question
 directly. 
 We classified the build success rate for
 core team members and non-core team members using the data set without 
 downsampling.  We found that core team members
-triggered 89.39\% (331827/371208) of the builds in the data set and 75.58\%
+triggered 89.39\% (331827/371208) of the builds in the data set; 75.58\%
 (250808/331827) of those builds
 passed.  Non-core team members triggered 10.61\% (39381/371208) of the builds 
-in the data set
-and 64.70\% (25479/39381) of the builds passed.  The p-value from a Fisher exact
-test 0.0000, which means that this difference is extremely unlikely to occur by
-chance. These results show core team 
+in the data set,
+and 64.70\% (25479/39381) of the builds passed.  The difference in success rate
+is statistically significant (the p-value from a Fisher exact
+test is 0.0000), suggesting that it is extremely unlikely to have occurred by
+chance. Thus, in our dataset, core team 
 members are more
-likely to have a successful build integration than non-core team members. We
-hypothesize this occurs because core team members are more familiar with the 
-code, and therefore more likely to have their builds pass.
+likely to have a successful build integration than non-core team developers, likely
+because core team members are naturally more familiar with the 
+codebase. 
 
 
 
@@ -798,12 +799,12 @@ code, and therefore more likely to have their builds pass.
 \label{sec:followerSuccess}
 
 We also investigated whether developers with followers were more likely to have a
-successful build integration, since followers may be seen as ``vouching'' for
-the developer's abilities.  We therefore investigated the relationship between
+successful build integration, since followers could be seen as ``vouching'' for
+a developer's abilities.  We therefore investigated the relationship between
 follower count and build success rate (on the data without 
 downsampling).  We first investigated whether developers with one or more followers
-were more likely to pass the build than those without any followers by
-removing commits without any author profile
+were more likely to pass the build than those without any followers at all. We
+removed commits without any author profile
 information (20374 builds, reducing the total build count to
 350834). Only 0.87\% (3059/350834) of the
 contributions in the data set were performed by developers with zero 
@@ -812,18 +813,18 @@ followers.  %, leaving 99.13\% (347775/350834) of the contributions
 Developers with 0 followers had a successful build commit 68.49\% (2095/3059)
 of the time.  Developers with one or more followers were successful 74.78\%
 (260056/347775) of the time.  The p-value of this difference, calculated with a
-Fisher exact test, is 0.000.  This shows commit success difference between
-developers with no followers and developers with at least one follower is
-very unlikely to occur by chance.
+Fisher exact test, is 0.000, suggesting the difference in commit success rate between
+developers with no followers and those with at least one follower is
+very unlikely to have occurred by chance.
 %
 By contrast, developers with a large number of followers (1000 or more),
 performed 6.94\% (24347/350834) of the contributions in the 
 data set; their
-contributions had a 78.61\% (19138/24347) success rate. The p-value calculated
-by comparing this success rate to the success rate of developers with no
-followers is 0.0000.  The p-value means that that the difference between
-developers with 1000 followers and developers with no followers is very unlikely
-to occur by chance.
+contributions had a 78.61\% (19138/24347) success rate. The p-value of the
+difference between this success rate and that of developers with no
+followers is again 0.0000.  % The p-value means that that the difference between
+% developers with 1000 followers and developers with no followers is very unlikely
+% to occur by chance.
 
 These results suggest that developers
 with more followers are more likely to have a successful integration build.
@@ -840,7 +841,7 @@ to analyze our data.
 Like all tools, Weka may contain bugs. 
 Nonetheless, it is a community tested open source tool, which mitigates threats to 
 internal validity. We also release our scripts, data, and decision tree 
-results in the study\footnote{https://github.com/mausotog/MSRChallenge2017/}. 
+results in the study.\footnote{https://github.com/mausotog/MSRChallenge2017/}
 
 We mitigate the risk that our results fail to 
 %\paragraph{External validity} 
@@ -863,7 +864,7 @@ valuable sources of study on their own.
 The most similar related work to this paper is a case study investigating how
 social and technical factors affect build
 success on a project with 40 developers~\cite{Hassan06}.
-In contrast to this work, we focus on a wide range of open source projects and
+We focus on a wide range of open source projects and
 measure experience through developer profile information.
 Other work has investigated the effects of various factors, such as team
 organization, on predicting build success in a single
@@ -932,7 +933,7 @@ experienced developers appear more likely to make high quality commits.
 \section*{Acknowledgments}
 This material is based upon work supported by the National Science Foundation
 Graduate Research Fellowship under Grant No. DGE-1252522.
-The authors gratefully acknowledge the partial support
+The authors also gratefully acknowledge the partial support
 of the AFRL (AFRL Contract No. FA8750-15-2-0075). Any 
 findings or recommendations are those of the author(s) and do not
 necessarily reflect the views of the sponsoring agencies.
