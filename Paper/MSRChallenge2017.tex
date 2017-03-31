@@ -491,7 +491,7 @@ social factors, which describe the developer's experience, are important when
 investigating contribution success (and thus by extension predicted quality).
 
 This previous work has focused on the predicted acceptance of open source \emph{pull
-requests}~\cite{tsay14icse, tsay14fse} and \emph{continuous integration} builds
+requests}~\cite{tsay14icse, tsay14fse} and \emph{continuous integration} (CI) builds
 in a single project~\cite{Hassan06,Kwan11,Wolf09}. 
 By contrast,  we are interested in analyzing contribution quality 
 in \emph{continuous integration} across multiple open source projects.  While 
@@ -597,7 +597,7 @@ complexity:
 \begin{itemize}
 %\item tr\_original\_commit
 %\item gh\_build\_started\_at 
-\item Source churn, changed lines of code.
+\item Source churn (changed lines of code).
 \item Files added by this commit.
 \item Files modified by this commit.
 \item Tests added by this commit.
@@ -677,7 +677,7 @@ failing builds in a commit to a single pass or fail for each build status.  If
 the commit contained both passing and failing build statuses, we treat it as
 both a passing and failed build. 
 
-74.43\% of the builds in the reduced data set were successful, and thus a naive
+74.43\% of the builds in the reduced data set were successful, and thus a na\"ive
 classifier that always guesses ``successful'' would succeed 74.43\% of the time.
 To penalize misclassification for
 both classes equally, we created a second \emph{balanced} data set by randomly 
@@ -789,8 +789,9 @@ and 64.70\% (25479/39381) of the builds passed.  The difference in success rate
 is statistically significant (the p-value from a Fisher exact
 test is 0.0000), suggesting that it is extremely unlikely to have occurred by
 chance. Thus, in our dataset, core team 
-members are more
-likely to have a successful build integration than non-core team developers, likely
+members 
+have a successful build integration more often than non-core team 
+developers, likely
 because core team members are naturally more familiar with the 
 codebase. 
 
@@ -842,7 +843,7 @@ to analyze our data.
 Like all tools, Weka may contain bugs. 
 Nonetheless, it is a community tested open source tool, which mitigates threats to 
 internal validity. We also release our scripts, data, and decision tree 
-results in the study.\footnote{https://github.com/squaresLab/MSR-challenge-2017}
+results.\footnote{https://github.com/squaresLab/MSR-challenge-2017}
 
 We mitigate the risk that our results fail to 
 %\paragraph{External validity} 
@@ -897,7 +898,7 @@ quality, while we focus on gain in predictability of software quality when using
 We have analyzed how technical and social factors can be used to
 predict high quality open source contributions, measured by continuous
 integration build success.  We found social factors improve predictions of build 
-success; technical factors led to a 14\% increase in predictive power, and 
+success, technical factors led to a 14\% increase in predictive power, and 
 adding social factors led to another 12\% increase. 
 
 Overall, we conclude that social attributes proxying experience, such as whether
